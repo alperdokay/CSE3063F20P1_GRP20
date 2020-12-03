@@ -15,35 +15,8 @@ import java.util.Date;
         }
 
         public String toString() {
-            //return "Logger{" +
-            //        "date=" + date +
-              //      ", type='" + type + '\'' +
-                //    ", operation='" + operation + '\'' +
-                 //   '}';
-
-            return date+ " INFO " + type + User.Id;
-            // 12/12/2020 16:42:15.990 [UserManager] INFO userManager: created RandomLabelingMechanism1
-            // as RandomBot
-            //
-            //12/12/2020 16:42:15.990 [InstanceTagger] INFO user id:2 RandomLabelingMechanism2
-            // tagged instance id:4 with class label 2:Negative  instance:"siteniz çalışmıyor kaç gündür"
-            //
-            //12/12/2020 16:42:15.990 [InstanceTagger] INFO user id:1 RandomLabelingMechanism1
-            // tagged instance id:4 with class label 3:Notr  instance:"siteniz çalışmıyor kaç gündür"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
+			return date + "[" + type + "]" + "INFO" + "user id:"+ User.getId() + 
+			operation + "tagged instance id:" + Assignment.getUserId() +"with class label"+ 
+			Label.getId()+":"+ Label.getText() +"instance:"+ Instance.getInstance();
     }
+}
