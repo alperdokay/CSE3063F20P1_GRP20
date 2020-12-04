@@ -44,7 +44,7 @@ public class Assignment {
     }
 
     public ArrayList<Integer> getLabelIds() {
-        return labelIds;
+        return this.labelIds;
     }
 
     public void setLabelIds(ArrayList<Integer> labelIds) {

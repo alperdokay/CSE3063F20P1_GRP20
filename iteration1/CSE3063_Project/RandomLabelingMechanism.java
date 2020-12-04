@@ -26,7 +26,6 @@ public class RandomLabelingMechanism extends LabelingMechanism {
 	public Assignment label(Instance instance, User user, ArrayList<Label> labels, int instanceLabelingLimit) {
 		int labelCount = this.random.nextInt(instanceLabelingLimit);
 		labelCount = labelCount == 0 ? 1 : labelCount;
-		
 		ArrayList<Integer> userPicks = new ArrayList<Integer>();
 		for (int i = 0; i < labelCount; i++) {
 			int randomIndex = this.random.nextInt(labels.size());
@@ -36,7 +35,6 @@ public class RandomLabelingMechanism extends LabelingMechanism {
 			}
 		}
 		Assignment assignment = new Assignment(instance.getId(), userPicks, user.getId());
-		
 		return assignment;
 	}
 	

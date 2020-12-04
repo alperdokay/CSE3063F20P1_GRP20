@@ -50,6 +50,7 @@ public class Sample {
 			}
 		}
 		dataset1.exportOutput();
+		dataset2.exportOutput();
 	}
 
 	public static Dataset createDataset(String fileName, int numberOfUsers) throws Exception {
