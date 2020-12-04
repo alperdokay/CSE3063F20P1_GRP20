@@ -1,10 +1,9 @@
 package CSE3063_Project;
 
 import java.io.FileReader;
-import java.text.Normalizer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,6 +32,7 @@ public class Sample {
 				Instance instance = dataset1.getInstances().get(j);
 				Assignment assignment = randomMechanism.label(instance, user, dataset1.getLabels(), dataset1.getInstanceLabellingLimit());
 				dataset1.addAssignment(assignment);
+				System.out.println(assignment.getDateTime());
 				InstanceTagger tagger = new InstanceTagger("INFO", "created", assignment);
 				logs.add(tagger);
 				System.out.println(tagger.getLogMessage());
@@ -56,7 +56,7 @@ public class Sample {
 	public static Dataset createDataset(String fileName, int numberOfUsers) throws Exception {
 		JSONParser parser = new JSONParser();
 		
-		Object confObj = parser.parse(new FileReader("CSE3063_Project\\conf.json"));
+		Object confObj = parser.parse(new FileReader("CSE3063_Project\\conf.json", StandardCharsets.UTF_8));
 		JSONObject confJsonObject = (JSONObject) confObj;
 		JSONArray userNames = (JSONArray) confJsonObject.get("userNames");
 		JSONArray userTypes = (JSONArray) confJsonObject.get("userTypes");
@@ -77,12 +77,7 @@ public class Sample {
 
 		for (Object label : labels) {
 			JSONObject labelObject = (JSONObject) label;
-			String text = labelObject.get("label text").toString();
-			text = Normalizer.normalize(text, Normalizer.Form.NFD);
-			text = text.replaceAll("[^\\p{ASCII}]", "");
-			text = text.replaceAll("\\p{M}", "");
-			text = text.toLowerCase();
-			
+			String text = labelObject.get("label text").toString();			
 			Label newLabel = new Label(Integer.parseInt(labelObject.get("label id").toString()),
 					text);
 			
@@ -96,10 +91,6 @@ public class Sample {
 		for (Object instance : instances) {
 			JSONObject instanceObject = (JSONObject) instance;
 			String text = instanceObject.get("instance").toString();
-			text = Normalizer.normalize(text, Normalizer.Form.NFD);
-			text = text.replaceAll("[^\\p{ASCII}]", "");
-			text = text.replaceAll("\\p{M}", "");
-			text = text.toLowerCase();
 			
 			Instance newInstance = new Instance(Integer.parseInt(instanceObject.get("id").toString()),
 					text);

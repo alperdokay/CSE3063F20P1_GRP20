@@ -143,82 +143,74 @@ public class Dataset {
 	}
 
 	public boolean exportOutput() throws IOException {
-		
-		File outputFile = new File(this.getName() + ".json");
-		outputFile.createNewFile();
-		
-		Map<String,String> myLinkedHashMap = new LinkedHashMap<String, String>();
+		Map<String, Object> myLinkedHashMap = new LinkedHashMap<String, Object>();
 
-        // Add items, in-order, to the map.
-        myLinkedHashMap.put("dataset id", this.getId().toString());
-        myLinkedHashMap.put("dataset name", this.getName());
-        myLinkedHashMap.put("maximum number of labels per instance", this.getInstanceLabellingLimit().toString());
-        
-        JSONArray labels = new JSONArray();
-        
-        for (Label label: this.getLabels()) {
-        	Map<String,Object> labelHashMap = new LinkedHashMap<String, Object>();
-        	labelHashMap.put("label id", label.getId());
-        	labelHashMap.put("label text", label.getText());
-        	
-        	labels.add(labelHashMap);
-        }
-        myLinkedHashMap.put("class labels", labels.toString());
-        
-        JSONArray instances = new JSONArray();
-        
-        for (Instance instance: this.getInstances()) {
-        	JSONObject instanceObject = new JSONObject();
-        	instanceObject.put("id", instance.getId());
-        	instanceObject.put("instance", instance.getInstance());
-        	
-        	instances.add(instanceObject);
-        }
-        myLinkedHashMap.put("instances", instances.toString());
-        
-        JSONArray assignments = new JSONArray();
-        
-        for (Assignment assignment: this.getAssignments()) {
-        	JSONObject assignmentObject = new JSONObject();
-        	assignmentObject.put("instance id", assignment.getInstanceId());
-        	assignmentObject.put("class label ids", assignment.getLabelIds());
-        	assignmentObject.put("user id", assignment.getUserId());
-        	assignmentObject.put("datetime", assignment.getDateTime());
-        	
-        	assignments.add(assignmentObject);
-        }
-        myLinkedHashMap.put("class label assignments", assignments.toString());
-        
-        JSONArray users = new JSONArray();
-        
-        for (User user: this.getUsers()) {
-        	JSONObject userObject = new JSONObject();
-        	userObject.put("user id", user.getId());
-        	userObject.put("user name", user.getName());
-        	userObject.put("user type", user.getType());
-        	
-        	users.add(userObject);
-        }
-        myLinkedHashMap.put("users", users.toString());
-        // Instantiate a new Gson instance.
-        Gson gson = new Gson();
+		// Add items, in-order, to the map.
+		myLinkedHashMap.put("dataset id", this.getId());
+		myLinkedHashMap.put("dataset name", this.getName());
+		myLinkedHashMap.put("maximum number of labels per instance", this.getInstanceLabellingLimit());
 
-        // Convert the ordered map into an ordered string.
-        String json = gson.toJson(myLinkedHashMap, Map.class);
+		JSONArray labels = new JSONArray();
 
+		for (Label label : this.getLabels()) {
+			Map<String, Object> labelHashMap = new LinkedHashMap<String, Object>();
+			labelHashMap.put("label id", label.getId());
+			labelHashMap.put("label text", label.getText());
 
-		String jsonFormattedString = json.replaceAll("\\\\", "");
-        File targetFile = new File(this.name+".json");
-        targetFile.createNewFile();
-		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(),false)) {
-            Gson gson2 = new GsonBuilder().create();
-            gson2.toJson(myLinkedHashMap, writer);
+			labels.add(labelHashMap);
+		}
+		myLinkedHashMap.put("class labels", labels);
 
-        }
-//        gson.toJson(myLinkedHashMap, new FileWriter("C:\\Users\\Alper\\eclipse-workspace\\cse1142\\CSE3063_Project\\output.json"));
-       
-        // Print ordered string.
-        System.out.println(json);
+		JSONArray instances = new JSONArray();
+
+		for (Instance instance : this.getInstances()) {
+			JSONObject instanceObject = new JSONObject();
+			instanceObject.put("id", instance.getId());
+			instanceObject.put("instance", instance.getInstance());
+
+			instances.add(instanceObject);
+		}
+		myLinkedHashMap.put("instances", instances);
+
+		JSONArray assignments = new JSONArray();
+
+		for (Assignment assignment : this.getAssignments()) {
+			JSONObject assignmentObject = new JSONObject();
+			assignmentObject.put("instance id", assignment.getInstanceId());
+			assignmentObject.put("class label ids", assignment.getLabelIds());
+			assignmentObject.put("user id", assignment.getUserId());
+			assignmentObject.put("datetime", assignment.getDateTime());
+
+			assignments.add(assignmentObject);
+		}
+		myLinkedHashMap.put("class label assignments", assignments);
+
+		JSONArray users = new JSONArray();
+
+		for (User user : this.getUsers()) {
+			JSONObject userObject = new JSONObject();
+			userObject.put("user id", user.getId());
+			userObject.put("user name", user.getName());
+			userObject.put("user type", user.getType());
+
+			users.add(userObject);
+		}
+		myLinkedHashMap.put("users", users);
+		// Instantiate a new Gson instance.
+		Gson gson = new Gson();
+
+		// Convert the ordered map into an ordered string.
+		String json = gson.toJson(myLinkedHashMap, Map.class);
+
+		File targetFile = new File("CSE3063_Project\\" +this.name + ".json");
+		targetFile.createNewFile();
+		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
+			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
+			gson2.toJson(myLinkedHashMap, writer);
+
+		}
+		// Print ordered string.
+		System.out.println(json);
 		return true;
 	}
 }

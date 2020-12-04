@@ -59,8 +59,8 @@ public class Assignment {
         this.userId = userId;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDateTime() {
+        return dateTime.toString();
     }
 
     public void setDateTime(LocalDateTime dateTime) {
