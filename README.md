@@ -2,7 +2,7 @@
 
 Group 20
 
-150319067 - Elif Sünnetçi
+150319067 - Elif Sünnetci
 
 150119933 - Nurhande Akyüz
 
