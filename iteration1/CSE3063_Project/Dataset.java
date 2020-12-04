@@ -204,10 +204,16 @@ public class Dataset {
         Gson gson = new Gson();
 
         // Convert the ordered map into an ordered string.
-        String json = gson.toJson(myLinkedHashMap, LinkedHashMap.class);
-        try (Writer writer = new FileWriter("C:\\Users\\Alper\\eclipse-workspace\\cse1142\\CSE3063_Project\\output.json")) {
+        String json = gson.toJson(myLinkedHashMap, Map.class);
+
+
+		String jsonFormattedString = json.replaceAll("\\\\", "");
+        File targetFile = new File(this.name+".json");
+        targetFile.createNewFile();
+		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(),false)) {
             Gson gson2 = new GsonBuilder().create();
             gson2.toJson(myLinkedHashMap, writer);
+
         }
 //        gson.toJson(myLinkedHashMap, new FileWriter("C:\\Users\\Alper\\eclipse-workspace\\cse1142\\CSE3063_Project\\output.json"));
        
