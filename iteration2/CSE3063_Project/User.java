@@ -6,11 +6,14 @@ public class User {
     private String name;
 
     private String type;
+    
+    private double consistencyCheckProbability;
 
-    public User(Integer id, String name, String type) {
+    public User(Integer id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.consistencyCheckProbability = consistencyCheckProbability;
     }
 
     public Integer getId() {
@@ -22,7 +25,7 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -30,13 +33,21 @@ public class User {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
+    
+    public double getConsistencyCheckProbability() {
+        return this.consistencyCheckProbability;
+    }
 
+    public void setConsistencyCheckProbability(double consistencyCheckProbability) {
+        this.consistencyCheckProbability = consistencyCheckProbability;
+    }
+    
     @Override
     public String toString() {
         return "user id: " + this.getId() + ", user name: " + this.getName() + ", user type: " + this.getType(); 

@@ -11,8 +11,8 @@ public class InstanceTagger extends Logger {
 
     @Override
     public String getLogMessage() {
-        return this.getDate() + " [InstanceTagger] " + this.getType() + " user id: "+ this.assignment.getUserId() + " " +
-		this.getOperation() + " instance id: " + this.assignment.getInstanceId();
+        return this.getDate() + " [InstanceTagger] " + this.getType() + " user id: "+ this.assignment.getUser().getId() + " " +
+		this.getOperation() + " instance id: " + this.assignment.getInstance().getId();
     }
 
 }

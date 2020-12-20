@@ -55,6 +55,7 @@ public class Sample {
 		}
 		dataset1.exportOutput();
 		dataset2.exportOutput();
+		exportDatasetMetrics(dataset1);
 		try {
 			File myObj = new File("CSE3063_Project\\log_file.txt");
 			if (myObj.createNewFile()) {
@@ -118,7 +119,7 @@ public class Sample {
 			int nameIndex = random.nextInt(userNames.size());
 			int typeIndex = random.nextInt(userTypes.size());
 			User user = new User(i + 1, userNames.get(nameIndex).toString() + (i + 1),
-					userTypes.get(typeIndex).toString());
+					userTypes.get(typeIndex).toString(), 0.1);
 			UserManager userManager = new UserManager("INFO", "created", user);
 			logs.add(userManager);
 			System.out.println(userManager.getLogMessage());
@@ -126,5 +127,22 @@ public class Sample {
 		}
 		return dataset;
 	}
-
+	
+	public static void exportDatasetMetrics(Dataset dataset) {
+		ArrayList<Integer> labelIds = new ArrayList<>();
+		int numberOfUsedLabels = dataset.getLabels().size();
+		
+		for (Assignment assignment: dataset.getAssignments()) {
+			for (Label label: assignment.getLabels()) {
+				if (!labelIds.contains(label.getId())) {
+					labelIds.add(label.getId());
+					numberOfUsedLabels--;
+				}
+			}
+		}
+		double completenessPercentage = 100 - (numberOfUsedLabels / dataset.getLabels().size() * 100);
+		System.out.println(completenessPercentage);
+		int numberOfUsers = dataset.getUsers().size();
+		System.out.println(numberOfUsers);
+	}
 }

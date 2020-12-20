@@ -33,17 +33,17 @@ public class KeywordLabelingMechanism extends LabelingMechanism {
 		int labelCount = random.nextInt(instanceLabelingLimit);
 		labelCount = labelCount == 0 ? 1 : labelCount;
 		
-		ArrayList<Integer> userPicks = new ArrayList<Integer>();
+		ArrayList<Label> userPicks = new ArrayList<Label>();
 		
 		for (int i = 0; i < labelCount; i++) {
 			for (int j = 0; j < this.keywords.size(); j++) {
 				if (instance.getInstance().contains(this.keywords.get(j))) {
-					userPicks.add(j);
+					userPicks.add(labels.get(j));
 				}
 			}
 		}
 		
-		Assignment assignment = new Assignment(instance.getId(), userPicks, user.getId());
+		Assignment assignment = new Assignment(instance, userPicks, user);
 		
 		return assignment;
 	}

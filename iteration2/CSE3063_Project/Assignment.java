@@ -4,59 +4,59 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Assignment {
-    private Integer instanceId;
+    private Instance instance;
 
-    private ArrayList<Integer> labelIds;
+    private ArrayList<Label> labels;
 
-    private Integer userId;
+    private User user;
 
     private LocalDateTime dateTime;
 
-    public Assignment(Integer instanceId, ArrayList<Integer> labelIds, Integer userId) {
-        this.instanceId = instanceId;
-        this.labelIds = labelIds;
-        this.userId = userId;
+    public Assignment(Instance instance, ArrayList<Label> labels, User user) {
+        this.instance = instance;
+        this.labels = labels;
+        this.user = user;
         this.dateTime = LocalDateTime.now();
     }
 
-    public Assignment(Integer instanceId, Integer userId) {
-        this.instanceId = instanceId;
-        this.userId = userId;
+    public Assignment(Instance instance, User user) {
+        this.instance = instance;
+        this.user = user;
         this.dateTime = LocalDateTime.now();
     }
 
-    public boolean addLabel(Integer labelId) {
-        if (this.labelIds.contains(labelId)){
+    public boolean addLabel(Label label) {
+        if (this.labels.contains(label)){
             return false;
 
         } else{
-            this.labelIds.add(labelId);
+            this.labels.add(label);
             return true;
         }
     }
 
-    public Integer getInstanceId() {
-        return instanceId;
+    public Instance getInstance() {
+        return instance;
     }
 
-    public void setInstanceId(Integer instanceId) {
-        this.instanceId = instanceId;
+    public void setInstance(Instance instance) {
+        this.instance = instance;
     }
 
-    public ArrayList<Integer> getLabelIds() {
-        return this.labelIds;
+    public ArrayList<Label> getLabels() {
+        return this.labels;
     }
 
-    public void setLabelIds(ArrayList<Integer> labelIds) {
-        this.labelIds = labelIds;
+    public void setLabels(ArrayList<Label> labels) {
+        this.labels = labels;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDateTime() {
@@ -70,8 +70,8 @@ public class Assignment {
     @Override
     public String toString() {
         return "Assignment{" +
-                "instanceId=" + instanceId +
-                ", LabelIds=" + this.getLabelIds() +
+                "instanceId=" + instance.getId() +
+                ", Labels=" + this.getLabels() +
                 '}';
     }
 }

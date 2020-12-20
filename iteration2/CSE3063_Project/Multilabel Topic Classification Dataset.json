@@ -92,108 +92,184 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2020-12-18T03:10:06.807058700",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 1,
       "class label ids": [
-        8,
-        11,
-        12
+        {
+          "id": 15,
+          "text": "borç "
+        },
+        {
+          "id": 7,
+          "text": "telefon"
+        },
+        {
+          "id": 14,
+          "text": "taraf"
+        },
+        {
+          "id": 13,
+          "text": "fatura "
+        },
+        {
+          "id": 2,
+          "text": "numara "
+        },
+        {
+          "id": 9,
+          "text": "firma "
+        }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-18T03:10:06.807058700",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 2,
       "class label ids": [
-        3,
-        7,
-        8,
-        15,
-        1,
-        10
+        {
+          "id": 13,
+          "text": "fatura "
+        },
+        {
+          "id": 9,
+          "text": "firma "
+        },
+        {
+          "id": 6,
+          "text": "bilgi "
+        },
+        {
+          "id": 10,
+          "text": "cihaz"
+        },
+        {
+          "id": 15,
+          "text": "borç "
+        },
+        {
+          "id": 8,
+          "text": "konu "
+        }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-18T03:10:06.807058700",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 3,
       "class label ids": [
-        7
+        {
+          "id": 4,
+          "text": "işlem"
+        }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-18T03:10:06.808056",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 4,
       "class label ids": [
-        15,
-        7,
-        9,
-        10,
-        12,
-        1
+        {
+          "id": 16,
+          "text": "paket"
+        },
+        {
+          "id": 4,
+          "text": "işlem"
+        }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-18T03:10:06.808056",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 5,
       "class label ids": [
-        8,
-        9,
-        12,
-        15
+        {
+          "id": 2,
+          "text": "numara "
+        },
+        {
+          "id": 9,
+          "text": "firma "
+        },
+        {
+          "id": 12,
+          "text": "borç "
+        }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-18T03:10:06.809053500",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 1,
       "class label ids": [
-        14,
-        3,
-        1,
-        2,
-        9,
-        11,
-        6,
-        13
+        {
+          "id": 7,
+          "text": "telefon"
+        },
+        {
+          "id": 12,
+          "text": "borç "
+        },
+        {
+          "id": 16,
+          "text": "paket"
+        },
+        {
+          "id": 13,
+          "text": "fatura "
+        }
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-18T03:10:06.810051100",
+      "datetime": "2020-12-20T15:52:41.901457900",
       "instance id": 2,
       "class label ids": [
-        7
+        {
+          "id": 6,
+          "text": "bilgi "
+        },
+        {
+          "id": 5,
+          "text": "müşteri"
+        }
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-18T03:10:06.810051100",
+      "datetime": "2020-12-20T15:52:41.902454200",
       "instance id": 3,
       "class label ids": [
-        14
+        {
+          "id": 13,
+          "text": "fatura "
+        }
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-18T03:10:06.810051100",
+      "datetime": "2020-12-20T15:52:41.902454200",
       "instance id": 4,
       "class label ids": [
-        13,
-        6,
-        8
+        {
+          "id": 2,
+          "text": "numara "
+        }
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-18T03:10:06.810051100",
+      "datetime": "2020-12-20T15:52:41.902454200",
       "instance id": 5,
       "class label ids": [
-        1,
-        14,
-        12
+        {
+          "id": 14,
+          "text": "taraf"
+        },
+        {
+          "id": 2,
+          "text": "numara "
+        }
       ],
       "user id": 2
     }
