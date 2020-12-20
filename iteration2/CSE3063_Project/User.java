@@ -3,53 +3,54 @@ package CSE3063_Project;
 public class User {
 	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String type;
-    
-    private double consistencyCheckProbability;
+	private String type;
 
-    public User(Integer id, String name, String type, double consistencyCheckProbability) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.consistencyCheckProbability = consistencyCheckProbability;
-    }
+	private double consistencyCheckProbability;
 
-    public Integer getId() {
-        return id;
-    }
+	public User(Integer id, String name, String type, double consistencyCheckProbability) {
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.consistencyCheckProbability = consistencyCheckProbability;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public String getType() {
-        return this.type;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
-    
-    public double getConsistencyCheckProbability() {
-        return this.consistencyCheckProbability;
-    }
+	public String getType() {
+		return this.type;
+	}
 
-    public void setConsistencyCheckProbability(double consistencyCheckProbability) {
-        this.consistencyCheckProbability = consistencyCheckProbability;
-    }
-    
-    @Override
-    public String toString() {
-        return "user id: " + this.getId() + ", user name: " + this.getName() + ", user type: " + this.getType(); 
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public double getConsistencyCheckProbability() {
+		return this.consistencyCheckProbability;
+	}
+
+	public void setConsistencyCheckProbability(double consistencyCheckProbability) {
+		this.consistencyCheckProbability = consistencyCheckProbability;
+	}
+
+	@Override
+	public String toString() {
+		return "user id: " + this.getId() + ", user name: " + this.getName() + ", user type: " + this.getType()
+				+ ", consistency check probability: " + this.getConsistencyCheckProbability();
+	}
 }

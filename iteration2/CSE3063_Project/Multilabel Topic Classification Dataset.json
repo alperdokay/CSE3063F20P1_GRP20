@@ -92,86 +92,32 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2020-12-21T00:08:18.936988800",
+      "datetime": "2020-12-21T01:01:17.710053100",
       "instance id": 1,
       "class label ids": [
         {
-          "id": 13,
-          "text": "fatura "
-        },
-        {
-          "id": 16,
-          "text": "paket"
-        },
-        {
-          "id": 6,
-          "text": "bilgi "
-        },
-        {
-          "id": 7,
-          "text": "telefon"
-        },
-        {
-          "id": 14,
-          "text": "taraf"
+          "id": 2,
+          "text": "numara "
         },
         {
           "id": 4,
           "text": "işlem"
         },
         {
-          "id": 8,
-          "text": "konu "
-        },
-        {
-          "id": 5,
-          "text": "müşteri"
+          "id": 9,
+          "text": "firma "
         }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T00:08:18.938001700",
+      "datetime": "2020-12-21T01:01:17.711049800",
       "instance id": 2,
       "class label ids": [
         {
-          "id": 9,
-          "text": "firma "
+          "id": 4,
+          "text": "işlem"
         },
-        {
-          "id": 13,
-          "text": "fatura "
-        },
-        {
-          "id": 5,
-          "text": "müşteri"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T00:08:18.938001700",
-      "instance id": 3,
-      "class label ids": [
-        {
-          "id": 6,
-          "text": "bilgi "
-        },
-        {
-          "id": 15,
-          "text": "borç "
-        },
-        {
-          "id": 10,
-          "text": "cihaz"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T00:08:18.938001700",
-      "instance id": 4,
-      "class label ids": [
         {
           "id": 14,
           "text": "taraf"
@@ -181,125 +127,106 @@
           "text": "hat "
         },
         {
-          "id": 10,
-          "text": "cihaz"
-        },
-        {
-          "id": 15,
-          "text": "borç "
-        },
-        {
-          "id": 6,
-          "text": "bilgi "
-        },
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
           "id": 12,
           "text": "borç "
         },
         {
-          "id": 5,
-          "text": "müşteri"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T00:08:18.938001700",
-      "instance id": 5,
-      "class label ids": [
-        {
-          "id": 15,
-          "text": "borç "
-        },
-        {
           "id": 2,
           "text": "numara "
         },
         {
-          "id": 9,
-          "text": "firma "
+          "id": 10,
+          "text": "cihaz"
         }
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T00:08:18.938001700",
-      "instance id": 1,
+      "datetime": "2020-12-21T01:01:17.711049800",
+      "instance id": 3,
       "class label ids": [
+        {
+          "id": 4,
+          "text": "işlem"
+        },
         {
           "id": 16,
           "text": "paket"
-        },
-        {
-          "id": 13,
-          "text": "fatura "
-        }
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-21T00:08:18.938001700",
-      "instance id": 2,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "hat "
-        },
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
-          "id": 7,
-          "text": "telefon"
-        },
-        {
-          "id": 15,
-          "text": "borç "
         },
         {
           "id": 8,
           "text": "konu "
         }
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T00:08:18.938982900",
-      "instance id": 3,
+      "datetime": "2020-12-21T01:01:17.712047800",
+      "instance id": 4,
+      "class label ids": [
+        {
+          "id": 2,
+          "text": "numara "
+        },
+        {
+          "id": 3,
+          "text": "hat "
+        },
+        {
+          "id": 9,
+          "text": "firma "
+        },
+        {
+          "id": 14,
+          "text": "taraf"
+        }
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-21T01:01:17.712047800",
+      "instance id": 5,
       "class label ids": [
         {
           "id": 10,
           "text": "cihaz"
-        }
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-21T00:08:18.939123500",
-      "instance id": 4,
-      "class label ids": [
+        },
+        {
+          "id": 2,
+          "text": "numara "
+        },
+        {
+          "id": 8,
+          "text": "konu "
+        },
+        {
+          "id": 14,
+          "text": "taraf"
+        },
         {
           "id": 9,
           "text": "firma "
+        },
+        {
+          "id": 12,
+          "text": "borç "
+        }
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-21T01:01:17.712047800",
+      "instance id": 1,
+      "class label ids": [
+        {
+          "id": 4,
+          "text": "işlem"
         },
         {
           "id": 11,
           "text": "hat "
         },
         {
-          "id": 6,
-          "text": "bilgi "
-        },
-        {
-          "id": 15,
-          "text": "borç "
-        },
-        {
           "id": 7,
           "text": "telefon"
         }
@@ -307,24 +234,89 @@
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T00:08:18.939123500",
-      "instance id": 5,
+      "datetime": "2020-12-21T01:01:17.713044500",
+      "instance id": 2,
       "class label ids": [
+        {
+          "id": 14,
+          "text": "taraf"
+        },
+        {
+          "id": 12,
+          "text": "borç "
+        }
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-21T01:01:17.713044500",
+      "instance id": 3,
+      "class label ids": [
+        {
+          "id": 5,
+          "text": "müşteri"
+        },
         {
           "id": 10,
           "text": "cihaz"
+        }
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-21T01:01:17.714042600",
+      "instance id": 4,
+      "class label ids": [
+        {
+          "id": 11,
+          "text": "hat "
         },
         {
           "id": 8,
           "text": "konu "
         },
         {
+          "id": 13,
+          "text": "fatura "
+        },
+        {
           "id": 15,
           "text": "borç "
         },
         {
-          "id": 13,
-          "text": "fatura "
+          "id": 14,
+          "text": "taraf"
+        },
+        {
+          "id": 5,
+          "text": "müşteri"
+        },
+        {
+          "id": 4,
+          "text": "işlem"
+        }
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-21T01:01:17.714042600",
+      "instance id": 5,
+      "class label ids": [
+        {
+          "id": 14,
+          "text": "taraf"
+        },
+        {
+          "id": 16,
+          "text": "paket"
+        },
+        {
+          "id": 12,
+          "text": "borç "
+        },
+        {
+          "id": 15,
+          "text": "borç "
         }
       ],
       "user id": 2
