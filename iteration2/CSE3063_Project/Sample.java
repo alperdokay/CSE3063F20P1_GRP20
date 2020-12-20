@@ -4,12 +4,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import java.text.DecimalFormat;
 
 public class Sample {
 	static ArrayList<Logger> logs = new ArrayList<Logger>();
@@ -55,6 +64,8 @@ public class Sample {
 		}
 		dataset1.exportOutput();
 		dataset2.exportOutput();
+		exportInstanceMetrics(dataset1);
+		exportInstanceMetrics(dataset2);
 		exportDatasetMetrics(dataset1);
 		try {
 			File myObj = new File("CSE3063_Project\\log_file.txt");
@@ -145,4 +156,87 @@ public class Sample {
 		int numberOfUsers = dataset.getUsers().size();
 		System.out.println(numberOfUsers);
 	}
+	
+	public static void exportInstanceMetrics(Dataset dataset) throws IOException {
+		Map<String, Object> instanceMetricsMap = new LinkedHashMap<String, Object>();
+		
+		int frequency, max_frequency=0;
+		double entropy=0.0;
+		int total_number_of_label_assignments=0, number_of_unique_label_assignments, number_of_unique_users,
+				most_frequent_class_label=0;
+		ArrayList<Integer> unique_label_assignments = new ArrayList<Integer>();
+		ArrayList<Integer> unique_users = new ArrayList<Integer>();
+		ArrayList<Integer> class_labels_and_frequencies = new ArrayList<Integer>();
+		
+		for(int i = 0; i < dataset.getAssignments().size(); i++) {
+			total_number_of_label_assignments += dataset.getAssignments().get(i).getLabels().size();
+			for(int j = 0; j < dataset.getAssignments().get(i).getLabels().size(); j++) {
+				if(!unique_label_assignments.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
+					unique_label_assignments.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
+					class_labels_and_frequencies.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
+					class_labels_and_frequencies.add(0);
+				}
+				for(int m = 0; m < class_labels_and_frequencies.size(); m+=2) {
+					if(class_labels_and_frequencies.get(m) == dataset.getAssignments().get(i).getLabels().get(j).getId()) {
+						frequency = class_labels_and_frequencies.get(m + 1);
+						class_labels_and_frequencies.set(m + 1, ++frequency);
+					}
+				}
+			}
+			if(!unique_users.contains(dataset.getAssignments().get(i).getUser().getId())) {
+				unique_users.add(dataset.getAssignments().get(i).getUser().getId());
+			}
+		}
+		
+		for(int k = 0; k < class_labels_and_frequencies.size(); k+=2) {
+			frequency = class_labels_and_frequencies.get(k + 1);
+			class_labels_and_frequencies.set(k + 1, frequency * 100 / total_number_of_label_assignments);
+			frequency = class_labels_and_frequencies.get(k + 1);
+			if(max_frequency < frequency) {
+				most_frequent_class_label = class_labels_and_frequencies.get(k);
+				max_frequency = frequency;
+			}
+		}
+		
+		number_of_unique_label_assignments = unique_label_assignments.size();
+		number_of_unique_users = unique_users.size();
+		
+		instanceMetricsMap.put("total number of label assignments", total_number_of_label_assignments);
+		instanceMetricsMap.put("number of unique label assignments", number_of_unique_label_assignments);
+		instanceMetricsMap.put("number of unique users", number_of_unique_users);
+		instanceMetricsMap.put("most frequent class label and percentage", "(" + most_frequent_class_label + ", " + max_frequency
+				+ "%)");
+		
+		JSONArray class_labels_and_percentages = new JSONArray();
+		
+		for(int n = 0; n < class_labels_and_frequencies.size(); n+=2) {
+			frequency = class_labels_and_frequencies.get(n + 1);
+			Map<String, Object> classLabelsAndPercentagesHashMap = new LinkedHashMap<String, Object>();
+			classLabelsAndPercentagesHashMap.put("class label and percentage", "(" + class_labels_and_frequencies.get(n) + ", "
+					+ frequency + "%)");
+			class_labels_and_percentages.add(classLabelsAndPercentagesHashMap);
+			entropy += (-1) * (frequency / 100.0) * (Math.log10(frequency / 100.0) /
+					Math.log10(number_of_unique_label_assignments));
+		}
+		
+		instanceMetricsMap.put("class labels and percentages", class_labels_and_percentages);
+		DecimalFormat df = new DecimalFormat("#.###");
+		instanceMetricsMap.put("entropy", df.format(entropy));
+		
+		// Instantiate a new Gson instance.
+		Gson gson = new Gson();
+
+		// Convert the ordered map into an ordered string.
+		String json = gson.toJson(instanceMetricsMap, Map.class);
+
+		File targetFile = new File("CSE3063_Project\\dataset" + dataset.getId() + ".json");
+		targetFile.createNewFile();
+		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
+			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
+			gson2.toJson(instanceMetricsMap, writer);
+
+		}
+		
+	}
+	
 }

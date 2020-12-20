@@ -1,0 +1,15 @@
+{
+  "total number of label assignments": 20,
+  "number of unique label assignments": 2,
+  "number of unique users": 2,
+  "most frequent class label and percentage": "(2, 70%)",
+  "class labels and percentages": [
+    {
+      "class label and percentage": "(2, 70%)"
+    },
+    {
+      "class label and percentage": "(3, 30%)"
+    }
+  ],
+  "entropy": "0.881"
+}
