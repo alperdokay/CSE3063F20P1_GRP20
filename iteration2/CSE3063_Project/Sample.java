@@ -174,6 +174,7 @@ public class Sample {
 					logs.add(tagger);
 					System.out.println(tagger.getLogMessage());
 					exportInstanceMetrics(dataset);
+					exportDatasetMetrics(dataset);
 				}
 			}
 		}
@@ -183,7 +184,9 @@ public class Sample {
 
 	public static void exportDatasetMetrics(Dataset dataset) {
 		ArrayList<Integer> labelIds = new ArrayList<>();
-		int numberOfUsedLabels = dataset.getLabels().size();
+		ArrayList<Integer> classDistributions = new ArrayList<>();
+		ArrayList<Integer> userCompletenessPercentages = new ArrayList<>();
+		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counter=0;
 
 		for (Assignment assignment : dataset.getAssignments()) {
 			for (Label label : assignment.getLabels()) {
@@ -193,15 +196,70 @@ public class Sample {
 				}
 			}
 		}
+		
 		double completenessPercentage = 100 - (numberOfUsedLabels / dataset.getLabels().size() * 100);
-		System.out.println(completenessPercentage);
+		
+		for (int i = 0; i < dataset.getAssignments().size(); i++) {
+			numberOfUsedLabels = dataset.getAssignments().get(i).getLabels().size();
+			totalNumberOfLabelAssignments += dataset.getAssignments().get(i).getLabels().size();
+			//System.out.println("--");
+			for (int j = 0; j < dataset.getAssignments().get(i).getLabels().size(); j++) {
+				//System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
+				//System.out.println("-> " + dataset.getAssignments().get(i).getUser());
+				if (!classDistributions.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
+					classDistributions.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
+					classDistributions.add(0);
+				}
+				for (int m = 0; m < classDistributions.size(); m += 2) {
+					if (classDistributions.get(m) == dataset.getAssignments().get(i).getLabels().get(j)
+							.getId()) {
+						frequency = classDistributions.get(m + 1);
+						classDistributions.set(m + 1, ++frequency);
+					}
+				}
+				if (!labelIds.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
+					labelIds.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
+					numberOfUsedLabels--;
+				}
+			}
+			//System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
+			//System.out.println("-> " + dataset.getAssignments().get(i).getUser());
+			if (!userCompletenessPercentages.contains(dataset.getAssignments().get(i).getUser().getId())) {
+				userCompletenessPercentages.add(dataset.getAssignments().get(i).getUser().getId());
+				int userCompletenessPercentage = 100 - (numberOfUsedLabels * 100 / dataset.getLabels().size());
+				userCompletenessPercentages.add(userCompletenessPercentage);
+			}
+		}
+		//System.out.println("---> " + userCompletenessPercentages);
+		//System.out.println("---> " + classDistributions);
+		for (int k = 0; k < classDistributions.size(); k += 2) {
+			frequency = classDistributions.get(k + 1);
+			classDistributions.set(k + 1, frequency * 100 / totalNumberOfLabelAssignments);
+			//System.out.println("-->> " + classDistributions.get(k+1) + "% " + classDistributions.get(k));
+		}
+		
+		for(int n = 0; n < userCompletenessPercentages.size(); n += 2) {
+			//System.out.println("-->> " + "(" + userCompletenessPercentages.get(n) + ", "
+					//+ userCompletenessPercentages.get(n + 1) + "%)");
+		}
+		
+		//System.out.println(completenessPercentage + " " + numberOfUsedLabels + " " + totalNumberOfLabelAssignments);
+		//System.out.println("-> " + labelIds);
+		//System.out.println("--> " + classDistributions);
 		int numberOfUsers = dataset.getUsers().size();
-		System.out.println(numberOfUsers);
+		//System.out.println(numberOfUsers);
 	}
 
 	public static void exportInstanceMetrics(Dataset dataset) throws IOException {
 		Map<String, Object> instanceMetricsMap = new LinkedHashMap<String, Object>();
-
+		/*
+		System.out.println("-> " + dataset.getAssignments());
+		System.out.println("-> " + dataset.getAssignments().get(0).getInstance());
+		System.out.println("-> " + dataset.getAssignments().get(0).getLabels());
+		System.out.println("-->> " + dataset.getInstances());
+		System.out.println("--->>> " + dataset.getLabels());
+		System.out.println("---->>>> " + dataset.getUsers());
+		*/
 		int frequency, max_frequency = 0;
 		double entropy = 0.0;
 		int total_number_of_label_assignments = 0, number_of_unique_label_assignments, number_of_unique_users,
