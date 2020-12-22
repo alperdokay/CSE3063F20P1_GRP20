@@ -60,235 +60,260 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2020-12-21T01:01:17.702073600",
+      "datetime": "2020-12-22T17:29:53.116114200",
       "instance id": 1,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        2
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.703071900",
-      "instance id": 2,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.704069400",
-      "instance id": 3,
-      "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.704069400",
-      "instance id": 4,
-      "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.705074200",
-      "instance id": 5,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.706064200",
-      "instance id": 6,
-      "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.706064200",
-      "instance id": 7,
-      "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.706064200",
-      "instance id": 8,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.706064200",
-      "instance id": 9,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.706064200",
-      "instance id": 10,
-      "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.707073500",
+      "datetime": "2020-12-22T17:29:53.426675500",
       "instance id": 1,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        3
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.708058",
-      "instance id": 2,
-      "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-21T01:01:17.708058",
+      "datetime": "2020-12-22T17:29:53.433659",
       "instance id": 3,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.708058",
+      "datetime": "2020-12-22T17:29:53.444628600",
       "instance id": 4,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.708058",
+      "datetime": "2020-12-22T17:29:53.464575300",
       "instance id": 5,
       "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
+        2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.709055800",
+      "datetime": "2020-12-22T17:29:53.475545300",
       "instance id": 6,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.709055800",
+      "datetime": "2020-12-22T17:29:53.493497700",
       "instance id": 7,
       "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
+        3
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.709055800",
+      "datetime": "2020-12-22T17:29:53.509455500",
       "instance id": 8,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.710053100",
+      "datetime": "2020-12-22T17:29:53.525412",
       "instance id": 9,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "Negative"
-        }
+        3
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.539375200",
+      "instance id": 10,
+      "class label ids": [
+        2
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.550345600",
+      "instance id": 1,
+      "class label ids": [
+        2
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T01:01:17.710053100",
-      "instance id": 10,
+      "datetime": "2020-12-22T17:29:53.572287",
+      "instance id": 2,
       "class label ids": [
-        {
-          "id": 3,
-          "text": "Notr"
-        }
+        2
       ],
       "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.583256900",
+      "instance id": 3,
+      "class label ids": [
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.665038600",
+      "instance id": 4,
+      "class label ids": [
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.681993600",
+      "instance id": 5,
+      "class label ids": [
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.698948200",
+      "instance id": 6,
+      "class label ids": [
+        3
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.709920",
+      "instance id": 7,
+      "class label ids": [
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.716900200",
+      "instance id": 7,
+      "class label ids": [
+        3
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.732857700",
+      "instance id": 3,
+      "class label ids": [
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.742830900",
+      "instance id": 10,
+      "class label ids": [
+        3
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.749812200",
+      "instance id": 1,
+      "class label ids": [
+        2
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.795690500",
+      "instance id": 2,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.812643500",
+      "instance id": 3,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.828605600",
+      "instance id": 4,
+      "class label ids": [
+        2
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.840570400",
+      "instance id": 7,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.852537",
+      "instance id": 6,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.870490800",
+      "instance id": 7,
+      "class label ids": [
+        2
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.876473300",
+      "instance id": 8,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.890451100",
+      "instance id": 9,
+      "class label ids": [
+        2
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T17:29:53.904405300",
+      "instance id": 10,
+      "class label ids": [
+        3
+      ],
+      "user id": 3
     }
   ],
   "users": [
     {
-      "user name": "UserRandomBot1",
+      "user name": "MarkZuckerberg",
       "user id": 1,
       "user type": "RandomLabelingMechanism"
     },
     {
-      "user name": "UserRandomBot2",
+      "user name": "BillGates",
       "user id": 2,
+      "user type": "RandomLabelingMechanism"
+    },
+    {
+      "user name": "ElonMusk",
+      "user id": 3,
       "user type": "RandomLabelingMechanism"
     }
   ]

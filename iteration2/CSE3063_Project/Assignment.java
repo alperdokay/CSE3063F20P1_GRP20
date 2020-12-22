@@ -62,6 +62,10 @@ public class Assignment {
     public String getDateTime() {
         return dateTime.toString();
     }
+    
+    public LocalDateTime getDateTimeObject() {
+        return dateTime;
+    }
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;

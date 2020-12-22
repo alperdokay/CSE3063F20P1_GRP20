@@ -92,245 +92,223 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2020-12-21T01:01:17.710053100",
+      "datetime": "2020-12-22T22:50:50.193570400",
       "instance id": 1,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
-          "id": 4,
-          "text": "işlem"
-        },
-        {
-          "id": 9,
-          "text": "firma "
-        }
+        15,
+        14,
+        7
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.711049800",
+      "datetime": "2020-12-22T22:50:50.353888300",
       "instance id": 2,
       "class label ids": [
-        {
-          "id": 4,
-          "text": "işlem"
-        },
-        {
-          "id": 14,
-          "text": "taraf"
-        },
-        {
-          "id": 3,
-          "text": "hat "
-        },
-        {
-          "id": 12,
-          "text": "borç "
-        },
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
-          "id": 10,
-          "text": "cihaz"
-        }
+        11,
+        16,
+        13
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.711049800",
+      "datetime": "2020-12-22T22:50:50.365855900",
       "instance id": 3,
       "class label ids": [
-        {
-          "id": 4,
-          "text": "işlem"
-        },
-        {
-          "id": 16,
-          "text": "paket"
-        },
-        {
-          "id": 8,
-          "text": "konu "
-        }
+        16
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.712047800",
+      "datetime": "2020-12-22T22:50:50.375828500",
       "instance id": 4,
       "class label ids": [
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
-          "id": 3,
-          "text": "hat "
-        },
-        {
-          "id": 9,
-          "text": "firma "
-        },
-        {
-          "id": 14,
-          "text": "taraf"
-        }
+        8,
+        13,
+        11,
+        16
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.712047800",
+      "datetime": "2020-12-22T22:50:50.385802300",
       "instance id": 5,
       "class label ids": [
-        {
-          "id": 10,
-          "text": "cihaz"
-        },
-        {
-          "id": 2,
-          "text": "numara "
-        },
-        {
-          "id": 8,
-          "text": "konu "
-        },
-        {
-          "id": 14,
-          "text": "taraf"
-        },
-        {
-          "id": 9,
-          "text": "firma "
-        },
-        {
-          "id": 12,
-          "text": "borç "
-        }
+        14
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-21T01:01:17.712047800",
+      "datetime": "2020-12-22T22:50:50.395776800",
       "instance id": 1,
       "class label ids": [
-        {
-          "id": 4,
-          "text": "işlem"
-        },
-        {
-          "id": 11,
-          "text": "hat "
-        },
-        {
-          "id": 7,
-          "text": "telefon"
-        }
+        9,
+        12,
+        14
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T01:01:17.713044500",
+      "datetime": "2020-12-22T22:50:50.401761500",
       "instance id": 2,
       "class label ids": [
-        {
-          "id": 14,
-          "text": "taraf"
-        },
-        {
-          "id": 12,
-          "text": "borç "
-        }
+        12,
+        15
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T01:01:17.713044500",
+      "datetime": "2020-12-22T22:50:50.412730200",
       "instance id": 3,
       "class label ids": [
-        {
-          "id": 5,
-          "text": "müşteri"
-        },
-        {
-          "id": 10,
-          "text": "cihaz"
-        }
+        6
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T01:01:17.714042600",
+      "datetime": "2020-12-22T22:50:50.424698200",
       "instance id": 4,
       "class label ids": [
-        {
-          "id": 11,
-          "text": "hat "
-        },
-        {
-          "id": 8,
-          "text": "konu "
-        },
-        {
-          "id": 13,
-          "text": "fatura "
-        },
-        {
-          "id": 15,
-          "text": "borç "
-        },
-        {
-          "id": 14,
-          "text": "taraf"
-        },
-        {
-          "id": 5,
-          "text": "müşteri"
-        },
-        {
-          "id": 4,
-          "text": "işlem"
-        }
+        10
       ],
       "user id": 2
     },
     {
-      "datetime": "2020-12-21T01:01:17.714042600",
-      "instance id": 5,
+      "datetime": "2020-12-22T22:50:50.434672300",
+      "instance id": 3,
       "class label ids": [
-        {
-          "id": 14,
-          "text": "taraf"
-        },
-        {
-          "id": 16,
-          "text": "paket"
-        },
-        {
-          "id": 12,
-          "text": "borç "
-        },
-        {
-          "id": 15,
-          "text": "borç "
-        }
+        4,
+        6,
+        14,
+        15,
+        9,
+        11,
+        5
       ],
       "user id": 2
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.445642100",
+      "instance id": 1,
+      "class label ids": [
+        13
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.452623900",
+      "instance id": 2,
+      "class label ids": [
+        9,
+        13,
+        8,
+        12,
+        6,
+        10,
+        15
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.461600900",
+      "instance id": 3,
+      "class label ids": [
+        4
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.474568500",
+      "instance id": 4,
+      "class label ids": [
+        13,
+        9
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.483541800",
+      "instance id": 5,
+      "class label ids": [
+        6,
+        4
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.494511200",
+      "instance id": 1,
+      "class label ids": [
+        4,
+        2,
+        9,
+        10
+      ],
+      "user id": 4
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.508474200",
+      "instance id": 2,
+      "class label ids": [
+        9,
+        4,
+        5,
+        13,
+        3
+      ],
+      "user id": 4
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.528421100",
+      "instance id": 3,
+      "class label ids": [
+        5,
+        2,
+        4,
+        8
+      ],
+      "user id": 4
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.546373700",
+      "instance id": 4,
+      "class label ids": [
+        9,
+        3,
+        11,
+        6,
+        8
+      ],
+      "user id": 4
+    },
+    {
+      "datetime": "2020-12-22T22:50:50.565322500",
+      "instance id": 5,
+      "class label ids": [
+        16
+      ],
+      "user id": 4
     }
   ],
   "users": [
     {
-      "user name": "UserRandomBot1",
+      "user name": "MarkZuckerberg",
       "user id": 1,
       "user type": "RandomLabelingMechanism"
     },
     {
-      "user name": "UserRandomBot2",
+      "user name": "BillGates",
       "user id": 2,
+      "user type": "RandomLabelingMechanism"
+    },
+    {
+      "user name": "ElonMusk",
+      "user id": 3,
+      "user type": "RandomLabelingMechanism"
+    },
+    {
+      "user name": "SteveJobs",
+      "user id": 4,
       "user type": "RandomLabelingMechanism"
     }
   ]

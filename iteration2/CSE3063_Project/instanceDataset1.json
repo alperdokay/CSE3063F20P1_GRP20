@@ -2,14 +2,14 @@
   "total number of label assignments": 30,
   "number of unique label assignments": 2,
   "number of unique users": 3,
-  "most frequent class label and percentage": "(2, 66%)",
+  "most frequent class label and percentage": "(2, 60%)",
   "class labels and percentages": [
     {
-      "class label and percentage": "(2, 66%)"
+      "class label and percentage": "(2, 60%)"
     },
     {
-      "class label and percentage": "(3, 33%)"
+      "class label and percentage": "(3, 40%)"
     }
   ],
-  "entropy": "0.923"
+  "entropy": "0.971"
 }

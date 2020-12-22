@@ -176,8 +176,14 @@ public class Dataset {
 
 		for (Assignment assignment : this.getAssignments()) {
 			JSONObject assignmentObject = new JSONObject();
+			ArrayList<Integer> labelIds = new ArrayList<Integer>();
+			
+			for (Label label: assignment.getLabels()) {
+				labelIds.add(label.getId());
+			}
+			
 			assignmentObject.put("instance id", assignment.getInstance().getId());
-			assignmentObject.put("class label ids", assignment.getLabels());
+			assignmentObject.put("class label ids", labelIds);
 			assignmentObject.put("user id", assignment.getUser().getId());
 			assignmentObject.put("datetime", assignment.getDateTime());
 

@@ -7,9 +7,13 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,10 +27,21 @@ public class Sample {
 	public static void main(String[] args) throws Exception {
 
 		ArrayList<User> users = getUsers();
-		ArrayList<DatasetReadModel> datasets = getDatasets(users);		
+		ArrayList<DatasetReadModel> datasets = getDatasets(users);
+		ArrayList<Dataset> allDatasets = new ArrayList<Dataset>();
 
+		// importing old datasets
 		for (DatasetReadModel model : datasets) {
-			runDataset(model);
+			if (!model.getCurrentDatasetStatus()) {
+				Dataset dataset = runDataset(model, allDatasets);
+				allDatasets.add(dataset);
+			}
+		}
+		for (DatasetReadModel model : datasets) {
+			if (model.getCurrentDatasetStatus()) {
+				Dataset dataset = runDataset(model, allDatasets);
+				allDatasets.add(dataset);
+			}
 		}
 		try {
 			File myObj = new File("CSE3063_Project\\log_file.txt");
@@ -71,10 +86,10 @@ public class Sample {
 
 		return users;
 	}
-	
+
 	public static ArrayList<DatasetReadModel> getDatasets(ArrayList<User> users) throws Exception {
 		ArrayList<DatasetReadModel> datasets = new ArrayList<DatasetReadModel>();
-		
+
 		JSONParser parser = new JSONParser();
 		Object confObj = parser.parse(new FileReader("CSE3063_Project\\newConf.json", StandardCharsets.UTF_8));
 		JSONObject confJsonObject = (JSONObject) confObj;
@@ -84,39 +99,41 @@ public class Sample {
 
 		for (Object dataset : datasetArray) {
 			JSONObject datasetObject = (JSONObject) dataset;
-			
+
 			Integer datasetId = Integer.parseInt(datasetObject.get("id").toString());
 			String datasetName = datasetObject.get("name").toString();
 			String filePath = datasetObject.get("filePath").toString();
-			
+
 			ArrayList<User> datasetUsers = new ArrayList<User>();
 			JSONArray userIds = (JSONArray) datasetObject.get("userIds");
-			
+
 			ArrayList<Integer> integerUserIds = new ArrayList<Integer>();
-			
-			for (Object userId: userIds) {
+
+			for (Object userId : userIds) {
 				integerUserIds.add(Integer.parseInt(userId.toString()));
 			}
-			
-			for(User user : users) {
+
+			for (User user : users) {
 				if (integerUserIds.contains(user.getId())) {
 					datasetUsers.add(user);
 				}
 			}
-			
+
 			boolean isCurrentDataset = false;
-			
+
 			if (datasetId == currentDatasetId) {
 				isCurrentDataset = true;
 			}
-			
-			DatasetReadModel model = new DatasetReadModel(datasetId, datasetName, filePath, isCurrentDataset, datasetUsers);
+
+			DatasetReadModel model = new DatasetReadModel(datasetId, datasetName, filePath, isCurrentDataset,
+					datasetUsers);
 			datasets.add(model);
 		}
-		
+
 		return datasets;
 	}
-	public static Dataset runDataset(DatasetReadModel model) throws Exception {
+
+	public static Dataset runDataset(DatasetReadModel model, ArrayList<Dataset> allDatasets) throws Exception {
 		JSONParser parser = new JSONParser();
 
 		Object inputObj = parser.parse(new FileReader("CSE3063_Project\\" + model.getFilePath()));
@@ -126,18 +143,22 @@ public class Sample {
 		JSONArray instances = (JSONArray) inputJsonObject.get("instances");
 
 		Dataset dataset = new Dataset(model.getId(), model.getName(), (int) maxlabels);
-		DatasetAuditor datasetAuditor = new DatasetAuditor("INFO", "created", dataset);
-		logs.add(datasetAuditor);
-		System.out.println(datasetAuditor.getLogMessage());
+		if (model.getCurrentDatasetStatus()) {
+			DatasetAuditor datasetAuditor = new DatasetAuditor("INFO", "created", dataset);
+			logs.add(datasetAuditor);
+			System.out.println(datasetAuditor.getLogMessage());
+		}
 
 		for (Object label : labels) {
 			JSONObject labelObject = (JSONObject) label;
 			String text = labelObject.get("label text").toString();
 			Label newLabel = new Label(Integer.parseInt(labelObject.get("label id").toString()), text);
 
-			LabelProvider labelProvider = new LabelProvider("INFO", "created", newLabel);
-			logs.add(labelProvider);
-			System.out.println(labelProvider.getLogMessage());
+			if (model.getCurrentDatasetStatus()) {
+				LabelProvider labelProvider = new LabelProvider("INFO", "created", newLabel);
+				logs.add(labelProvider);
+				System.out.println(labelProvider.getLogMessage());
+			}
 
 			dataset.addLabel(newLabel);
 		}
@@ -152,8 +173,9 @@ public class Sample {
 		}
 
 		dataset.setUsers(model.getUsers());
-		
+
 		if (model.getCurrentDatasetStatus()) {
+
 			KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism();
 			RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism();
 
@@ -162,36 +184,100 @@ public class Sample {
 			keywordMechanism.addKeyword("harika");
 			keywordMechanism.addKeyword("paket");
 			keywordMechanism.addKeyword("numara");
-			
+
+			Random random = new Random();
+
+			ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
 			for (int i = 0; i < dataset.getUsers().size(); i++) {
+				int assignmentCounter = 0;
 				for (int j = 0; j < dataset.getInstances().size(); j++) {
+					double randomDouble = random.nextDouble();
 					User user = dataset.getUsers().get(i);
 					Instance instance = dataset.getInstances().get(j);
+					if (assignmentCounter > 0) {
+						if (randomDouble < user.getConsistencyCheckProbability()) {
+							int labeledInstancesSize = previouslyLabeledInstances.size();
+							if (labeledInstancesSize < 0) {
+								labeledInstancesSize = 0;
+							}
+							int randomIndex = random.nextInt(labeledInstancesSize);
+							instance = previouslyLabeledInstances.get(randomIndex);
+						}
+					}
 					Assignment assignment = randomMechanism.label(instance, user, dataset.getLabels(),
 							dataset.getInstanceLabellingLimit());
+					if (!previouslyLabeledInstances.contains(instance)) {
+						previouslyLabeledInstances.add(instance);
+					}
 					dataset.addAssignment(assignment);
+
 					InstanceTagger tagger = new InstanceTagger("INFO", "created", assignment);
 					logs.add(tagger);
 					System.out.println(tagger.getLogMessage());
 					exportInstanceMetrics(dataset);
 					exportDatasetMetrics(dataset);
+					dataset.exportOutput();
+					if (assignmentCounter > 1) {
+						allDatasets.add(dataset);
+						exportUserMetrics(user, allDatasets);
+						allDatasets.remove(dataset);
+					}
+					assignmentCounter++;
+					//TimeUnit.SECONDS.sleep(1);
 				}
 			}
+		} else {
+			Object existingDatasetObj = parser.parse(new FileReader("CSE3063_Project\\" + model.getName() + ".json"));
+			JSONObject datasetJsonObject = (JSONObject) existingDatasetObj;
+			JSONArray assignments = (JSONArray) datasetJsonObject.get("class label assignments");
+
+			for (Object assignment : assignments) {
+				JSONObject assignmentObject = (JSONObject) assignment;
+				Integer userId = Integer.parseInt(assignmentObject.get("user id").toString());
+				Integer instanceId = Integer.parseInt(assignmentObject.get("instance id").toString());
+				JSONArray classLabelIds = (JSONArray) assignmentObject.get("class label ids");
+
+				ArrayList<Label> assignmentLabels = new ArrayList<Label>();
+
+				for (Object classLabelId : classLabelIds) {
+					Integer classLabelIdInteger = Integer.parseInt(classLabelId.toString());
+					for (Label label : dataset.getLabels()) {
+						if (label.getId() == classLabelIdInteger) {
+							assignmentLabels.add(label);
+							break;
+						}
+					}
+				}
+
+				Instance instance = new Instance(0, "");
+
+				for (Instance instanceItem : dataset.getInstances()) {
+					if (instanceItem.getId() == instanceId) {
+						instance = instanceItem;
+						break;
+					}
+				}
+
+				User user = new User(0, "", "", 0.1);
+				for (User userItem : dataset.getUsers()) {
+					if (userItem.getId() == userId) {
+						user = userItem;
+						break;
+					}
+				}
+				Assignment oldAssignment = new Assignment(instance, assignmentLabels, user);
+				dataset.addAssignment(oldAssignment);
+			}
 		}
-		
+
 		return dataset;
 	}
 
-	public static void exportDatasetMetrics(Dataset dataset) throws IOException {
-		Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
-		
+	public static void exportDatasetMetrics(Dataset dataset) {
 		ArrayList<Integer> labelIds = new ArrayList<>();
 		ArrayList<Integer> classDistributions = new ArrayList<>();
 		ArrayList<Integer> userCompletenessPercentages = new ArrayList<>();
-		ArrayList<Integer> userConsistencyPercentages = new ArrayList<>();
-		ArrayList<Integer> userLabelIds = new ArrayList<>();
-		ArrayList<Integer> uniqueInstances = new ArrayList<>();
-		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counterUser=1;
+		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counter = 0;
 
 		for (Assignment assignment : dataset.getAssignments()) {
 			for (Label label : assignment.getLabels()) {
@@ -201,39 +287,24 @@ public class Sample {
 				}
 			}
 		}
-		
+
 		double completenessPercentage = 100 - (numberOfUsedLabels / dataset.getLabels().size() * 100);
-		datasetMetricsMap.put("completeness percentage", completenessPercentage);
-		
-		for (int a = 0; a < dataset.getLabels().size(); a++) {
-			userLabelIds.add(dataset.getLabels().get(a).getId());
-		}
-		//System.out.println("--> " + userLabelIds);
-		//System.out.println("--> " + labelIds);
-		labelIds.removeAll(labelIds);
-		
+
 		for (int i = 0; i < dataset.getAssignments().size(); i++) {
 			numberOfUsedLabels = dataset.getAssignments().get(i).getLabels().size();
 			totalNumberOfLabelAssignments += dataset.getAssignments().get(i).getLabels().size();
+			// System.out.println("--");
 			for (int j = 0; j < dataset.getAssignments().get(i).getLabels().size(); j++) {
+				// System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
+				// System.out.println("-> " + dataset.getAssignments().get(i).getUser());
 				if (!classDistributions.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
 					classDistributions.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
-					uniqueInstances.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
 					classDistributions.add(0);
-					uniqueInstances.add(0);
 				}
 				for (int m = 0; m < classDistributions.size(); m += 2) {
-					if (classDistributions.get(m) == dataset.getAssignments().get(i).getLabels().get(j)
-							.getId()) {
+					if (classDistributions.get(m) == dataset.getAssignments().get(i).getLabels().get(j).getId()) {
 						frequency = classDistributions.get(m + 1);
 						classDistributions.set(m + 1, ++frequency);
-					}
-					if(uniqueInstances.get(m) == dataset.getAssignments().get(i).getLabels().get(j)
-							.getId()) {
-						if(!uniqueInstances.contains(dataset.getAssignments().get(i).getInstance().getId())) {
-							frequency = uniqueInstances.get(m + 1);
-							uniqueInstances.set(m + 1, ++frequency);
-						}
 					}
 				}
 				if (!labelIds.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
@@ -241,93 +312,39 @@ public class Sample {
 					numberOfUsedLabels--;
 				}
 			}
-			//System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
-			//System.out.println("-> " + dataset.getAssignments().get(i).getUser());
+			// System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
+			// System.out.println("-> " + dataset.getAssignments().get(i).getUser());
 			if (!userCompletenessPercentages.contains(dataset.getAssignments().get(i).getUser().getId())) {
 				userCompletenessPercentages.add(dataset.getAssignments().get(i).getUser().getId());
 				int userCompletenessPercentage = 100 - (numberOfUsedLabels * 100 / dataset.getLabels().size());
 				userCompletenessPercentages.add(userCompletenessPercentage);
-				//System.out.println("* " + labelIds);
 			}
-			if(counterUser == dataset.getAssignments().get(i).getUser().getId()) {
-				for (int a = 0; a < dataset.getAssignments().get(i).getLabels().size(); a++) {
-					userLabelIds.add(dataset.getAssignments().get(i).getLabels().get(a).getId());
-				}
-				
-			}
-			else {
-				userLabelIds.removeAll(userLabelIds);
-				counterUser++;
-			}
-			//System.out.println("-->> " + userLabelIds);
 		}
-		//System.out.println("---> " + userCompletenessPercentages);
-		//System.out.println("---> " + classDistributions);
-		//System.out.println("---> " + uniqueInstances);
-		
-		JSONArray classDistributionsBased = new JSONArray();
-		JSONArray uniqueInstancesClassLabel = new JSONArray();
-		
+		// System.out.println("---> " + userCompletenessPercentages);
+		// System.out.println("---> " + classDistributions);
 		for (int k = 0; k < classDistributions.size(); k += 2) {
 			frequency = classDistributions.get(k + 1);
 			classDistributions.set(k + 1, frequency * 100 / totalNumberOfLabelAssignments);
-			Map<String, Object> classDistributionsHashMap = new LinkedHashMap<String, Object>();
-			Map<String, Object> uniqueInstancesHashMap = new LinkedHashMap<String, Object>();
-			classDistributionsHashMap.put("class distribution based on final instance label",
-					classDistributions.get(k+1) + "% " + classDistributions.get(k));
-			uniqueInstancesHashMap.put("class label and number of unique instances",
-					uniqueInstances.get(k) + " and " + uniqueInstances.get(k+1));
-			classDistributionsBased.add(classDistributionsHashMap);
-			uniqueInstancesClassLabel.add(uniqueInstancesHashMap);
+			// System.out.println("-->> " + classDistributions.get(k+1) + "% " +
+			// classDistributions.get(k));
 		}
-		datasetMetricsMap.put("class distributions based on final instance labels",
-				classDistributionsBased);
-		datasetMetricsMap.put("number of unique instances for each class label",
-				uniqueInstancesClassLabel);
-		
+
+		for (int n = 0; n < userCompletenessPercentages.size(); n += 2) {
+			// System.out.println("-->> " + "(" + userCompletenessPercentages.get(n) + ", "
+			// + userCompletenessPercentages.get(n + 1) + "%)");
+		}
+
+		// System.out.println(completenessPercentage + " " + numberOfUsedLabels + " " +
+		// totalNumberOfLabelAssignments);
+		// System.out.println("-> " + labelIds);
+		// System.out.println("--> " + classDistributions);
 		int numberOfUsers = dataset.getUsers().size();
-		datasetMetricsMap.put("number of users", numberOfUsers);
-		
-		JSONArray usersAndCompletenessPercentages = new JSONArray();
-		
-		for(int n = 0; n < userCompletenessPercentages.size(); n += 2) {
-			Map<String, Object> usersAndCompletenessPercentagesHashMap = new LinkedHashMap<String, Object>();
-			usersAndCompletenessPercentagesHashMap.put("user and completeness percentage",
-					"(" + userCompletenessPercentages.get(n) + ", " + userCompletenessPercentages.get(n + 1) + "%)");
-			usersAndCompletenessPercentages.add(usersAndCompletenessPercentagesHashMap);
-		}
-		datasetMetricsMap.put("users assigned and their completeness percentage",
-				usersAndCompletenessPercentages);
-		
-		//System.out.println("-> " + labelIds);
-		//System.out.println("--> " + classDistributions);
-		
-		// Instantiate a new Gson instance.
-		Gson gson = new Gson();
-
-		// Convert the ordered map into an ordered string.
-		String json = gson.toJson(datasetMetricsMap, Map.class);
-
-		File targetFile = new File("CSE3063_Project\\DatasetMetricsfordataset" + dataset.getId() + ".json");
-		targetFile.createNewFile();
-		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
-			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
-			gson2.toJson(datasetMetricsMap, writer);
-
-		}
-		
-	}
+		// System.out.println(numberOfUsers);
+	}	
 
 	public static void exportInstanceMetrics(Dataset dataset) throws IOException {
 		Map<String, Object> instanceMetricsMap = new LinkedHashMap<String, Object>();
-		/*
-		System.out.println("-> " + dataset.getAssignments());
-		System.out.println("-> " + dataset.getAssignments().get(0).getInstance());
-		System.out.println("-> " + dataset.getAssignments().get(0).getLabels());
-		System.out.println("-->> " + dataset.getInstances());
-		System.out.println("--->>> " + dataset.getLabels());
-		System.out.println("---->>>> " + dataset.getUsers());
-		*/
+
 		int frequency, max_frequency = 0;
 		double entropy = 0.0;
 		int total_number_of_label_assignments = 0, number_of_unique_label_assignments, number_of_unique_users,
@@ -398,13 +415,120 @@ public class Sample {
 		// Convert the ordered map into an ordered string.
 		String json = gson.toJson(instanceMetricsMap, Map.class);
 
-		File targetFile = new File("CSE3063_Project\\dataset" + dataset.getId() + ".json");
+		File targetFile = new File("CSE3063_Project\\instanceDataset" + dataset.getId() + ".json");
 		targetFile.createNewFile();
 		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
 			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
 			gson2.toJson(instanceMetricsMap, writer);
 
 		}
+	}
 
+	public static void exportUserMetrics(User user, ArrayList<Dataset> datasets) throws Exception {
+		Map<String, Object> userMetricsMap = new LinkedHashMap<String, Object>();
+		int numberOfDatasets = 0;
+		int totalNumberOfInstancesLabeled = 0;
+		int totalNumberOfUniqueInstancesLabeled = 0;
+
+		ArrayList<String> completenessPercentages = new ArrayList<String>();
+		ArrayList<String> consistencyPercentages = new ArrayList<String>();
+		ArrayList<ArrayList<LocalDateTime>> classLabelingDateTimes = new ArrayList<ArrayList<LocalDateTime>>();
+
+		for (Dataset dataset : datasets) {
+			ArrayList<Integer> tempInstanceIds = new ArrayList<Integer>();
+			ArrayList<LocalDateTime> localDateTimes = new ArrayList<LocalDateTime>();
+			double completenessPercentageCounter = 0;
+			for (User datasetUser : dataset.getUsers()) {
+				if (user.getId() == datasetUser.getId()) {
+					numberOfDatasets++;
+					break;
+				}
+			}
+			for (Assignment assignment : dataset.getAssignments()) {
+				if (user.getId() == assignment.getUser().getId()) {
+					totalNumberOfInstancesLabeled++;
+					if (!tempInstanceIds.contains(assignment.getInstance().getId())) {
+						tempInstanceIds.add(assignment.getInstance().getId());
+						totalNumberOfUniqueInstancesLabeled++;
+						completenessPercentageCounter++;
+					}
+					localDateTimes.add(assignment.getDateTimeObject());
+				}
+			}
+			classLabelingDateTimes.add(localDateTimes);
+			double completenessPercentage = completenessPercentageCounter / dataset.getInstances().size() * 100;
+			completenessPercentages.add("(" + dataset.getName() + ", " + completenessPercentage + "%)");
+		}
+		ArrayList<Double> labelingSeconds = new ArrayList<Double>();
+
+		for (ArrayList<LocalDateTime> dateTimeList : classLabelingDateTimes) {
+			for (int i = 1; i < dateTimeList.size(); i++) {
+				double diff = Math.abs(dateTimeList.get(i - 1).getSecond() - dateTimeList.get(i).getSecond());
+				labelingSeconds.add(diff);
+			}
+		}
+
+		double total = 0;
+
+		for (double number : labelingSeconds) {
+			total += number;
+		}
+		double averageLabelingSeconds = total / labelingSeconds.size();
+		double standardDeviation = calculateSD(labelingSeconds);
+
+		userMetricsMap.put("number of datasets assigned", numberOfDatasets);
+		userMetricsMap.put("total number of instances labeled", totalNumberOfInstancesLabeled);
+		userMetricsMap.put("total number of unique instances labeled", totalNumberOfUniqueInstancesLabeled);
+		userMetricsMap.put("average time spent in labeling an instance in seconds", averageLabelingSeconds);
+		userMetricsMap.put("standard deviation of time in labeling an instance in seconds", standardDeviation);
+		
+		JSONArray consistencyPercentageArray = new JSONArray();
+
+		for (String completenessPercentage : completenessPercentages) {
+			Map<String, Object> consistencyPercentagesHashMap = new LinkedHashMap<String, Object>();
+			consistencyPercentagesHashMap.put("consistency percentage", completenessPercentage);
+			consistencyPercentageArray.add(consistencyPercentagesHashMap);
+		}
+		userMetricsMap.put("consistency percentages", consistencyPercentageArray);
+		
+		JSONArray completenessPercentageArray = new JSONArray();
+
+		for (String completenessPercentage : completenessPercentages) {
+			Map<String, Object> completenessPercentagesHashMap = new LinkedHashMap<String, Object>();
+			completenessPercentagesHashMap.put("completeness percentage", completenessPercentage);
+			completenessPercentageArray.add(completenessPercentagesHashMap);
+		}
+		userMetricsMap.put("completeness percentages", completenessPercentageArray);
+
+		// Instantiate a new Gson instance.
+		Gson gson = new Gson();
+
+		// Convert the ordered map into an ordered string.
+		String json = gson.toJson(userMetricsMap, Map.class);
+
+		File targetFile = new File("CSE3063_Project\\user" + user.getId() + ".json");
+		targetFile.createNewFile();
+		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
+			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
+			gson2.toJson(userMetricsMap, writer);
+
+		}
+	}
+
+	public static double calculateSD(ArrayList<Double> doubleArray) {
+		double sum = 0.0, standardDeviation = 0.0;
+		int size = doubleArray.size();
+
+		for (double num : doubleArray) {
+			sum += num;
+		}
+
+		double mean = sum / size;
+
+		for (double num : doubleArray) {
+			standardDeviation += Math.pow(num - mean, 2);
+		}
+
+		return Math.sqrt(standardDeviation / size);
 	}
 }
