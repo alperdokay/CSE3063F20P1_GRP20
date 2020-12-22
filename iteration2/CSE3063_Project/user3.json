@@ -1,23 +1,23 @@
 {
   "number of datasets assigned": 2,
   "total number of instances labeled": 15,
-  "total number of unique instances labeled": 14,
+  "total number of unique instances labeled": 13,
   "average time spent in labeling an instance in seconds": 0.0,
   "standard deviation of time in labeling an instance in seconds": 0.0,
-  "consistency percentages": [
-    {
-      "consistency percentage": "(Sentiment Dataset, 90.0%)"
-    },
-    {
-      "consistency percentage": "(Multilabel Topic Classification Dataset, 100.0%)"
-    }
-  ],
   "completeness percentages": [
     {
       "completeness percentage": "(Sentiment Dataset, 90.0%)"
     },
     {
-      "completeness percentage": "(Multilabel Topic Classification Dataset, 100.0%)"
+      "completeness percentage": "(Multilabel Topic Classification Dataset, 80.0%)"
+    }
+  ],
+  "consistency percentages": [
+    {
+      "consistency percentage": "(Sentiment Dataset, 80%)"
+    },
+    {
+      "consistency percentage": "(Multilabel Topic Classification Dataset, 91%)"
     }
   ]
 }
