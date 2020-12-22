@@ -182,11 +182,16 @@ public class Sample {
 		return dataset;
 	}
 
-	public static void exportDatasetMetrics(Dataset dataset) {
+	public static void exportDatasetMetrics(Dataset dataset) throws IOException {
+		Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
+		
 		ArrayList<Integer> labelIds = new ArrayList<>();
 		ArrayList<Integer> classDistributions = new ArrayList<>();
 		ArrayList<Integer> userCompletenessPercentages = new ArrayList<>();
-		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counter=0;
+		ArrayList<Integer> userConsistencyPercentages = new ArrayList<>();
+		ArrayList<Integer> userLabelIds = new ArrayList<>();
+		ArrayList<Integer> uniqueInstances = new ArrayList<>();
+		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counterUser=1;
 
 		for (Assignment assignment : dataset.getAssignments()) {
 			for (Label label : assignment.getLabels()) {
@@ -198,23 +203,37 @@ public class Sample {
 		}
 		
 		double completenessPercentage = 100 - (numberOfUsedLabels / dataset.getLabels().size() * 100);
+		datasetMetricsMap.put("completeness percentage", completenessPercentage);
+		
+		for (int a = 0; a < dataset.getLabels().size(); a++) {
+			userLabelIds.add(dataset.getLabels().get(a).getId());
+		}
+		//System.out.println("--> " + userLabelIds);
+		//System.out.println("--> " + labelIds);
+		labelIds.removeAll(labelIds);
 		
 		for (int i = 0; i < dataset.getAssignments().size(); i++) {
 			numberOfUsedLabels = dataset.getAssignments().get(i).getLabels().size();
 			totalNumberOfLabelAssignments += dataset.getAssignments().get(i).getLabels().size();
-			//System.out.println("--");
 			for (int j = 0; j < dataset.getAssignments().get(i).getLabels().size(); j++) {
-				//System.out.println("-> " + dataset.getAssignments().get(i).getLabels());
-				//System.out.println("-> " + dataset.getAssignments().get(i).getUser());
 				if (!classDistributions.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
 					classDistributions.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
+					uniqueInstances.add(dataset.getAssignments().get(i).getLabels().get(j).getId());
 					classDistributions.add(0);
+					uniqueInstances.add(0);
 				}
 				for (int m = 0; m < classDistributions.size(); m += 2) {
 					if (classDistributions.get(m) == dataset.getAssignments().get(i).getLabels().get(j)
 							.getId()) {
 						frequency = classDistributions.get(m + 1);
 						classDistributions.set(m + 1, ++frequency);
+					}
+					if(uniqueInstances.get(m) == dataset.getAssignments().get(i).getLabels().get(j)
+							.getId()) {
+						if(!uniqueInstances.contains(dataset.getAssignments().get(i).getInstance().getId())) {
+							frequency = uniqueInstances.get(m + 1);
+							uniqueInstances.set(m + 1, ++frequency);
+						}
 					}
 				}
 				if (!labelIds.contains(dataset.getAssignments().get(i).getLabels().get(j).getId())) {
@@ -228,26 +247,75 @@ public class Sample {
 				userCompletenessPercentages.add(dataset.getAssignments().get(i).getUser().getId());
 				int userCompletenessPercentage = 100 - (numberOfUsedLabels * 100 / dataset.getLabels().size());
 				userCompletenessPercentages.add(userCompletenessPercentage);
+				//System.out.println("* " + labelIds);
 			}
+			if(counterUser == dataset.getAssignments().get(i).getUser().getId()) {
+				for (int a = 0; a < dataset.getAssignments().get(i).getLabels().size(); a++) {
+					userLabelIds.add(dataset.getAssignments().get(i).getLabels().get(a).getId());
+				}
+				
+			}
+			else {
+				userLabelIds.removeAll(userLabelIds);
+				counterUser++;
+			}
+			//System.out.println("-->> " + userLabelIds);
 		}
 		//System.out.println("---> " + userCompletenessPercentages);
 		//System.out.println("---> " + classDistributions);
+		//System.out.println("---> " + uniqueInstances);
+		
+		JSONArray classDistributionsBased = new JSONArray();
+		JSONArray uniqueInstancesClassLabel = new JSONArray();
+		
 		for (int k = 0; k < classDistributions.size(); k += 2) {
 			frequency = classDistributions.get(k + 1);
 			classDistributions.set(k + 1, frequency * 100 / totalNumberOfLabelAssignments);
-			//System.out.println("-->> " + classDistributions.get(k+1) + "% " + classDistributions.get(k));
+			Map<String, Object> classDistributionsHashMap = new LinkedHashMap<String, Object>();
+			Map<String, Object> uniqueInstancesHashMap = new LinkedHashMap<String, Object>();
+			classDistributionsHashMap.put("class distribution based on final instance label",
+					classDistributions.get(k+1) + "% " + classDistributions.get(k));
+			uniqueInstancesHashMap.put("class label and number of unique instances",
+					uniqueInstances.get(k) + " and " + uniqueInstances.get(k+1));
+			classDistributionsBased.add(classDistributionsHashMap);
+			uniqueInstancesClassLabel.add(uniqueInstancesHashMap);
 		}
+		datasetMetricsMap.put("class distributions based on final instance labels",
+				classDistributionsBased);
+		datasetMetricsMap.put("number of unique instances for each class label",
+				uniqueInstancesClassLabel);
+		
+		int numberOfUsers = dataset.getUsers().size();
+		datasetMetricsMap.put("number of users", numberOfUsers);
+		
+		JSONArray usersAndCompletenessPercentages = new JSONArray();
 		
 		for(int n = 0; n < userCompletenessPercentages.size(); n += 2) {
-			//System.out.println("-->> " + "(" + userCompletenessPercentages.get(n) + ", "
-					//+ userCompletenessPercentages.get(n + 1) + "%)");
+			Map<String, Object> usersAndCompletenessPercentagesHashMap = new LinkedHashMap<String, Object>();
+			usersAndCompletenessPercentagesHashMap.put("user and completeness percentage",
+					"(" + userCompletenessPercentages.get(n) + ", " + userCompletenessPercentages.get(n + 1) + "%)");
+			usersAndCompletenessPercentages.add(usersAndCompletenessPercentagesHashMap);
 		}
+		datasetMetricsMap.put("users assigned and their completeness percentage",
+				usersAndCompletenessPercentages);
 		
-		//System.out.println(completenessPercentage + " " + numberOfUsedLabels + " " + totalNumberOfLabelAssignments);
 		//System.out.println("-> " + labelIds);
 		//System.out.println("--> " + classDistributions);
-		int numberOfUsers = dataset.getUsers().size();
-		//System.out.println(numberOfUsers);
+		
+		// Instantiate a new Gson instance.
+		Gson gson = new Gson();
+
+		// Convert the ordered map into an ordered string.
+		String json = gson.toJson(datasetMetricsMap, Map.class);
+
+		File targetFile = new File("CSE3063_Project\\DatasetMetricsfordataset" + dataset.getId() + ".json");
+		targetFile.createNewFile();
+		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
+			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
+			gson2.toJson(datasetMetricsMap, writer);
+
+		}
+		
 	}
 
 	public static void exportInstanceMetrics(Dataset dataset) throws IOException {

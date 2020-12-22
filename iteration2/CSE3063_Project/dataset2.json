@@ -1,54 +1,54 @@
 {
-  "total number of label assignments": 75,
+  "total number of label assignments": 88,
   "number of unique label assignments": 15,
   "number of unique users": 4,
-  "most frequent class label and percentage": "(2, 13%)",
+  "most frequent class label and percentage": "(14, 10%)",
   "class labels and percentages": [
-    {
-      "class label and percentage": "(13, 6%)"
-    },
-    {
-      "class label and percentage": "(16, 4%)"
-    },
-    {
-      "class label and percentage": "(9, 6%)"
-    },
-    {
-      "class label and percentage": "(11, 8%)"
-    },
-    {
-      "class label and percentage": "(12, 6%)"
-    },
-    {
-      "class label and percentage": "(2, 13%)"
-    },
-    {
-      "class label and percentage": "(5, 4%)"
-    },
-    {
-      "class label and percentage": "(14, 6%)"
-    },
-    {
-      "class label and percentage": "(4, 6%)"
-    },
     {
       "class label and percentage": "(3, 9%)"
     },
     {
-      "class label and percentage": "(8, 8%)"
+      "class label and percentage": "(13, 9%)"
     },
     {
-      "class label and percentage": "(6, 8%)"
+      "class label and percentage": "(11, 5%)"
     },
     {
-      "class label and percentage": "(7, 6%)"
+      "class label and percentage": "(2, 7%)"
     },
     {
-      "class label and percentage": "(10, 4%)"
+      "class label and percentage": "(6, 6%)"
     },
     {
-      "class label and percentage": "(15, 1%)"
+      "class label and percentage": "(5, 7%)"
+    },
+    {
+      "class label and percentage": "(10, 5%)"
+    },
+    {
+      "class label and percentage": "(12, 5%)"
+    },
+    {
+      "class label and percentage": "(16, 3%)"
+    },
+    {
+      "class label and percentage": "(7, 3%)"
+    },
+    {
+      "class label and percentage": "(8, 6%)"
+    },
+    {
+      "class label and percentage": "(14, 10%)"
+    },
+    {
+      "class label and percentage": "(4, 7%)"
+    },
+    {
+      "class label and percentage": "(15, 4%)"
+    },
+    {
+      "class label and percentage": "(9, 5%)"
     }
   ],
-  "entropy": "0.935"
+  "entropy": "0.922"
 }
