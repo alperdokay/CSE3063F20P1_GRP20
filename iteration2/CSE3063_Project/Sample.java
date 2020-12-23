@@ -282,7 +282,7 @@ public class Sample {
 		ArrayList<Integer> userConsistencyPercentages = new ArrayList<>();
 		ArrayList<Integer> uniqueInstances = new ArrayList<>();
 		ArrayList<Integer> consistentLabels = new ArrayList<>();
-		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counterLabel = 0,
+		int numberOfUsedLabels = dataset.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0,
 				counterUser = 1, numberOfConsistency = 0, totalConsistency = 0, tempj = 0;
 
 		for (Assignment assignment : dataset.getAssignments()) {

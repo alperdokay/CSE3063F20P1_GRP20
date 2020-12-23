@@ -1,54 +1,54 @@
 {
-  "total number of label assignments": 83,
+  "total number of label assignments": 85,
   "number of unique label assignments": 15,
   "number of unique users": 4,
-  "most frequent class label and percentage": "(2, 9%)",
+  "most frequent class label and percentage": "(16, 11%)",
   "class labels and percentages": [
     {
-      "class label and percentage": "(7, 7%)"
-    },
-    {
-      "class label and percentage": "(16, 6%)"
-    },
-    {
-      "class label and percentage": "(2, 9%)"
-    },
-    {
-      "class label and percentage": "(11, 8%)"
-    },
-    {
-      "class label and percentage": "(5, 7%)"
-    },
-    {
-      "class label and percentage": "(12, 7%)"
-    },
-    {
-      "class label and percentage": "(6, 6%)"
+      "class label and percentage": "(6, 9%)"
     },
     {
       "class label and percentage": "(9, 2%)"
     },
     {
-      "class label and percentage": "(8, 8%)"
+      "class label and percentage": "(10, 7%)"
     },
     {
-      "class label and percentage": "(13, 6%)"
+      "class label and percentage": "(16, 11%)"
     },
     {
-      "class label and percentage": "(10, 8%)"
+      "class label and percentage": "(8, 7%)"
     },
     {
-      "class label and percentage": "(4, 4%)"
+      "class label and percentage": "(3, 4%)"
     },
     {
-      "class label and percentage": "(15, 6%)"
+      "class label and percentage": "(15, 5%)"
     },
     {
-      "class label and percentage": "(14, 3%)"
+      "class label and percentage": "(4, 5%)"
     },
     {
-      "class label and percentage": "(3, 8%)"
+      "class label and percentage": "(14, 5%)"
+    },
+    {
+      "class label and percentage": "(2, 10%)"
+    },
+    {
+      "class label and percentage": "(13, 8%)"
+    },
+    {
+      "class label and percentage": "(7, 5%)"
+    },
+    {
+      "class label and percentage": "(5, 9%)"
+    },
+    {
+      "class label and percentage": "(12, 2%)"
+    },
+    {
+      "class label and percentage": "(11, 3%)"
     }
   ],
-  "entropy": "0.949"
+  "entropy": "0.912"
 }
