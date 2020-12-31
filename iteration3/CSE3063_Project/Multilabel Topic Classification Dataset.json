@@ -92,232 +92,222 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2020-12-31T16:18:25.068698500",
+      "datetime": "2020-12-31T19:06:48.733363400",
       "instance id": 1,
       "class label ids": [
-        9,
-        13,
-        4
+        5,
+        15,
+        3,
+        7,
+        4,
+        16,
+        14
       ],
       "user id": 1
     },
     {
-      "datetime": "2020-12-31T16:18:25.218299800",
+      "datetime": "2020-12-31T19:06:48.900435300",
       "instance id": 2,
       "class label ids": [
-        4,
-        2,
+        9
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-31T19:06:48.918386700",
+      "instance id": 3,
+      "class label ids": [
         9,
-        16,
+        7
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-31T19:06:48.957282100",
+      "instance id": 4,
+      "class label ids": [
+        13,
+        7,
+        15,
+        8,
+        11,
+        2
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-31T19:06:48.971244",
+      "instance id": 5,
+      "class label ids": [
+        2
+      ],
+      "user id": 1
+    },
+    {
+      "datetime": "2020-12-31T19:06:48.982230200",
+      "instance id": 1,
+      "class label ids": [
         14,
-        10,
+        2,
+        4
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-31T19:06:48.994184700",
+      "instance id": 2,
+      "class label ids": [
+        8,
+        16,
+        2
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.003159800",
+      "instance id": 3,
+      "class label ids": [
+        2,
+        11,
+        16,
+        9
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.017124100",
+      "instance id": 4,
+      "class label ids": [
+        5,
+        12,
+        9,
+        13,
+        7
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.027095700",
+      "instance id": 1,
+      "class label ids": [
         3,
+        5,
+        11,
+        10,
         15
       ],
-      "user id": 1
+      "user id": 2
     },
     {
-      "datetime": "2020-12-31T16:18:25.241238400",
+      "datetime": "2020-12-31T19:06:49.037069700",
+      "instance id": 1,
+      "class label ids": [
+        3,
+        2,
+        14,
+        4
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.044050900",
+      "instance id": 2,
+      "class label ids": [
+        9,
+        13,
+        15,
+        2,
+        12
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.052029100",
       "instance id": 3,
       "class label ids": [
         4,
-        10,
-        13,
-        14,
-        16,
-        15,
-        5,
-        7
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.263178700",
-      "instance id": 4,
-      "class label ids": [
-        13,
-        4,
-        2
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.287115800",
-      "instance id": 5,
-      "class label ids": [
-        10,
-        7,
-        2,
-        5,
-        15,
-        8,
-        16
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.318033300",
-      "instance id": 1,
-      "class label ids": [
-        2,
-        12,
-        6,
-        5,
         13
       ],
-      "user id": 2
+      "user id": 3
     },
     {
-      "datetime": "2020-12-31T16:18:25.330999400",
-      "instance id": 2,
-      "class label ids": [
-        2,
-        15,
-        13,
-        10,
-        6,
-        9,
-        11,
-        4
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.342965600",
-      "instance id": 3,
-      "class label ids": [
-        14,
-        7
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.362912500",
+      "datetime": "2020-12-31T19:06:49.059013200",
       "instance id": 4,
       "class label ids": [
-        7,
+        6,
+        13,
+        15,
+        14
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.072012800",
+      "instance id": 5,
+      "class label ids": [
+        8
+      ],
+      "user id": 3
+    },
+    {
+      "datetime": "2020-12-31T19:06:49.080988800",
+      "instance id": 1,
+      "class label ids": [
+        3,
+        10,
         5,
+        8,
         6
       ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.374880800",
-      "instance id": 5,
-      "class label ids": [
-        5,
-        14,
-        9,
-        13,
-        8
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.390354400",
-      "instance id": 1,
-      "class label ids": [
-        6,
-        3
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.398331900",
-      "instance id": 1,
-      "class label ids": [
-        8
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.411297900",
-      "instance id": 3,
-      "class label ids": [
-        2,
-        12,
-        15,
-        4
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.423265400",
-      "instance id": 4,
-      "class label ids": [
-        14
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.434235700",
-      "instance id": 5,
-      "class label ids": [
-        11
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2020-12-31T16:18:25.445095300",
-      "instance id": 1,
-      "class label ids": [
-        5,
-        7,
-        15,
-        13,
-        6,
-        4
-      ],
       "user id": 4
     },
     {
-      "datetime": "2020-12-31T16:18:25.452068700",
+      "datetime": "2020-12-31T19:06:49.088004600",
       "instance id": 2,
       "class label ids": [
-        7,
-        11,
-        6,
-        14,
-        15,
-        10,
-        2
+        2,
+        9,
+        5
       ],
       "user id": 4
     },
     {
-      "datetime": "2020-12-31T16:18:25.461238300",
+      "datetime": "2020-12-31T19:06:49.094510400",
       "instance id": 3,
       "class label ids": [
-        13,
+        2,
         5,
-        6,
         7,
-        8,
-        14
+        15,
+        3,
+        16,
+        8
       ],
       "user id": 4
     },
     {
-      "datetime": "2020-12-31T16:18:25.479192300",
+      "datetime": "2020-12-31T19:06:49.102998700",
       "instance id": 4,
       "class label ids": [
-        6,
-        13,
-        2
+        2,
+        10,
+        5,
+        14,
+        8,
+        15,
+        9
       ],
       "user id": 4
     },
     {
-      "datetime": "2020-12-31T16:18:25.489163500",
+      "datetime": "2020-12-31T19:06:49.110020100",
       "instance id": 5,
       "class label ids": [
-        2,
-        6,
-        3,
-        9,
+        13,
         8,
-        4,
-        14
+        15,
+        12,
+        11
       ],
       "user id": 4
     }
@@ -331,17 +321,17 @@
     {
       "user name": "BillGates",
       "user id": 2,
-      "user type": "RandomLabelingMechanism"
+      "user type": "Random"
     },
     {
       "user name": "ElonMusk",
       "user id": 3,
-      "user type": "KeywordLabelingMechanism"
+      "user type": "Keyword"
     },
     {
       "user name": "SteveJobs",
       "user id": 4,
-      "user type": "RandomLabelingMechanism"
+      "user type": "Random"
     }
   ]
 }

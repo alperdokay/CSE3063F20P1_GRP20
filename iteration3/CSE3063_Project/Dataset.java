@@ -33,7 +33,7 @@ public class Dataset {
 	private ArrayList<Assignment> assignments;
 
 	private ArrayList<User> users;
-	
+
 	public Dataset() {
 		this.id = 0;
 		this.name = "System Dataset";
@@ -151,8 +151,9 @@ public class Dataset {
 			return false;
 		}
 	}
-	
-	public Dataset runDataset(DatasetReadModel model, ArrayList<Dataset> allDatasets, ArrayList<Logger> logs) throws Exception {
+
+	public Dataset runDataset(DatasetReadModel model, ArrayList<Dataset> allDatasets, ArrayList<Logger> logs)
+			throws Exception {
 		JSONParser parser = new JSONParser();
 
 		Object inputObj = parser.parse(new FileReader("CSE3063_Project\\" + model.getFilePath()));
@@ -190,28 +191,27 @@ public class Dataset {
 
 			dataset.addInstance(newInstance);
 		}
+		
+		
 
 		dataset.setUsers(model.getUsers());
 
 		if (model.getCurrentDatasetStatus()) {
 
-			KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism();
-			RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism();
-
-			keywordMechanism.addKeyword("güzel");
-			keywordMechanism.addKeyword("etkili");
-			keywordMechanism.addKeyword("harika");
-			keywordMechanism.addKeyword("paket");
-			keywordMechanism.addKeyword("numara");
-
 			Random random = new Random();
+
+			KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism(dataset.getLabels());
+
+			RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism(random);
 
 			ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
 			for (int i = 0; i < dataset.getUsers().size(); i++) {
+				boolean isRandomMechanism = false;
+				User user = dataset.getUsers().get(i);
+				
 				int assignmentCounter = 0;
 				for (int j = 0; j < dataset.getInstances().size(); j++) {
 					double randomDouble = random.nextDouble();
-					User user = dataset.getUsers().get(i);
 					Instance instance = dataset.getInstances().get(j);
 					if (assignmentCounter > 0) {
 						if (randomDouble < user.getConsistencyCheckProbability()) {
@@ -223,8 +223,12 @@ public class Dataset {
 							instance = previouslyLabeledInstances.get(randomIndex);
 						}
 					}
-					Assignment assignment = randomMechanism.label(instance, user, dataset.getLabels(),
-							dataset.getInstanceLabellingLimit());
+					Assignment assignment = isRandomMechanism
+							? keywordMechanism.label(instance, user, dataset.getLabels(),
+									dataset.getInstanceLabellingLimit())
+							: randomMechanism.label(instance, user, dataset.getLabels(),
+									dataset.getInstanceLabellingLimit());
+
 					if (!previouslyLabeledInstances.contains(instance)) {
 						previouslyLabeledInstances.add(instance);
 					}
@@ -242,7 +246,7 @@ public class Dataset {
 						allDatasets.remove(dataset);
 					}
 					assignmentCounter++;
-					//TimeUnit.SECONDS.sleep(1);
+					// TimeUnit.SECONDS.sleep(1);
 				}
 			}
 		} else {
@@ -291,18 +295,18 @@ public class Dataset {
 
 		return dataset;
 	}
-	
+
 	public void exportDatasetMetrics() throws IOException {
-Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
-		
+		Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
+
 		ArrayList<Integer> labelIds = new ArrayList<>();
 		ArrayList<Integer> classDistributions = new ArrayList<>();
 		ArrayList<Integer> userCompletenessPercentages = new ArrayList<>();
 		ArrayList<Integer> userConsistencyPercentages = new ArrayList<>();
 		ArrayList<Integer> uniqueInstances = new ArrayList<>();
 		ArrayList<Integer> consistentLabels = new ArrayList<>();
-		int numberOfUsedLabels = this.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0,
-				counterUser = 1, numberOfConsistency = 0, totalConsistency = 0, tempj = 0;
+		int numberOfUsedLabels = this.getLabels().size(), frequency, totalNumberOfLabelAssignments = 0, counterUser = 1,
+				numberOfConsistency = 0, totalConsistency = 0, tempj = 0;
 
 		for (Assignment assignment : this.getAssignments()) {
 			for (Label label : assignment.getLabels()) {
@@ -312,12 +316,12 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 				}
 			}
 		}
-		
+
 		double completenessPercentage = 100 - (numberOfUsedLabels / this.getLabels().size() * 100);
 		datasetMetricsMap.put("completeness percentage", completenessPercentage);
-		
+
 		labelIds.removeAll(labelIds);
-		
+
 		for (int i = 0; i < this.getAssignments().size(); i++) {
 			numberOfUsedLabels = this.getAssignments().get(i).getLabels().size();
 			totalNumberOfLabelAssignments += this.getAssignments().get(i).getLabels().size();
@@ -332,22 +336,19 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 					consistentLabels.add(0);
 				}
 				for (int m = 0; m < classDistributions.size(); m += 2) {
-					if (classDistributions.get(m) == this.getAssignments().get(i).getLabels().get(j)
-							.getId()) {
+					if (classDistributions.get(m) == this.getAssignments().get(i).getLabels().get(j).getId()) {
 						frequency = classDistributions.get(m + 1);
 						classDistributions.set(m + 1, ++frequency);
 					}
-					if(uniqueInstances.get(m) == this.getAssignments().get(i).getLabels().get(j)
-							.getId()) {
-						if(!uniqueInstances.contains(this.getAssignments().get(i).getInstance().getId())) {
+					if (uniqueInstances.get(m) == this.getAssignments().get(i).getLabels().get(j).getId()) {
+						if (!uniqueInstances.contains(this.getAssignments().get(i).getInstance().getId())) {
 							frequency = uniqueInstances.get(m + 1);
 							uniqueInstances.set(m + 1, ++frequency);
 						}
 					}
 				}
 				for (int b = 0; b < consistentLabels.size(); b += 2) {
-					if (consistentLabels.get(b) == this.getAssignments().get(i).getLabels().get(j)
-							.getId()) {
+					if (consistentLabels.get(b) == this.getAssignments().get(i).getLabels().get(j).getId()) {
 						frequency = consistentLabels.get(b + 1);
 						consistentLabels.set(b + 1, ++frequency);
 					}
@@ -363,14 +364,14 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 				userCompletenessPercentages.add(userCompletenessPercentage);
 			}
 			if (counterUser != this.getAssignments().get(i).getUser().getId()) {
-				for(int a = 0; a < consistentLabels.size(); a += 2) {
-					if(consistentLabels.get(a + 1) > 1) {
+				for (int a = 0; a < consistentLabels.size(); a += 2) {
+					if (consistentLabels.get(a + 1) > 1) {
 						numberOfConsistency += consistentLabels.get(a + 1);
 						totalConsistency += consistentLabels.get(a) * consistentLabels.get(a + 1);
 					}
 					totalConsistency += consistentLabels.get(a) * consistentLabels.get(a + 1);
 				}
-				if(totalConsistency == 0) {
+				if (totalConsistency == 0) {
 					totalConsistency = this.getLabels().size();
 				}
 				int userConsistencyPercentage = 100 - (numberOfConsistency * 100 / totalConsistency);
@@ -380,17 +381,16 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 				counterUser++;
 				totalConsistency = 0;
 				numberOfConsistency = 0;
-			}
-			else if (i == this.getAssignments().size() - 1) {
+			} else if (i == this.getAssignments().size() - 1) {
 				if (tempj == this.getAssignments().get(i).getLabels().size() - 1) {
-					for(int a = 0; a < consistentLabels.size(); a += 2) {
-						if(consistentLabels.get(a + 1) > 1) {
+					for (int a = 0; a < consistentLabels.size(); a += 2) {
+						if (consistentLabels.get(a + 1) > 1) {
 							numberOfConsistency += consistentLabels.get(a + 1);
 							totalConsistency += consistentLabels.get(a) * consistentLabels.get(a + 1);
 						}
 						totalConsistency += consistentLabels.get(a) * consistentLabels.get(a + 1);
 					}
-					if(totalConsistency == 0) {
+					if (totalConsistency == 0) {
 						totalConsistency = this.getLabels().size();
 					}
 					int userConsistencyPercentage = 100 - (numberOfConsistency * 100 / totalConsistency);
@@ -403,52 +403,48 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 				}
 			}
 		}
-		
+
 		JSONArray classDistributionsBased = new JSONArray();
 		JSONArray uniqueInstancesClassLabel = new JSONArray();
-		
+
 		for (int k = 0; k < classDistributions.size(); k += 2) {
 			frequency = classDistributions.get(k + 1);
 			classDistributions.set(k + 1, frequency * 100 / totalNumberOfLabelAssignments);
 			Map<String, Object> classDistributionsHashMap = new LinkedHashMap<String, Object>();
 			Map<String, Object> uniqueInstancesHashMap = new LinkedHashMap<String, Object>();
 			classDistributionsHashMap.put("class distribution based on final instance label",
-					classDistributions.get(k+1) + "% " + classDistributions.get(k));
+					classDistributions.get(k + 1) + "% " + classDistributions.get(k));
 			uniqueInstancesHashMap.put("class label and number of unique instances",
-					uniqueInstances.get(k) + " and " + uniqueInstances.get(k+1));
+					uniqueInstances.get(k) + " and " + uniqueInstances.get(k + 1));
 			classDistributionsBased.add(classDistributionsHashMap);
 			uniqueInstancesClassLabel.add(uniqueInstancesHashMap);
 		}
-		datasetMetricsMap.put("class distributions based on final instance labels",
-				classDistributionsBased);
-		datasetMetricsMap.put("number of unique instances for each class label",
-				uniqueInstancesClassLabel);
-		
+		datasetMetricsMap.put("class distributions based on final instance labels", classDistributionsBased);
+		datasetMetricsMap.put("number of unique instances for each class label", uniqueInstancesClassLabel);
+
 		int numberOfUsers = this.getUsers().size();
 		datasetMetricsMap.put("number of users", numberOfUsers);
-		
+
 		JSONArray usersAndCompletenessPercentages = new JSONArray();
-		
-		for(int n = 0; n < userCompletenessPercentages.size(); n += 2) {
+
+		for (int n = 0; n < userCompletenessPercentages.size(); n += 2) {
 			Map<String, Object> usersAndCompletenessPercentagesHashMap = new LinkedHashMap<String, Object>();
 			usersAndCompletenessPercentagesHashMap.put("user and completeness percentage",
 					"(" + userCompletenessPercentages.get(n) + ", " + userCompletenessPercentages.get(n + 1) + "%)");
 			usersAndCompletenessPercentages.add(usersAndCompletenessPercentagesHashMap);
 		}
-		datasetMetricsMap.put("users assigned and their completeness percentage",
-				usersAndCompletenessPercentages);
-		
+		datasetMetricsMap.put("users assigned and their completeness percentage", usersAndCompletenessPercentages);
+
 		JSONArray usersAndConsistencyPercentages = new JSONArray();
-		
-		for(int c = 0; c < userConsistencyPercentages.size(); c += 2) {
+
+		for (int c = 0; c < userConsistencyPercentages.size(); c += 2) {
 			Map<String, Object> usersAndConsistencyPercentagesHashMap = new LinkedHashMap<String, Object>();
 			usersAndConsistencyPercentagesHashMap.put("user and consistency percentage",
 					"(" + userConsistencyPercentages.get(c) + ", " + userConsistencyPercentages.get(c + 1) + "%)");
 			usersAndConsistencyPercentages.add(usersAndConsistencyPercentagesHashMap);
 		}
-		datasetMetricsMap.put("users assigned and their consistency percentage",
-				usersAndConsistencyPercentages);
-		
+		datasetMetricsMap.put("users assigned and their consistency percentage", usersAndConsistencyPercentages);
+
 		// Instantiate a new Gson instance.
 		Gson gson = new Gson();
 
@@ -463,7 +459,7 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 
 		}
 	}
-	
+
 	public void exportInstanceMetrics() throws IOException {
 		Map<String, Object> instanceMetricsMap = new LinkedHashMap<String, Object>();
 
@@ -545,6 +541,7 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 
 		}
 	}
+
 	public boolean exportOutput() throws IOException {
 		Map<String, Object> myLinkedHashMap = new LinkedHashMap<String, Object>();
 
@@ -580,11 +577,11 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 		for (Assignment assignment : this.getAssignments()) {
 			JSONObject assignmentObject = new JSONObject();
 			ArrayList<Integer> labelIds = new ArrayList<Integer>();
-			
-			for (Label label: assignment.getLabels()) {
+
+			for (Label label : assignment.getLabels()) {
 				labelIds.add(label.getId());
 			}
-			
+
 			assignmentObject.put("instance id", assignment.getInstance().getId());
 			assignmentObject.put("class label ids", labelIds);
 			assignmentObject.put("user id", assignment.getUser().getId());
@@ -611,7 +608,7 @@ Map<String, Object> datasetMetricsMap = new LinkedHashMap<String, Object>();
 		// Convert the ordered map into an ordered string.
 		String json = gson.toJson(myLinkedHashMap, Map.class);
 
-		File targetFile = new File("CSE3063_Project\\" +this.name + ".json");
+		File targetFile = new File("CSE3063_Project\\" + this.name + ".json");
 		targetFile.createNewFile();
 		try (Writer writer = new FileWriter(targetFile.getAbsolutePath(), false)) {
 			Gson gson2 = new GsonBuilder().setPrettyPrinting().create();

@@ -9,19 +9,19 @@
 		{
 			"id": "2",
 			"userName": "BillGates",
-			"userType": "RandomLabelingMechanism",
+			"userType": "Random",
 			"consistencyCheckProbability": "0.1"
 		},
 		{
 			"id": "3",
 			"userName": "ElonMusk",
-			"userType": "KeywordLabelingMechanism",
+			"userType": "Keyword",
 			"consistencyCheckProbability": "0.1"
 		},
 		{
 			"id": "4",
 			"userName": "SteveJobs",
-			"userType": "RandomLabelingMechanism",
+			"userType": "Random",
 			"consistencyCheckProbability": "0.1"
 		}
 	],

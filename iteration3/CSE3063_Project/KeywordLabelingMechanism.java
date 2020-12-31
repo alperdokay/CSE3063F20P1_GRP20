@@ -5,17 +5,17 @@ import java.util.Random;
 
 public class KeywordLabelingMechanism extends LabelingMechanism {
 	
-	private ArrayList<String> keywords;
+	private ArrayList<Label> keywords;
 	
 	public KeywordLabelingMechanism() {
-		this.keywords = new ArrayList<String>();
+		this.keywords = new ArrayList<Label>();
 	}
 	
-	public KeywordLabelingMechanism(ArrayList<String> keywords) {
+	public KeywordLabelingMechanism(ArrayList<Label> keywords) {
 		this.keywords = keywords;
 	}
 	
-	public boolean addKeyword(String keyword) {
+	public boolean addKeyword(Label keyword) {
 		if (!this.keywords.contains(keyword)){
 			this.keywords.add(keyword);
 			return true;
@@ -23,7 +23,7 @@ public class KeywordLabelingMechanism extends LabelingMechanism {
 		return false;
 	}
 	
-	public ArrayList<String> getKeywords(){
+	public ArrayList<Label> getKeywords(){
 		return this.keywords;
 	}
 	
@@ -33,17 +33,45 @@ public class KeywordLabelingMechanism extends LabelingMechanism {
 		int labelCount = random.nextInt(instanceLabelingLimit);
 		labelCount = labelCount == 0 ? 1 : labelCount;
 		
-		ArrayList<Label> userPicks = new ArrayList<Label>();
+		RandomLabelingMechanism randomLabelingMechanism = new RandomLabelingMechanism(random);
+		
+		ArrayList<Integer> userPicks = new ArrayList<Integer>();
+		ArrayList<String> wordList = new ArrayList<String>();
+		String[] words = instance.getInstance().split("");
+		
+		for (Label label: this.keywords) {
+			wordList.add(label.getText().trim());
+		}
+		
+		boolean isFound = false;
 		
 		for (int i = 0; i < labelCount; i++) {
-			for (int j = 0; j < this.keywords.size(); j++) {
-				if (instance.getInstance().contains(this.keywords.get(j))) {
-					userPicks.add(labels.get(j));
+			
+			for (int j = 0; j < words.length; j++) {
+				if (wordList.contains(words[j])) {
+					System.out.println(words[j]);
+					userPicks.add(j);
+					break;
 				}
 			}
 		}
 		
-		Assignment assignment = new Assignment(instance, userPicks, user);
+		ArrayList<Label> userSelectedLabels = new ArrayList<Label>();
+		
+		for (Integer userPick: userPicks) {
+			for (Label label: this.keywords) {
+				if (words[userPick] == label.getText().trim()) {
+					userSelectedLabels.add(label);
+				}
+			}
+		}
+		
+//		if (!isFound) {
+//			System.out.println("Test");
+//			return randomLabelingMechanism.label(instance, user, labels, instanceLabelingLimit);
+//		}
+		
+		Assignment assignment = new Assignment(instance, userSelectedLabels, user);
 		
 		return assignment;
 	}
