@@ -1,0 +1,23 @@
+{
+  "number of datasets assigned": 1,
+  "total number of instances labeled": 5,
+  "total number of unique instances labeled": 5,
+  "average time spent in labeling an instance in seconds": 0.0,
+  "standard deviation of time in labeling an instance in seconds": 0.0,
+  "consistency percentages": [
+    {
+      "consistency percentage": "(Sentiment Dataset, 0.0%)"
+    },
+    {
+      "consistency percentage": "(Multilabel Topic Classification Dataset, 100.0%)"
+    }
+  ],
+  "completeness percentages": [
+    {
+      "completeness percentage": "(Sentiment Dataset, 0.0%)"
+    },
+    {
+      "completeness percentage": "(Multilabel Topic Classification Dataset, 100.0%)"
+    }
+  ]
+}

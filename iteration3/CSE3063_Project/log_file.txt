@@ -1,0 +1,41 @@
+2020-12-31T16:18:25.038778700 [UserManager] INFO userManager: created MarkZuckerberg as Human
+2020-12-31T16:18:25.038778700 [UserManager] INFO userManager: created BillGates as RandomLabelingMechanism
+2020-12-31T16:18:25.038778700 [UserManager] INFO userManager: created ElonMusk as KeywordLabelingMechanism
+2020-12-31T16:18:25.039776300 [UserManager] INFO userManager: created SteveJobs as RandomLabelingMechanism
+2020-12-31T16:18:25.063712100 [DatasetAuditor] INFO created name: Multilabel Topic Classification Dataset
+2020-12-31T16:18:25.064709400 [LabelProvider] INFO created instance: bayi 
+2020-12-31T16:18:25.064709400 [LabelProvider] INFO created instance: numara 
+2020-12-31T16:18:25.064709400 [LabelProvider] INFO created instance: hat 
+2020-12-31T16:18:25.064709400 [LabelProvider] INFO created instance: işlem
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: müşteri
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: bilgi 
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: telefon
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: konu 
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: firma 
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: cihaz
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: hat 
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: borç 
+2020-12-31T16:18:25.065706800 [LabelProvider] INFO created instance: fatura 
+2020-12-31T16:18:25.066703800 [LabelProvider] INFO created instance: taraf
+2020-12-31T16:18:25.066703800 [LabelProvider] INFO created instance: borç 
+2020-12-31T16:18:25.066703800 [LabelProvider] INFO created instance: paket
+2020-12-31T16:18:25.069697500 [InstanceTagger] INFO user id: 1 created instance id: 1
+2020-12-31T16:18:25.219297 [InstanceTagger] INFO user id: 1 created instance id: 2
+2020-12-31T16:18:25.241238400 [InstanceTagger] INFO user id: 1 created instance id: 3
+2020-12-31T16:18:25.263178700 [InstanceTagger] INFO user id: 1 created instance id: 4
+2020-12-31T16:18:25.288112700 [InstanceTagger] INFO user id: 1 created instance id: 5
+2020-12-31T16:18:25.318033300 [InstanceTagger] INFO user id: 2 created instance id: 1
+2020-12-31T16:18:25.330999400 [InstanceTagger] INFO user id: 2 created instance id: 2
+2020-12-31T16:18:25.342965600 [InstanceTagger] INFO user id: 2 created instance id: 3
+2020-12-31T16:18:25.362912500 [InstanceTagger] INFO user id: 2 created instance id: 4
+2020-12-31T16:18:25.374880800 [InstanceTagger] INFO user id: 2 created instance id: 5
+2020-12-31T16:18:25.390354400 [InstanceTagger] INFO user id: 3 created instance id: 1
+2020-12-31T16:18:25.398331900 [InstanceTagger] INFO user id: 3 created instance id: 1
+2020-12-31T16:18:25.411297900 [InstanceTagger] INFO user id: 3 created instance id: 3
+2020-12-31T16:18:25.424263 [InstanceTagger] INFO user id: 3 created instance id: 4
+2020-12-31T16:18:25.434235700 [InstanceTagger] INFO user id: 3 created instance id: 5
+2020-12-31T16:18:25.445095300 [InstanceTagger] INFO user id: 4 created instance id: 1
+2020-12-31T16:18:25.452068700 [InstanceTagger] INFO user id: 4 created instance id: 2
+2020-12-31T16:18:25.461238300 [InstanceTagger] INFO user id: 4 created instance id: 3
+2020-12-31T16:18:25.479192300 [InstanceTagger] INFO user id: 4 created instance id: 4
+2020-12-31T16:18:25.489163500 [InstanceTagger] INFO user id: 4 created instance id: 5
