@@ -2,9 +2,7 @@ package CSE3063_Project;
 
 public class Instance {
 	private Integer id;
-
     private String instance;
-
     public Instance(Integer id, String instance) {
         this.id = id;
         this.instance = instance;
