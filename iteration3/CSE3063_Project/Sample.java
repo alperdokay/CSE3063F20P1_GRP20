@@ -6,24 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.*;
 
-/*
-import java.io.FileReader;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-*/
 public class Sample {
 
 	public static void main(String[] args) throws Exception {
@@ -82,5 +64,7 @@ public class Sample {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
+		
+		System.out.println("See you next time! Reports exported to the same directory, have a nice day!");
 	}
 }
