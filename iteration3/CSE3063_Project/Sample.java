@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.*;  
+import java.util.*;
+
 /*
 import java.io.FileReader;
 import java.io.Writer;
@@ -30,48 +31,43 @@ public class Sample {
 		ArrayList<User> users = new User().getUsers(logs);
 		ArrayList<DatasetReadModel> datasets = new DatasetReadModel().getDatasets(users);
 		ArrayList<Dataset> allDatasets = new ArrayList<Dataset>();
-
+		Dataset currentDataset = new Dataset();
 		// importing old data sets
 		for (DatasetReadModel model : datasets) {
-			if (!model.getCurrentDatasetStatus()) {
-				Dataset dataset = new Dataset().runDataset(model, allDatasets, logs);
-				allDatasets.add(dataset);
-			}
-		}
-		for (DatasetReadModel model : datasets) {
+			Dataset dataset = new Dataset().runDataset(model, allDatasets, logs);
+			allDatasets.add(dataset);
 			if (model.getCurrentDatasetStatus()) {
-				Dataset dataset = new Dataset().runDataset(model, allDatasets, logs);
-				allDatasets.add(dataset);
+				currentDataset = dataset;
 			}
 		}
-		
+
+		boolean isLogon = false;
+		User humanUser = new User();
 		Scanner input = new Scanner(System.in);
-		while (true) {
-			Integer check = 0;
+		while (!isLogon) {
+
 			System.out.print("Enter your username: ");
 			String userName = input.nextLine();
+			System.out.print("Enter your password: ");
+			String userPassword = input.nextLine();
+
+			if (userName == "" && userPassword == "") {
+				break;
+			}
+
 			for (User user : users) {
 				if (user.getType().equals("Human")) {
-					if (userName.equals(user.getName())) {
-						System.out.print("Enter your password: ");
-						String userPassword = input.nextLine();
-						if (userPassword.equals(user.getPassword())) {
-							System.out.println("You did it :)"); //Bunu sonra silebiliriz
-							check = 1;
-						}
-						else {
-							System.out.println("Your password is wrong. Please, try again!!!");
-							check = 2;
-						}
+					if (userName.equals(user.getName()) && userPassword.equals(user.getPassword())) {
+						isLogon = true;
+						humanUser = user;
+						break;
 					}
 				}
 			}
-			if (check == 1)
-				break;
-			else if (check == 0)
-				System.out.println("Your name is wrong. Please, try again!!!");
+			System.out.println("The user could not found. Please, try again!!!");
 		}
-		
+
+		currentDataset.labelDataset(logs, humanUser);
 		try {
 			File myObj = new File("CSE3063_Project\\log_file.txt");
 			if (myObj.createNewFile()) {

@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -166,7 +167,6 @@ public class Dataset {
 		if (model.getCurrentDatasetStatus()) {
 			DatasetAuditor datasetAuditor = new DatasetAuditor("INFO", "created", dataset);
 			logs.add(datasetAuditor);
-			System.out.println(datasetAuditor.getLogMessage());
 		}
 
 		for (Object label : labels) {
@@ -177,7 +177,6 @@ public class Dataset {
 			if (model.getCurrentDatasetStatus()) {
 				LabelProvider labelProvider = new LabelProvider("INFO", "created", newLabel);
 				logs.add(labelProvider);
-				System.out.println(labelProvider.getLogMessage());
 			}
 
 			dataset.addLabel(newLabel);
@@ -191,65 +190,10 @@ public class Dataset {
 
 			dataset.addInstance(newInstance);
 		}
-		
-		
 
 		dataset.setUsers(model.getUsers());
-
-		if (model.getCurrentDatasetStatus()) {
-
-			Random random = new Random();
-
-			KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism(dataset.getLabels());
-
-			RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism(random);
-
-			ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
-			for (int i = 0; i < dataset.getUsers().size(); i++) {
-				boolean isRandomMechanism = false;
-				User user = dataset.getUsers().get(i);
-				
-				int assignmentCounter = 0;
-				for (int j = 0; j < dataset.getInstances().size(); j++) {
-					double randomDouble = random.nextDouble();
-					Instance instance = dataset.getInstances().get(j);
-					if (assignmentCounter > 0) {
-						if (randomDouble < user.getConsistencyCheckProbability()) {
-							int labeledInstancesSize = previouslyLabeledInstances.size();
-							if (labeledInstancesSize < 0) {
-								labeledInstancesSize = 0;
-							}
-							int randomIndex = random.nextInt(labeledInstancesSize);
-							instance = previouslyLabeledInstances.get(randomIndex);
-						}
-					}
-					Assignment assignment = isRandomMechanism
-							? keywordMechanism.label(instance, user, dataset.getLabels(),
-									dataset.getInstanceLabellingLimit())
-							: randomMechanism.label(instance, user, dataset.getLabels(),
-									dataset.getInstanceLabellingLimit());
-
-					if (!previouslyLabeledInstances.contains(instance)) {
-						previouslyLabeledInstances.add(instance);
-					}
-					dataset.addAssignment(assignment);
-
-					InstanceTagger tagger = new InstanceTagger("INFO", "created", assignment);
-					logs.add(tagger);
-					System.out.println(tagger.getLogMessage());
-					dataset.exportInstanceMetrics();
-					dataset.exportDatasetMetrics();
-					dataset.exportOutput();
-					if (assignmentCounter > 1) {
-						allDatasets.add(dataset);
-						user.exportUserMetrics(allDatasets);
-						allDatasets.remove(dataset);
-					}
-					assignmentCounter++;
-					// TimeUnit.SECONDS.sleep(1);
-				}
-			}
-		} else {
+		File f = new File("CSE3063_Project\\" + model.getName() + ".json");
+		if (f.exists() && !f.isDirectory()) {
 			Object existingDatasetObj = parser.parse(new FileReader("CSE3063_Project\\" + model.getName() + ".json"));
 			JSONObject datasetJsonObject = (JSONObject) existingDatasetObj;
 			JSONArray assignments = (JSONArray) datasetJsonObject.get("class label assignments");
@@ -294,6 +238,139 @@ public class Dataset {
 		}
 
 		return dataset;
+	}
+
+	public void labelDataset(ArrayList<Logger> logs, User humanUser) throws Exception {
+		Random random = new Random();
+
+		KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism(this.getLabels());
+
+		RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism(random);
+		
+		if (humanUser.getId() != 0) {
+			ArrayList<Integer> assignedInstanceIds = new ArrayList<Integer>();
+
+			for (Assignment assignment : this.getAssignments()) {
+				if (assignment.getUser().getId() == humanUser.getId()) {
+					if (!assignedInstanceIds.contains(assignment.getInstance().getId())) {
+						assignedInstanceIds.add(assignment.getInstance().getId());
+					}
+				}
+			}
+			System.out.println("Welcome to the labeling system of Group 20!");
+			System.out.println("You can use any of the following labels to label the upcoming instances!");
+			ArrayList<String> existingLabelIds = new ArrayList<String>();
+
+			for (Label label : this.getLabels()) {
+				System.out.println(label.getId() + " - " + label.getText());
+				existingLabelIds.add(label.getId().toString());
+			}
+
+			System.out.println("You can label an instance at most " + this.getInstanceLabellingLimit().toString()
+					+ " times! Use comma to separate them");
+
+			int labelCounter = 0;
+			for (Instance instance : this.getInstances()) {
+				if (!assignedInstanceIds.contains(instance.getId())) {
+					labelCounter++;
+					System.out.println("Instance: " + instance.getInstance());
+					String[] labelIds = {};
+					Scanner input = new Scanner(System.in);
+					while (true) {
+						boolean isValid = true;
+						System.out.print("Enter label id(s): ");
+						String labelId = input.nextLine();
+
+						labelIds = labelId.split(",");
+
+						if (labelIds.length > 10) {
+							System.out.println("You cannot label an instance with more than 10 labels");
+							isValid = false;
+							continue;
+						}
+						for (String labelIdString : labelIds) {
+							if (!existingLabelIds.contains(labelIdString)) {
+								System.out.println("You entered an id (" + labelIdString
+										+ ") which does not exist in our system. Try again!");
+								isValid = false;
+								break;
+							}
+						}
+
+						if (isValid) {
+							break;
+						}
+
+					}
+
+					ArrayList<Label> assignedLabels = new ArrayList<Label>();
+
+					for (String labelId : labelIds) {
+						for (Label label : this.getLabels()) {
+							if (label.getId() == Integer.parseInt(labelId)) {
+								assignedLabels.add(label);
+								break;
+							}
+						}
+					}
+
+					Assignment assignment = new Assignment(instance, assignedLabels, humanUser);
+					this.addAssignment(assignment);
+					System.out.println("Labeling successfully completed!");
+					this.exportInstanceMetrics();
+					this.exportDatasetMetrics();
+					this.exportOutput();
+				}
+			}
+			if (labelCounter == 0) {
+				System.out.println("You already labeled all the instances!");
+			}
+		}
+
+		ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
+		for (int i = 0; i < this.getUsers().size(); i++) {
+			boolean isRandomMechanism = false;
+			User user = this.getUsers().get(i);
+
+			if (humanUser != null && user.getId() == humanUser.getId()) {
+				continue;
+			}
+
+			if (user.getType().equals("Random") || user.getType().equals("Human")) {
+				isRandomMechanism = true;
+			}
+			int assignmentCounter = 0;
+			for (int j = 0; j < this.getInstances().size(); j++) {
+				double randomDouble = random.nextDouble();
+				Instance instance = this.getInstances().get(j);
+				if (assignmentCounter > 0) {
+					if (randomDouble < user.getConsistencyCheckProbability()) {
+						int labeledInstancesSize = previouslyLabeledInstances.size();
+						if (labeledInstancesSize < 0) {
+							labeledInstancesSize = 0;
+						}
+						int randomIndex = random.nextInt(labeledInstancesSize);
+						instance = previouslyLabeledInstances.get(randomIndex);
+					}
+				}
+				Assignment assignment = isRandomMechanism
+						? randomMechanism.label(instance, user, this.getLabels(), this.getInstanceLabellingLimit())
+						: keywordMechanism.label(instance, user, this.getLabels(), this.getInstanceLabellingLimit());
+				
+				
+				if (!previouslyLabeledInstances.contains(instance)) {
+					previouslyLabeledInstances.add(instance);
+				}
+				this.addAssignment(assignment);
+
+				InstanceTagger tagger = new InstanceTagger("INFO", "created", assignment);
+				logs.add(tagger);
+				this.exportInstanceMetrics();
+				this.exportDatasetMetrics();
+				this.exportOutput();
+				assignmentCounter++;
+			}
+		}
 	}
 
 	public void exportDatasetMetrics() throws IOException {

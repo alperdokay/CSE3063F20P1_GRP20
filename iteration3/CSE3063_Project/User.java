@@ -123,7 +123,6 @@ public class User {
 								userPassword);
 						UserManager userManager = new UserManager("INFO", "created", newUser);
 						logs.add(userManager);
-						System.out.println(userManager.getLogMessage());
 						users.add(newUser);
 					}
 				}
@@ -132,7 +131,6 @@ public class User {
 				User newUser = new User(userId, userName, userType, consistencyCheckProbability);
 				UserManager userManager = new UserManager("INFO", "created", newUser);
 				logs.add(userManager);
-				System.out.println(userManager.getLogMessage());
 				users.add(newUser);
 			}
 		}
