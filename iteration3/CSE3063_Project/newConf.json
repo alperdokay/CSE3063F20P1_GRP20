@@ -9,7 +9,7 @@
 		{
 			"id": "2",
 			"userName": "BillGates",
-			"userType": "Random",
+			"userType": "Human",
 			"consistencyCheckProbability": "0.1"
 		},
 		{
@@ -28,7 +28,13 @@
 	"userPwds":[
 		{
 			"id": 1,
+			"userName": "MarkZuckerberg",
 			"pwd": "blabla"
+		},
+		{
+			"id": 2,
+			"userName": "BillGates",
+			"pwd": "albalb"
 		}
 	],
 	"datasets": [

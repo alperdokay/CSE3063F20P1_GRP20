@@ -23,6 +23,8 @@ public class User {
 
 	private String name;
 
+	private String password;
+
 	private String type;
 
 	private double consistencyCheckProbability;
@@ -39,6 +41,14 @@ public class User {
 		this.name = name;
 		this.type = type;
 		this.consistencyCheckProbability = consistencyCheckProbability;
+	}
+	
+	public User(Integer id, String name, String type, double consistencyCheckProbability, String password) {
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.consistencyCheckProbability = consistencyCheckProbability;
+		this.password = password;
 	}
 
 	public Integer getId() {
@@ -73,12 +83,22 @@ public class User {
 		this.consistencyCheckProbability = consistencyCheckProbability;
 	}
 	
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public ArrayList<User> getUsers(ArrayList<Logger> logs) throws Exception{
 		ArrayList<User> users = new ArrayList<User>();
 
 		JSONParser parser = new JSONParser();
 		Object confObj = parser.parse(new FileReader("CSE3063_Project\\newConf.json", StandardCharsets.UTF_8));
 		JSONObject confJsonObject = (JSONObject) confObj;
+		
+		JSONArray userPwdsArray = (JSONArray) confJsonObject.get("userPwds");
 
 		JSONArray userArray = (JSONArray) confJsonObject.get("users");
 
@@ -91,11 +111,30 @@ public class User {
 			double consistencyCheckProbability = Double
 					.parseDouble(userObject.get("consistencyCheckProbability").toString());
 
-			User newUser = new User(userId, userName, userType, consistencyCheckProbability);
-			UserManager userManager = new UserManager("INFO", "created", newUser);
-			logs.add(userManager);
-			System.out.println(userManager.getLogMessage());
-			users.add(newUser);
+			if (userType.equals("Human")) {
+				for (Object userPwd : userPwdsArray) {
+					JSONObject userPwdObject = (JSONObject) userPwd;
+
+					Integer userPwdId = Integer.parseInt(userPwdObject.get("id").toString());
+					String userPwdName = userPwdObject.get("userName").toString();
+					String userPassword = userPwdObject.get("pwd").toString();
+					if (userId == userPwdId) {
+						User newUser = new User(userId, userName, userType, consistencyCheckProbability,
+								userPassword);
+						UserManager userManager = new UserManager("INFO", "created", newUser);
+						logs.add(userManager);
+						System.out.println(userManager.getLogMessage());
+						users.add(newUser);
+					}
+				}
+			}
+			else {
+				User newUser = new User(userId, userName, userType, consistencyCheckProbability);
+				UserManager userManager = new UserManager("INFO", "created", newUser);
+				logs.add(userManager);
+				System.out.println(userManager.getLogMessage());
+				users.add(newUser);
+			}
 		}
 
 		return users;
