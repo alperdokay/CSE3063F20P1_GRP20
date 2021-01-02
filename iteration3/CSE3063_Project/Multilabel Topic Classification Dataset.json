@@ -92,364 +92,121 @@
   ],
   "class label assignments": [
     {
-      "datetime": "2021-01-02T16:08:24.290485900",
-      "instance id": 2,
-      "class label ids": [
-        12,
-        8,
-        3,
-        5
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.290485900",
-      "instance id": 4,
-      "class label ids": [
-        9,
-        6,
-        16
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.290485900",
+      "datetime": "2021-01-02T19:34:23.811868500",
       "instance id": 1,
       "class label ids": [
-        12,
-        10,
-        2,
-        16,
-        5
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 3,
-      "class label ids": [
+        15,
+        4,
+        14,
         13,
-        11,
-        7,
         3,
-        16,
         2
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 5,
-      "class label ids": [
-        5
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
+      "datetime": "2021-01-02T19:34:23.890893800",
       "instance id": 2,
       "class label ids": [
-        10
+        15
       ],
-      "user id": 3
+      "user id": 1
     },
     {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 4,
-      "class label ids": [],
-      "user id": 3
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 1,
-      "class label ids": [
-        15,
-        3,
-        6,
-        12,
-        16
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
+      "datetime": "2021-01-02T19:34:23.898873300",
       "instance id": 3,
       "class label ids": [
-        6,
-        14,
-        12,
-        15,
-        9,
-        2
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 5,
-      "class label ids": [
-        6,
-        10,
-        15,
-        11,
-        4,
-        8,
-        9,
-        14
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.291482800",
-      "instance id": 1,
-      "class label ids": [
-        11,
         14,
         3,
-        13
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 2,
-      "class label ids": [
-        5,
-        7,
-        4,
-        15,
         8,
-        2,
-        3,
-        14
+        7,
+        9,
+        15
       ],
       "user id": 1
     },
     {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 3,
-      "class label ids": [
-        12
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
+      "datetime": "2021-01-02T19:34:23.907848800",
       "instance id": 4,
       "class label ids": [
-        2,
-        8,
-        10,
-        13
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 5,
-      "class label ids": [
-        13,
-        15,
-        5
-      ],
-      "user id": 1
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 1,
-      "class label ids": [
-        8,
-        2,
-        7,
-        13,
-        15,
-        5
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 2,
-      "class label ids": [
-        8,
-        12,
-        10
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 3,
-      "class label ids": [
-        3
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 4,
-      "class label ids": [
-        10,
-        3,
-        6,
-        8,
-        16,
-        13,
-        11,
         4
       ],
-      "user id": 2
+      "user id": 1
     },
     {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 5,
-      "class label ids": [
-        6
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
+      "datetime": "2021-01-02T19:34:23.915827600",
       "instance id": 1,
       "class label ids": [
-        2
+        14
       ],
-      "user id": 3
+      "user id": 1
     },
     {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 2,
-      "class label ids": [
-        10
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 3,
-      "class label ids": [
-        5
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 4,
-      "class label ids": [],
-      "user id": 3
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 5,
-      "class label ids": [
-        16,
-        13,
-        13
-      ],
-      "user id": 3
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
+      "datetime": "2021-01-02T19:34:23.922818",
       "instance id": 1,
       "class label ids": [
-        10
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.292480200",
-      "instance id": 2,
-      "class label ids": [
-        9
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.293478",
-      "instance id": 3,
-      "class label ids": [
-        6
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:24.293478",
-      "instance id": 4,
-      "class label ids": [
-        16,
-        15,
-        10,
+        8,
+        3,
+        12,
         5,
         7,
+        2,
+        14
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2021-01-02T19:34:23.930788500",
+      "instance id": 2,
+      "class label ids": [
+        5,
+        14,
+        9,
+        13,
         6,
         2
       ],
-      "user id": 4
+      "user id": 2
     },
     {
-      "datetime": "2021-01-02T16:08:24.293478",
-      "instance id": 5,
+      "datetime": "2021-01-02T19:34:23.939764900",
+      "instance id": 3,
       "class label ids": [
-        5,
-        2,
-        4,
-        6
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:31.127120900",
-      "instance id": 1,
-      "class label ids": [
-        15,
         12,
         13,
         4,
-        2
+        14,
+        10,
+        15
       ],
       "user id": 2
     },
     {
-      "datetime": "2021-01-02T16:08:31.238822500",
-      "instance id": 2,
-      "class label ids": [
-        9
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:31.264753300",
-      "instance id": 3,
-      "class label ids": [
-        2
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:31.274727300",
+      "datetime": "2021-01-02T19:34:23.948743600",
       "instance id": 4,
       "class label ids": [
+        5,
+        14,
         13,
-        6,
-        5
-      ],
-      "user id": 2
-    },
-    {
-      "datetime": "2021-01-02T16:08:31.286698200",
-      "instance id": 5,
-      "class label ids": [
-        8,
-        9,
-        10,
-        7,
-        2,
+        11,
         6
       ],
       "user id": 2
     },
     {
-      "datetime": "2021-01-02T16:08:31.298664400",
+      "datetime": "2021-01-02T19:34:23.957716100",
+      "instance id": 5,
+      "class label ids": [
+        14,
+        8,
+        3,
+        2,
+        5
+      ],
+      "user id": 2
+    },
+    {
+      "datetime": "2021-01-02T19:34:23.969683300",
       "instance id": 1,
       "class label ids": [
         2
@@ -457,7 +214,7 @@
       "user id": 3
     },
     {
-      "datetime": "2021-01-02T16:08:31.308637200",
+      "datetime": "2021-01-02T19:34:23.977662900",
       "instance id": 2,
       "class label ids": [
         10
@@ -465,21 +222,21 @@
       "user id": 3
     },
     {
-      "datetime": "2021-01-02T16:08:31.318608300",
-      "instance id": 1,
+      "datetime": "2021-01-02T19:34:23.985640300",
+      "instance id": 3,
       "class label ids": [
-        2
+        5
       ],
       "user id": 3
     },
     {
-      "datetime": "2021-01-02T16:08:31.332571300",
+      "datetime": "2021-01-02T19:34:23.994620400",
       "instance id": 4,
       "class label ids": [],
       "user id": 3
     },
     {
-      "datetime": "2021-01-02T16:08:31.341547200",
+      "datetime": "2021-01-02T19:34:24.002595800",
       "instance id": 5,
       "class label ids": [
         16,
@@ -489,61 +246,60 @@
       "user id": 3
     },
     {
-      "datetime": "2021-01-02T16:08:31.350524",
+      "datetime": "2021-01-02T19:34:24.010573400",
       "instance id": 1,
       "class label ids": [
-        15,
-        6,
-        4,
-        11,
-        9
-      ],
-      "user id": 4
-    },
-    {
-      "datetime": "2021-01-02T16:08:31.360496400",
-      "instance id": 2,
-      "class label ids": [
-        15,
-        13,
-        10,
+        2,
+        16,
+        12,
         5
       ],
       "user id": 4
     },
     {
-      "datetime": "2021-01-02T16:08:31.370471400",
-      "instance id": 3,
+      "datetime": "2021-01-02T19:34:24.017556400",
+      "instance id": 2,
       "class label ids": [
-        2,
+        8,
+        12,
         13,
-        9,
-        10
+        10,
+        2
       ],
       "user id": 4
     },
     {
-      "datetime": "2021-01-02T16:08:31.379445700",
-      "instance id": 4,
+      "datetime": "2021-01-02T19:34:24.025534700",
+      "instance id": 3,
       "class label ids": [
-        3,
-        5,
-        10,
-        4,
-        14,
+        15,
         2,
+        11,
+        12,
+        9,
         16
       ],
       "user id": 4
     },
     {
-      "datetime": "2021-01-02T16:08:31.390418",
+      "datetime": "2021-01-02T19:34:24.033512500",
+      "instance id": 4,
+      "class label ids": [
+        4,
+        6,
+        5,
+        12
+      ],
+      "user id": 4
+    },
+    {
+      "datetime": "2021-01-02T19:34:24.040495700",
       "instance id": 5,
       "class label ids": [
+        2,
+        7,
         15,
-        13,
-        8,
-        3
+        12
       ],
       "user id": 4
     }

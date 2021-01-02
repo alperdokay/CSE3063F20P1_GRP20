@@ -241,12 +241,21 @@ public class Dataset {
 	}
 
 	public void labelDataset(ArrayList<Logger> logs, User humanUser) throws Exception {
+		ArrayList<Assignment> oldAssignments = new ArrayList<Assignment>();
+		
+		for (Assignment assignment : this.getAssignments()) {
+			if (assignment.getUser().getId() == humanUser.getId()) {
+				oldAssignments.add(assignment);
+			}
+		}
+		
+		this.setAssignments(oldAssignments);
 		Random random = new Random();
 
 		KeywordLabelingMechanism keywordMechanism = new KeywordLabelingMechanism(this.getLabels());
 
 		RandomLabelingMechanism randomMechanism = new RandomLabelingMechanism(random);
-		
+		ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
 		if (humanUser.getId() != 0) {
 			ArrayList<Integer> assignedInstanceIds = new ArrayList<Integer>();
 
@@ -271,6 +280,18 @@ public class Dataset {
 
 			int labelCounter = 0;
 			for (Instance instance : this.getInstances()) {
+				int assignmentCounter = 0;
+				double randomDouble = random.nextDouble();
+				if (assignmentCounter > 0) {
+					if (randomDouble < humanUser.getConsistencyCheckProbability()) {
+						int labeledInstancesSize = previouslyLabeledInstances.size();
+						if (labeledInstancesSize < 0) {
+							labeledInstancesSize = 0;
+						}
+						int randomIndex = random.nextInt(labeledInstancesSize);
+						instance = previouslyLabeledInstances.get(randomIndex);
+					}
+				}
 				if (!assignedInstanceIds.contains(instance.getId())) {
 					labelCounter++;
 					System.out.println("Instance: " + instance.getInstance());
@@ -327,7 +348,7 @@ public class Dataset {
 			}
 		}
 
-		ArrayList<Instance> previouslyLabeledInstances = new ArrayList<Instance>();
+		previouslyLabeledInstances = new ArrayList<Instance>();
 		for (int i = 0; i < this.getUsers().size(); i++) {
 			boolean isRandomMechanism = false;
 			User user = this.getUsers().get(i);
