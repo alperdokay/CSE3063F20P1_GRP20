@@ -113,27 +113,13 @@ public class Dataset {
 	}
 
 	public boolean addLabel(Label label) {
-
-		Optional<Label> existedLabels = this.getLabels().stream().filter(data -> label.getId().equals(data.getId()))
-				.findFirst();
-		if (existedLabels.isEmpty()) {
-			this.labels.add(label);
-			return true;
-		} else {
-			return false;
-		}
+		this.labels.add(label);
+		return true;
 	}
 
 	public boolean addInstance(Instance instance) {
-
-		Optional<Instance> existedLabels = this.getInstances().stream()
-				.filter(data -> instance.getId().equals(data.getId())).findFirst();
-		if (existedLabels.isEmpty()) {
-			this.instances.add(instance);
-			return true;
-		} else {
-			return false;
-		}
+		this.instances.add(instance);
+		return true;
 	}
 
 	public boolean addAssignment(Assignment assignment) {
@@ -142,15 +128,8 @@ public class Dataset {
 	}
 
 	public boolean addUser(User user) {
-
-		Optional<User> existedLabels = this.getUsers().stream().filter(data -> user.getId().equals(data.getId()))
-				.findFirst();
-		if (existedLabels.isEmpty()) {
-			this.users.add(user);
-			return true;
-		} else {
-			return false;
-		}
+		this.users.add(user);
+		return true;
 	}
 
 	public Dataset runDataset(DatasetReadModel model, ArrayList<Dataset> allDatasets, ArrayList<Logger> logs)
@@ -242,13 +221,13 @@ public class Dataset {
 
 	public void labelDataset(ArrayList<Logger> logs, User humanUser) throws Exception {
 		ArrayList<Assignment> oldAssignments = new ArrayList<Assignment>();
-		
+
 		for (Assignment assignment : this.getAssignments()) {
 			if (assignment.getUser().getId() == humanUser.getId()) {
 				oldAssignments.add(assignment);
 			}
 		}
-		
+
 		this.setAssignments(oldAssignments);
 		Random random = new Random();
 
@@ -377,8 +356,7 @@ public class Dataset {
 				Assignment assignment = isRandomMechanism
 						? randomMechanism.label(instance, user, this.getLabels(), this.getInstanceLabellingLimit())
 						: keywordMechanism.label(instance, user, this.getLabels(), this.getInstanceLabellingLimit());
-				
-				
+
 				if (!previouslyLabeledInstances.contains(instance)) {
 					previouslyLabeledInstances.add(instance);
 				}
