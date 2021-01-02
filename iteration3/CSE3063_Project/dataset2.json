@@ -2,25 +2,25 @@
   "completeness percentage": 100.0,
   "class distributions based on final instance labels": [
     {
-      "class distribution based on final instance label": "5% 6"
+      "class distribution based on final instance label": "9% 6"
     },
     {
-      "class distribution based on final instance label": "8% 16"
+      "class distribution based on final instance label": "7% 16"
     },
     {
-      "class distribution based on final instance label": "7% 14"
+      "class distribution based on final instance label": "9% 14"
     },
     {
       "class distribution based on final instance label": "7% 8"
     },
     {
-      "class distribution based on final instance label": "2% 15"
+      "class distribution based on final instance label": "3% 15"
     },
     {
-      "class distribution based on final instance label": "7% 11"
+      "class distribution based on final instance label": "8% 11"
     },
     {
-      "class distribution based on final instance label": "5% 7"
+      "class distribution based on final instance label": "3% 7"
     },
     {
       "class distribution based on final instance label": "8% 13"
@@ -29,19 +29,19 @@
       "class distribution based on final instance label": "2% 12"
     },
     {
-      "class distribution based on final instance label": "5% 3"
+      "class distribution based on final instance label": "8% 3"
     },
     {
-      "class distribution based on final instance label": "7% 4"
+      "class distribution based on final instance label": "8% 4"
     },
     {
-      "class distribution based on final instance label": "5% 10"
+      "class distribution based on final instance label": "3% 10"
     },
     {
-      "class distribution based on final instance label": "5% 5"
+      "class distribution based on final instance label": "4% 5"
     },
     {
-      "class distribution based on final instance label": "8% 9"
+      "class distribution based on final instance label": "7% 9"
     }
   ],
   "number of unique instances for each class label": [
@@ -49,7 +49,7 @@
       "class label and number of unique instances": "6 and 1"
     },
     {
-      "class label and number of unique instances": "16 and 1"
+      "class label and number of unique instances": "16 and 0"
     },
     {
       "class label and number of unique instances": "14 and 1"
@@ -61,31 +61,31 @@
       "class label and number of unique instances": "15 and 0"
     },
     {
-      "class label and number of unique instances": "11 and 1"
+      "class label and number of unique instances": "11 and 2"
     },
     {
       "class label and number of unique instances": "7 and 1"
     },
     {
-      "class label and number of unique instances": "13 and 2"
+      "class label and number of unique instances": "13 and 1"
     },
     {
       "class label and number of unique instances": "12 and 1"
     },
     {
-      "class label and number of unique instances": "3 and 0"
+      "class label and number of unique instances": "3 and 1"
     },
     {
-      "class label and number of unique instances": "4 and 0"
+      "class label and number of unique instances": "4 and 1"
     },
     {
-      "class label and number of unique instances": "10 and 1"
+      "class label and number of unique instances": "10 and 0"
     },
     {
       "class label and number of unique instances": "5 and 0"
     },
     {
-      "class label and number of unique instances": "9 and 1"
+      "class label and number of unique instances": "9 and 0"
     }
   ],
   "number of users": 4,
@@ -94,13 +94,13 @@
       "user and completeness percentage": "(1, 100%)"
     },
     {
-      "user and completeness percentage": "(2, 94%)"
+      "user and completeness percentage": "(2, 75%)"
     },
     {
       "user and completeness percentage": "(3, 94%)"
     },
     {
-      "user and completeness percentage": "(4, 82%)"
+      "user and completeness percentage": "(4, 75%)"
     }
   ],
   "users assigned and their consistency percentage": [

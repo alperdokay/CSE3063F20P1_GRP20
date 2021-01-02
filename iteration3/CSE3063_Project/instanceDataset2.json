@@ -1,54 +1,54 @@
 {
-  "total number of label assignments": 68,
+  "total number of label assignments": 83,
   "number of unique label assignments": 15,
   "number of unique users": 4,
-  "most frequent class label and percentage": "(16, 8%)",
+  "most frequent class label and percentage": "(6, 9%)",
   "class labels and percentages": [
     {
-      "class label and percentage": "(6, 5%)"
+      "class label and percentage": "(6, 9%)"
     },
     {
-      "class label and percentage": "(16, 8%)"
+      "class label and percentage": "(16, 7%)"
     },
     {
-      "class label and percentage": "(14, 7%)"
+      "class label and percentage": "(14, 9%)"
     },
     {
       "class label and percentage": "(8, 7%)"
     },
     {
-      "class label and percentage": "(15, 2%)"
+      "class label and percentage": "(15, 3%)"
     },
     {
-      "class label and percentage": "(11, 7%)"
+      "class label and percentage": "(11, 8%)"
     },
     {
-      "class label and percentage": "(7, 5%)"
+      "class label and percentage": "(7, 3%)"
     },
     {
       "class label and percentage": "(13, 8%)"
     },
     {
-      "class label and percentage": "(2, 8%)"
+      "class label and percentage": "(2, 7%)"
     },
     {
       "class label and percentage": "(12, 2%)"
     },
     {
-      "class label and percentage": "(3, 5%)"
+      "class label and percentage": "(3, 8%)"
     },
     {
-      "class label and percentage": "(4, 7%)"
+      "class label and percentage": "(4, 8%)"
     },
     {
-      "class label and percentage": "(10, 5%)"
+      "class label and percentage": "(10, 3%)"
     },
     {
-      "class label and percentage": "(5, 5%)"
+      "class label and percentage": "(5, 4%)"
     },
     {
-      "class label and percentage": "(9, 8%)"
+      "class label and percentage": "(9, 7%)"
     }
   ],
-  "entropy": "0.908"
+  "entropy": "0.926"
 }

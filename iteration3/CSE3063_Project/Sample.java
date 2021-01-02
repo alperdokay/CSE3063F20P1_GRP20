@@ -46,7 +46,8 @@ public class Sample {
 					}
 				}
 			}
-			System.out.println("The user could not found. Please, try again!!!");
+			if (!isLogon)
+				System.out.println("The user could not found. Please, try again!!!");
 		}
 
 		currentDataset.labelDataset(logs, humanUser);
