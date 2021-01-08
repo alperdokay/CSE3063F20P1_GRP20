@@ -1,0 +1,2 @@
+class AnswerKey:
+    pass
