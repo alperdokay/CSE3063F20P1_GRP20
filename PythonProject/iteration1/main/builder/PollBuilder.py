@@ -17,6 +17,10 @@ class PollBuilder:
         self.studentRepo = studentRepository
 
     def build(self):
+        #TODO: First we need to understand if the poll consists more than 2 Types of polls like QuizPoll or Attandance Poll
+        # Then we need group polls that are in same poll file. We need a mediator that will handle interaction between polls and
+        # Students.
+
         questionLength = {}
         studentQuestionAnswerPair = {}
         existedQuestions = []
@@ -37,8 +41,14 @@ class PollBuilder:
             tempQuestions = cleanedList[-int(len(cleanedList) - 4):]
             for index in range(0, len(tempQuestions), 2):
                 question, answer = tempQuestions[index], tempQuestions[index + 1]
-                q = Question(question, answer)
-                existedQuestions.append(q)
-        print(questionLength)
-        print(studentQuestionAnswerPair)
-        print(existedQuestions)
+                if(question not  in existedQuestions):
+                    existedQuestions.append(question)
+        #TODO: Think about how to reduce complexity
+        temp = {}
+        for student,questions in studentQuestionAnswerPair.items():
+            temp[student] = {}
+            for questionSet in questions:
+                for q in range(0,len(questionSet),2):
+                    print(questionSet[q],questionSet[q+1])
+                    temp[student][questionSet[q]] = questionSet[q+1]
+        print(temp)
