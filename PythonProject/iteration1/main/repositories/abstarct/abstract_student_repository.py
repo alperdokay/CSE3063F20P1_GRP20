@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class AbstactStudentFactory(ABC):
+class AbstactRepository(ABC):
 
 
     # @abstractmethod

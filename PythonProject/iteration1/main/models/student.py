@@ -8,7 +8,7 @@ class Student:
         self.number = number
         self.name = name
         self.surname = surname
-
+        self.setFullName()
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,
@@ -38,3 +38,7 @@ class Student:
 
     def getId(self):
         return self.surname
+
+    def setFullName(self):
+        fullName = """{name}{surname}""".format(name=self.name,surname=self.surname)
+        self.fullName = fullName

@@ -1,7 +1,7 @@
-from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactStudentFactory
+from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactRepository
 from collections import OrderedDict
 
-class StudentRepository(AbstactStudentFactory):
+class StudentRepository(AbstactRepository):
     def __init__(self,rawRepo):
         self.studentRawRepo = rawRepo
     def createRepoByUniqueID(self,setofElements,nameOfUniqueElement):
@@ -11,5 +11,6 @@ class StudentRepository(AbstactStudentFactory):
                 continue
             else:
                 tempRepo[i.getNumber()] = i
+        print(tempRepo)
         return tempRepo
 

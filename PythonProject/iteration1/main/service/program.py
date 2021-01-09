@@ -1,7 +1,8 @@
 import pandas as pd
 
+from PythonProject.iteration1.main.builder.poll_builder import PollBuilder
 from PythonProject.iteration1.main.builder.students_builder import StudentBuilder
-from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactStudentFactory
+from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactRepository
 from PythonProject.iteration1.main.repositories.student_repository_impl import StudentRepository
 
 
@@ -27,5 +28,6 @@ class Program:
         for path in self.poll_list_path:
             pollDataFrame = pd.read_csv(path)
             pollDataFrames.append(pollDataFrame)
-
+        for pollFrame in pollDataFrames:
+            PollBuilder(pollFrame,studentsRepository).build()
 
