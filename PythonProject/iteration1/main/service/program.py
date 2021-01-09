@@ -1,9 +1,9 @@
 import pandas as pd
 
-from PythonProject.iteration1.main.builder.poll_builder import PollBuilder
-from PythonProject.iteration1.main.builder.students_builder import StudentBuilder
-from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactRepository
-from PythonProject.iteration1.main.repositories.student_repository_impl import StudentRepository
+from PythonProject.iteration1.main.builder.PollBuilder import PollBuilder
+from PythonProject.iteration1.main.builder.StudentsBuilder import StudentBuilder
+from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentRepository import AbstactRepository
+from PythonProject.iteration1.main.repositories.StudentRepositoryImpl import StudentRepository
 
 
 class Program:

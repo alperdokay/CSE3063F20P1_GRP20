@@ -9,6 +9,8 @@ class Student:
         self.name = name
         self.surname = surname
         self.setFullName()
+        self.attancePercent = 0
+
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,
@@ -40,5 +42,7 @@ class Student:
         return self.surname
 
     def setFullName(self):
-        fullName = """{name}{surname}""".format(name=self.name,surname=self.surname)
-        self.fullName = fullName
+        x=  self.name.replace(" ","")
+        fullName = """{name}{surname}""".format(name=x  ,surname=self.surname)
+
+        self.fullName = fullName.lower()

@@ -5,13 +5,12 @@ from numpy import *
 
 from pandas import DataFrame
 
-from PythonProject.iteration1.main.models.question import Question
+from PythonProject.iteration1.main.models.Question import Question
 
 
 class PollBuilder:
     def __init__(self, dataFrame: DataFrame, studentRepository):
         """
-
         :type dataFrame: object
         """
         self.dataFrame = dataFrame
@@ -29,10 +28,12 @@ class PollBuilder:
             else:
                 questionLength[len(cleanedList)].append(cleanedList)
             studentEmail = cleanedList[2]
-            if (studentEmail not in studentQuestionAnswerPair.keys()):
-                studentQuestionAnswerPair[studentEmail] = [cleanedList[-int(len(cleanedList) - 4):]]
+            tempStudentNameSurname = cleanedList[1]
+            studentNameSurname = tempStudentNameSurname.replace(" ","").lower()
+            if (studentNameSurname not in studentQuestionAnswerPair.keys()):
+                studentQuestionAnswerPair[studentNameSurname] = [cleanedList[-int(len(cleanedList) - 4):]]
             else:
-                studentQuestionAnswerPair[studentEmail].append(cleanedList[-int(len(cleanedList) - 4):])
+                studentQuestionAnswerPair[studentNameSurname].append(cleanedList[-int(len(cleanedList) - 4):])
             tempQuestions = cleanedList[-int(len(cleanedList) - 4):]
             for index in range(0, len(tempQuestions), 2):
                 question, answer = tempQuestions[index], tempQuestions[index + 1]

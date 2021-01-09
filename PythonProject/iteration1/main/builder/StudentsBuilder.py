@@ -2,7 +2,7 @@ from pandas import ExcelFile
 from numpy import *
 
 from PythonProject.iteration1.main.factory.StudentFactory import StudentFactory
-from PythonProject.iteration1.main.models.student import Student
+from PythonProject.iteration1.main.models.Student import Student
 
 
 class StudentBuilder:

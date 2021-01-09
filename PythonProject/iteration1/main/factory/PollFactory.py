@@ -1,4 +1,4 @@
-from PythonProject.iteration1.main.models.poll import Poll
+from PythonProject.iteration1.main.models.Poll import Poll
 
 
 class PollFactory:

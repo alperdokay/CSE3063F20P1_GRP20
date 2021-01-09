@@ -1,4 +1,4 @@
-from PythonProject.iteration1.main.repositories.abstarct.abstract_student_repository import AbstactRepository
+from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentRepository import AbstactRepository
 from collections import OrderedDict
 
 class StudentRepository(AbstactRepository):

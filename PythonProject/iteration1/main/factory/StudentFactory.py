@@ -1,4 +1,4 @@
-from PythonProject.iteration1.main.models.student import Student
+from PythonProject.iteration1.main.models.Student import Student
 
 
 class StudentFactory:
@@ -7,3 +7,4 @@ class StudentFactory:
         fac = Student(id,number,name,surname)
         print("Factory Created", fac)
         return fac
+
