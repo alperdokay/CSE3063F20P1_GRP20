@@ -42,7 +42,7 @@ class Student:
         return self.surname
 
     def setFullName(self):
-        x=  self.name.replace(" ","")
-        fullName = """{name}{surname}""".format(name=x  ,surname=self.surname)
+        x = self.name.replace(" ", "")
+        fullName = """{name}{surname}""".format(name=x, surname=self.surname)
 
         self.fullName = fullName.lower()
