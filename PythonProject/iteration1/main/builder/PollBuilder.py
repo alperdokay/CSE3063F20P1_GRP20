@@ -1,7 +1,9 @@
 import math
+from collections import OrderedDict
 
 import numpy
 from numpy import *
+from difflib import SequenceMatcher
 
 from pandas import DataFrame
 
@@ -44,11 +46,27 @@ class PollBuilder:
                 if(question not  in existedQuestions):
                     existedQuestions.append(question)
         #TODO: Think about how to reduce complexity
-        temp = {}
+        temp = OrderedDict()
         for student,questions in studentQuestionAnswerPair.items():
             temp[student] = {}
             for questionSet in questions:
                 for q in range(0,len(questionSet),2):
                     print(questionSet[q],questionSet[q+1])
                     temp[student][questionSet[q]] = questionSet[q+1]
-        print(temp)
+        scores = OrderedDict()
+        for studentNumber, studentObject in self.studentRepo.numberPairStudentRepo.items():
+            scores[studentObject] = OrderedDict()
+            __keys=temp.keys()
+            for pollStudents in __keys:
+                score = self.similar(studentObject.fullName,pollStudents)
+                scores[studentObject][pollStudents] = score
+            scores[studentObject]  = sorted(scores[studentObject].items(), key=lambda x: x[1],reverse=True)
+
+        print(scores)
+
+
+    def similar(self,a,b):
+        return SequenceMatcher(None, a, b).ratio()
+
+
+
