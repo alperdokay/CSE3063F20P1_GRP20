@@ -24,10 +24,10 @@ class Program:
         studentsBuilder = StudentBuilder(studentsDataFrame)
         studentsRepository = StudentRepository(studentsBuilder.student_list)
         studentsRepository.numberPairStudentRepo = studentsRepository.createRepoByUniqueID(studentsBuilder.student_list, "number")
-        pollDataFrames = []
+        pollDataFrames = {}
         for path in self.poll_list_path:
             pollDataFrame = pd.read_csv(path)
-            pollDataFrames.append(pollDataFrame)
-        for pollFrame in pollDataFrames:
-            PollBuilder(pollFrame,studentsRepository).build()
+            pollDataFrames[path] = pollDataFrame
+        for pollFrame in pollDataFrames.items():
+            PollBuilder(pollFrame[0],pollFrame[1],studentsRepository).build()
 

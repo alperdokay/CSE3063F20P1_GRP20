@@ -8,6 +8,7 @@ class Student:
         self.number = number
         self.name = name
         self.surname = surname
+        self.setSmartFullName()
         self.setFullName()
         self.attancePercent = 0
 
@@ -41,8 +42,13 @@ class Student:
     def getId(self):
         return self.surname
 
-    def setFullName(self):
-        x = self.name.replace(" ", "")
-        fullName = """{name}{surname}""".format(name=x, surname=self.surname)
+    def setSmartFullName(self):
+        x = self.name.split(" ")[0]
+        fullName = """{name}{surname}""".format(name=x, surname=self.surname.split(" ")[len(self.surname.split(" ")) - 1])
 
+        self.smartFullName = fullName.lower()
+    def setFullName(self):
+        x = self.name.replace(" ","")
+        fullName = """{name}{surname}""".format(name=x,
+                                                surname=self.surname)
         self.fullName = fullName.lower()

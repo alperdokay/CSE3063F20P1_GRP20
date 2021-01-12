@@ -1,0 +1,55 @@
+{
+	"users": [
+		{
+			"id": "1",
+			"userName": "MarkZuckerberg",
+			"userType": "Human",
+			"consistencyCheckProbability": "0.1"
+		},
+		{
+			"id": "2",
+			"userName": "BillGates",
+			"userType": "Human",
+			"consistencyCheckProbability": "0.1"
+		},
+		{
+			"id": "3",
+			"userName": "ElonMusk",
+			"userType": "Keyword",
+			"consistencyCheckProbability": "0.1"
+		},
+		{
+			"id": "4",
+			"userName": "SteveJobs",
+			"userType": "Random",
+			"consistencyCheckProbability": "0.1"
+		}
+	],
+	"userPwds":[
+		{
+			"id": "1",
+			"userName": "MarkZuckerberg",
+			"pwd": "blabla"
+		},
+		{
+			"id": "2",
+			"userName": "BillGates",
+			"pwd": "albalb"
+		}
+	],
+	"datasets": [
+		{
+			"id": "1",
+			"name": "Sentiment Dataset",
+			"filePath": "CES3063F20_LabelingProject_Input-1.json",
+			"userIds": [1, 2, 3]
+		},
+		{
+			"id": "2",
+			"name": "Multilabel Topic Classification Dataset",
+			"filePath": "CES3063F20_LabelingProject_Input-2.json",
+			"userIds": [1, 2, 3, 4]
+		}
+	],
+	"currentDatasetId": "2"
+}
