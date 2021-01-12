@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
 
-class AbstactRepository(ABC):
+class AbstractRepository(ABC):
     @abstractmethod
-    def createRepoByUniqueID(self,setofElements,nameOfUniqueElement):
+    def createRepoByUniqueID(self, setOfElements, nameOfUniqueElement):
         pass
 
 

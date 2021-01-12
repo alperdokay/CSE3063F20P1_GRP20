@@ -46,8 +46,8 @@ class PollBuilder:
                     tempArray.append((studentObject, score))
                     continue
                 # score = jellyfish.levenshtein_distance(pollStudents,studentObject.smartFullName)
-                scoreSmart = self.similar(pollStudents.translate(Tr2Eng), studentObject.smartFullName.translate(Tr2Eng))
-                scoreReal = self.similar(pollStudents.translate(Tr2Eng), studentObject.fullName.translate(Tr2Eng))
+                scoreSmart = self.similarityRatio(pollStudents.translate(Tr2Eng), studentObject.smartFullName.translate(Tr2Eng))
+                scoreReal = self.similarityRatio(pollStudents.translate(Tr2Eng), studentObject.fullName.translate(Tr2Eng))
                 if (scoreSmart >= scoreReal):
                     tempArray.append((studentObject, scoreSmart))
                 else:
@@ -68,13 +68,13 @@ class PollBuilder:
         for student, studentScorePair in orderedScores.items():
             questionsAnswered = studentQuestionAnswerPair[student]
             if (studentScorePair[0] in studentObjStudentPairs.keys()):
-                print("HATAAAAA")
+                print("Hatalı Durum")
             else:
                 studentObjStudentPairs[studentScorePair[0]] = questionsAnswered
         print(studentObjStudentPairs)
 
-    def similar(self, a, b):
-        return SequenceMatcher(None, a, b).ratio()
+    def similarityRatio(self, fullName, studentMail):
+        return SequenceMatcher(None, fullName, studentMail).ratio()
 
     def dataCleaning(self, questionLength=None, studentQuestionAnswerPair=None, existedQuestions=None):
         for question in self.dataFrame.values:

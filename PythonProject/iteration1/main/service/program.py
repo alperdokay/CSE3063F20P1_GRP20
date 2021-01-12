@@ -2,17 +2,15 @@ import pandas as pd
 
 from PythonProject.iteration1.main.builder.PollBuilder import PollBuilder
 from PythonProject.iteration1.main.builder.StudentsBuilder import StudentBuilder
-from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentRepository import AbstactRepository
+from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentRepository import AbstractRepository
 from PythonProject.iteration1.main.repositories.StudentRepositoryImpl import StudentRepository
 
 
 class Program:
-    student_list_path = r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
+    student_list_path = r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
     poll_list_path = [
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - "
-        r"CSE3063_20201124_Tue_zoom_PollReport.csv.csv",
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - "
-        r"CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv"]
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv",
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv"]
 
     def __init__(self):
         self.entrance()
