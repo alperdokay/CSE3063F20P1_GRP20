@@ -33,33 +33,23 @@ class Student:
     def setName(self, name):
         self.name = name
 
-    def getName(self):
+    def getId(self):
         return self.name
 
     def setSurname(self, surname):
         self.surname = id
 
-    def getSurname(self):
+    def getId(self):
         return self.surname
-
-    def getAttancePercent(self):
-        return self.attancePercent
-
-    def setAttendancePercent(self, attancePercent):
-        self.attancePercent = attancePercent
-
 
     def setSmartFullName(self):
         x = self.name.split(" ")[0]
-        fullName = """{name}{surname}""".format(name=x,
-                                                surname=self.surname.split(" ")[len(self.surname.split(" ")) - 1])
+        fullName = """{name}{surname}""".format(name=x, surname=self.surname.split(" ")[len(self.surname.split(" ")) - 1])
+
         self.smartFullName = fullName.lower()
-
-
     def setFullName(self):
-        x = self.name.replace(" ", "")
+        x = self.name.replace(" ","")
         fullName = """{name}{surname}""".format(name=x,
                                                 surname=self.surname)
         self.fullName = fullName.lower()
-
 
