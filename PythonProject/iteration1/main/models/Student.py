@@ -33,13 +33,13 @@ class Student:
     def setName(self, name):
         self.name = name
 
-    def getId(self):
+    def getName(self):
         return self.name
 
     def setSurname(self, surname):
         self.surname = id
 
-    def getId(self):
+    def getSurname(self):
         return self.surname
 
     def setSmartFullName(self):
