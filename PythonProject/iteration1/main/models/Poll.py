@@ -1,7 +1,12 @@
 class Poll:
 
-    def __init__(self, ):
-        pass
+    def __init__(self,date,type,studentList,questions,answerByStudents ):
+        self.date = date
+        self.type = type
+        self.studentList = studentList
+        self.questions = questions
+        self.answerByStudents = answerByStudents
+
 
     def setDate(self, date):
         self.date = date

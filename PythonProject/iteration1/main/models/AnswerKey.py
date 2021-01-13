@@ -1,7 +1,9 @@
 class AnswerKey:
 
-    def __init__(self, ):
-        pass
+    def __init__(self,question,result,answer ):
+        self.question = question
+        self.result = result
+        self.answer = answer
 
     def setQuestion(self, question):
         self.question = question
