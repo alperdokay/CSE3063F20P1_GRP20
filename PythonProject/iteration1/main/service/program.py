@@ -136,7 +136,9 @@ class Program:
                         row.append(0)
                 row.append(len(row) - 1)
                 try:
+                    student.pollResults[poll] = sum(row[1:len(row) - 1]) / (len(row[1:len(row) - 1]))
                     row.append(sum(row[1:len(row) - 1]) / (len(row[1:len(row) - 1])))
+
                 except:
                     print(row)
                     return
@@ -144,3 +146,4 @@ class Program:
             df = pd.DataFrame(sheet)
             df.to_excel(excel_writer=newName)
             tempindex += 1
+        print(self.studentsRepository.studentRawRepo)

@@ -13,6 +13,7 @@ class Student:
         self.setFullName()
         self.attancePercent = 0
         self.questionsStudentAnswered = {}
+        self.pollResults = {}
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,
