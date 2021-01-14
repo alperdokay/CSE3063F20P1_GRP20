@@ -13,5 +13,4 @@ class StudentRepository(AbstractRepository):
                 continue
             else:
                 tempRepo[i.getNumber()] = i
-        print(tempRepo)
         return tempRepo

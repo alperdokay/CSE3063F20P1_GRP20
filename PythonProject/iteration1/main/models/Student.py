@@ -11,7 +11,7 @@ class Student:
         self.setSmartFullName()
         self.setFullName()
         self.attancePercent = 0
-
+        self.questionsStudentAnswered = {}
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,
@@ -52,4 +52,15 @@ class Student:
         fullName = """{name}{surname}""".format(name=x,
                                                 surname=self.surname)
         self.fullName = fullName.lower()
+    def setPollQuestionPair(self,poll,questions,type):
+            if(poll in self.questionsStudentAnswered.keys() and type in self.questionsStudentAnswered[poll].keys()):
+                self.questionsStudentAnswered[poll][type].append(questions)
+            elif(poll in self.questionsStudentAnswered.keys() and type not in  self.questionsStudentAnswered[poll].keys()):
+                self.questionsStudentAnswered[poll][type] = [questions]
+            else:
+                self.questionsStudentAnswered[poll] = {}
+                self.questionsStudentAnswered[poll][type] = questions
+
+
+
 

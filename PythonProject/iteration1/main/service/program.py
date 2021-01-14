@@ -1,5 +1,6 @@
 import pandas as pd
 
+from PythonProject.iteration1.main.Observable.Observer import Observable
 from PythonProject.iteration1.main.builder.PollBuilder import PollBuilder
 from PythonProject.iteration1.main.builder.StudentsBuilder import StudentBuilder
 from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentRepository import AbstractRepository
@@ -7,25 +8,34 @@ from PythonProject.iteration1.main.repositories.StudentRepositoryImpl import Stu
 
 
 class Program:
-    student_list_path = r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
+    student_list_path = r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
     poll_list_path = [
-        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv",
-        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv"]
-
+        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv",
+        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv"]
+    answer_key = [
+        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport_AnswerKey.csv",
+        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport_AnswerKey (1).csv"
+    ]
     def __init__(self):
+        self.totalAttandanceQuizes = 0
+        self.quizListener = Observable()
+        self.quizListener.subscribe(self.addQuiz)
         self.entrance()
         pass
+    def addQuiz(self,temp):
+        self.totalAttandanceQuizes = self.totalAttandanceQuizes + 1
 
     def entrance(self):
         print("Welcome to the Poll analysis application")
         studentsDataFrame = pd.read_excel(self.student_list_path, engine='openpyxl')
         studentsBuilder = StudentBuilder(studentsDataFrame)
         studentsRepository = StudentRepository(studentsBuilder.student_list)
-        studentsRepository.numberPairStudentRepo = studentsRepository.createRepoByUniqueID(studentsBuilder.student_list, "number")
+        studentsRepository.numberPairStudentRepo = studentsRepository.createRepoByUniqueID(studentsBuilder.student_list,
+                                                                                    "number")
         pollDataFrames = {}
         for path in self.poll_list_path:
             pollDataFrame = pd.read_csv(path)
             pollDataFrames[path] = pollDataFrame
         for pollFrame in pollDataFrames.items():
-            PollBuilder(pollFrame[0],pollFrame[1],studentsRepository).build()
-
+            PollBuilder(pollFrame[0], pollFrame[1], studentsRepository).build(self.quizListener)
+        print(self.totalAttandanceQuizes)

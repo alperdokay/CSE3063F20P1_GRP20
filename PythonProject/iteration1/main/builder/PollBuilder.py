@@ -8,6 +8,7 @@ import jellyfish
 from pandas import DataFrame
 
 from PythonProject.iteration1.main.factory.Factory import Factory
+from PythonProject.iteration1.main.models.Poll import Poll
 from PythonProject.iteration1.main.models.Question import Question
 
 
@@ -20,16 +21,17 @@ class PollBuilder:
         self.studentRepo = studentRepository
         self.pollName = pollName
 
-    def build(self):
+    def build(self,quizListener):
         # TODO: First we need to understand if the poll consists more than 2 Types of polls like QuizPoll or Attandance Poll
         # Then we need group polls that are in same poll file. We need a mediator that will handle interaction between polls and
         # Students.
-        Tr2Eng = str.maketrans("çğıöşü", "cgiosu")
 
+        Tr2Eng = str.maketrans("çğıöşü", "cgiosu")
+        pollObj = Factory().createWithoutParameters(Poll)
         questionLength = {}
         studentQuestionAnswerPair = {}
         existedQuestions = []
-        self.dataCleaning(questionLength,studentQuestionAnswerPair,existedQuestions)
+        self.dataCleaning(questionLength, studentQuestionAnswerPair, existedQuestions)
         # TODO: Think about how to reduce complexity
         temp = OrderedDict()
         for student, questions in studentQuestionAnswerPair.items():
@@ -46,8 +48,10 @@ class PollBuilder:
                     tempArray.append((studentObject, score))
                     continue
                 # score = jellyfish.levenshtein_distance(pollStudents,studentObject.smartFullName)
-                scoreSmart = self.similarityRatio(pollStudents.translate(Tr2Eng), studentObject.smartFullName.translate(Tr2Eng))
-                scoreReal = self.similarityRatio(pollStudents.translate(Tr2Eng), studentObject.fullName.translate(Tr2Eng))
+                scoreSmart = self.similarityRatio(pollStudents.translate(Tr2Eng),
+                                                  studentObject.smartFullName.translate(Tr2Eng))
+                scoreReal = self.similarityRatio(pollStudents.translate(Tr2Eng),
+                                                 studentObject.fullName.translate(Tr2Eng))
                 if (scoreSmart >= scoreReal):
                     tempArray.append((studentObject, scoreSmart))
                 else:
@@ -56,7 +60,6 @@ class PollBuilder:
             if (tempArray[1] < 0.80):
                 continue
             scores[pollStudents] = tempArray
-
         orderedScores = OrderedDict()
         for i in sorted(scores.keys(), key=lambda x: x):
             orderedScores[i] = scores[i]
@@ -71,7 +74,22 @@ class PollBuilder:
                 print("Hatalı Durum")
             else:
                 studentObjStudentPairs[studentScorePair[0]] = questionsAnswered
-        print(studentObjStudentPairs)
+        tempAttandanceQuestions = []
+        tempQuizQuestions = []
+        for student, listOfQuestonsStudentAnswered in studentObjStudentPairs.items():
+            for questionCollection in listOfQuestonsStudentAnswered:
+                for q in questionCollection:
+                    q.student = student
+                    if (q.question == "Are you attending this lecture?"):
+                        tempAttandanceQuestions.append(q)
+                        break
+                    else:
+                        tempQuizQuestions.append(q)
+
+        pollObj.setAttadanceQuestions(tempAttandanceQuestions,pollObj)
+        pollObj.setQuizQuestions(tempQuizQuestions,pollObj)
+        pollObj.setQuestions(existedQuestions)
+        quizListener.fire(type="opearation",value="add")
 
     def similarityRatio(self, fullName, studentMail):
         return SequenceMatcher(None, fullName, studentMail).ratio()
