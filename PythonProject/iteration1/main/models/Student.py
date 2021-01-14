@@ -1,4 +1,5 @@
 from typing import Any
+import xlsxwriter
 
 
 class Student:
@@ -60,6 +61,10 @@ class Student:
             else:
                 self.questionsStudentAnswered[poll] = {}
                 self.questionsStudentAnswered[poll][type] = questions
+    def calculateAttandance(self,total):
+        self.realAttadancePercent = 100 * float(self.attancePercent)/float(total)
+
+
 
 
 

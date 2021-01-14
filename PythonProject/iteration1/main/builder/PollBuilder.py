@@ -22,15 +22,12 @@ class PollBuilder:
         self.pollName = pollName
 
     def build(self,quizListener):
-        # TODO: First we need to understand if the poll consists more than 2 Types of polls like QuizPoll or Attandance Poll
-        # Then we need group polls that are in same poll file. We need a mediator that will handle interaction between polls and
-        # Students.
-
         Tr2Eng = str.maketrans("çğıöşü", "cgiosu")
         pollObj = Factory().createWithoutParameters(Poll)
         questionLength = {}
         studentQuestionAnswerPair = {}
         existedQuestions = []
+        pollObj.setQuestions(existedQuestions)
         self.dataCleaning(questionLength, studentQuestionAnswerPair, existedQuestions)
         # TODO: Think about how to reduce complexity
         temp = OrderedDict()
@@ -47,7 +44,6 @@ class PollBuilder:
                     score = 1.0
                     tempArray.append((studentObject, score))
                     continue
-                # score = jellyfish.levenshtein_distance(pollStudents,studentObject.smartFullName)
                 scoreSmart = self.similarityRatio(pollStudents.translate(Tr2Eng),
                                                   studentObject.smartFullName.translate(Tr2Eng))
                 scoreReal = self.similarityRatio(pollStudents.translate(Tr2Eng),
@@ -90,6 +86,7 @@ class PollBuilder:
         pollObj.setQuizQuestions(tempQuizQuestions,pollObj)
         pollObj.setQuestions(existedQuestions)
         quizListener.fire(type="opearation",value="add")
+        return pollObj
 
     def similarityRatio(self, fullName, studentMail):
         return SequenceMatcher(None, fullName, studentMail).ratio()
@@ -121,7 +118,6 @@ class PollBuilder:
                     tempFactory = Factory()
                     question = tempFactory.create(Question, (question, answer))
                     temp.append(question)
-
                 studentQuestionAnswerPair[studentNameSurname].append(temp)
             for index in range(0, len(tempQuestions), 2):
                 question, answer = tempQuestions[index], tempQuestions[index + 1]

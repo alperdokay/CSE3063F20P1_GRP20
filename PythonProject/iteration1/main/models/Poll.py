@@ -6,15 +6,6 @@ class Poll:
     #     # self.questions = questions
     #     # self.answerByStudents = answerByStudents
 
-
-    def setDate(self, date):
-        self.date = date
-
-
-    def setType(self, type):
-        self.type = type
-
-
     def setStudentList(self, studentList):
         #to make student names camelcase
         self.studentList = studentList
@@ -34,11 +25,6 @@ class Poll:
     def getStudentList(self):
         return self.refactored_names
 
-
-    def getDate(self):
-        return self.date
-
-
     def getType(self):
         return self.type
 
@@ -48,9 +34,6 @@ class Poll:
 
     def getanswerByStudents(self):
         return self.answerByStudents
-
-    def getReport(self,type):
-        pass
 
     def setQuizQuestions(self,quizQuestionsCollection,object):
         self.quizQuesitons = quizQuestionsCollection
@@ -62,7 +45,6 @@ class Poll:
                 self.quizQuesitonsPair[question.student] = [question]
         for student,questions in self.quizQuesitonsPair.items():
             student.setPollQuestionPair(poll=self,questions=questions,type="Quiz")
-            print("done")
 
     def setAttadanceQuestions(self,attedanceQuesitonsCollection,object):
         self.attandanceQuestions = attedanceQuesitonsCollection
@@ -75,4 +57,3 @@ class Poll:
 
         for student,questions in self.attandanceQuestionsPair.items():
             student.setPollQuestionPair(poll=self,questions=questions,type="Attandance")
-            print("done")
