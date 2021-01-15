@@ -7,9 +7,9 @@ from difflib import SequenceMatcher
 import jellyfish
 from pandas import DataFrame
 
-from PythonProject.iteration1.main.factory.Factory import Factory
-from PythonProject.iteration1.main.models.Poll import Poll
-from PythonProject.iteration1.main.models.Question import Question
+from iteration1.main.factory.Factory import Factory
+from iteration1.main.models.Poll import Poll
+from iteration1.main.models.Question import Question
 
 
 class PollBuilder:
