@@ -1,4 +1,7 @@
+from functools import reduce
+
 import pandas as pd
+import numpy as np
 import xlsxwriter
 
 from PythonProject.iteration1.main.Observable.Observer import Observable
@@ -11,13 +14,16 @@ from itertools import chain
 
 
 class Program:
-    student_list_path = r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
+    student_list_path = r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
     poll_list_path = [
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv",
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv"]
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv"
+        ,
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv"
+    ]
     answer_keys = [
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport_AnswerKey.csv",
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport_AnswerKey (1).csv"
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport_AnswerKey (1).csv"
+        ,
+        r"C:\Users\betan\PycharmProjects\CSE3063F20P1_GRP20\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport_AnswerKey.csv"
     ]
 
     def __init__(self):
@@ -33,7 +39,7 @@ class Program:
         self.totalAttandanceQuizes = self.totalAttandanceQuizes + 1
 
     def entrance(self):
-        print("Welcome to the Poll analysis application")
+        print("Welcome to the Zoom Poll Analysis Application")
         studentsDataFrame = pd.read_excel(self.student_list_path, engine='openpyxl')
         studentsBuilder = StudentBuilder(studentsDataFrame)
         self.studentsRepository = StudentRepository(studentsBuilder.student_list)
@@ -118,8 +124,8 @@ class Program:
                     if (quizQuestions.get(student) is not None):
                         quizQuestions.get(student).sort(key=lambda x: x.question, reverse=True)
                         results = [conversion.get(result.result) for result in quizQuestions.get(student)]
-                        if(len(results) != len(poll.questions) -1):
-                            for missed in range(len(results),len(poll.questions)-1):
+                        if (len(results) != len(poll.questions) - 1):
+                            for missed in range(len(results), len(poll.questions) - 1):
                                 results.append(0)
                         row.extend(results)
                     else:
@@ -143,7 +149,43 @@ class Program:
                     print(row)
                     return
                 sheet.append(row)
+
+            print(header[1])
+
+            if header[1] == "Are you attending this lecture?":
+                tempList = []
+                for i in sheet[1:]:
+                    tempList.append(i[1:-1])
+
+                lengthTempList = len(tempList[0])
+                total = np.zeros(lengthTempList)
+                for i in range(lengthTempList):
+                    for j in range(len(tempList)):
+                        total[i] += tempList[j][i]
+                    print("{}.total: ".format(i + 1), total[i])
+
+
+            else:
+                tempList = []
+                for i in sheet[1:]:
+                    tempList.append(i[1:-2])
+
+                lengthTempList = len(tempList[0])
+                total = np.zeros(lengthTempList)
+                for i in range(lengthTempList):
+                    for j in range(len(tempList)):
+                        total[i] += tempList[j][i]
+                    print("{}.total: ".format(i + 1), total[i])
+
+
+            print(total,total[1],type(total),type(total[1])) # TODO: Convert this total numpy.ndarray list with integers
+            # TODO continue: https://xlsxwriter.readthedocs.io/example_chart_column.html Charts are here easy to implement
+
+
             df = pd.DataFrame(sheet)
             df.to_excel(excel_writer=newName)
             tempindex += 1
         print(self.studentsRepository.studentRawRepo)
+
+
+
