@@ -1,9 +1,12 @@
+import re
 from functools import reduce
 
+import matplotlib
 import pandas as pd
 import numpy as np
 import xlsxwriter
 import xlrd
+import matplotlib.pyplot as plt
 
 from PythonProject.iteration1.main.Observable.Observer import Observable
 from PythonProject.iteration1.main.builder.AnswerKeyBuilder import AnswerKeyBuilder
@@ -61,6 +64,7 @@ class Program:
         self.attandanceReport()
         self.sevenPartAPollReport()
         self.part_8()
+        self.sevenPartB()
 
     def attandanceReport(self):
         sheet = []
@@ -204,3 +208,53 @@ class Program:
                 lastCol += 1
             row += 1
         workbook.close()
+
+    def sevenPartB(self):
+        index = 1
+
+        for poll in self.polls:
+
+            storage = {}
+            pollName = f"""Poll-{index}"""
+            print(poll)
+            for question in poll.questions:
+                if(storage.get(question) is not None):
+                    continue
+                else:
+                    storage[question] = {}
+            allQuestions = []
+            if(poll.attandanceQuestions is not None):
+                allQuestions.extend(poll.attandanceQuestions)
+            if(poll.quizQuesitons is not None):
+                allQuestions.extend(poll.quizQuesitons)
+            for question in allQuestions:
+                if(storage[question.question].get(question.answer) is not None):
+                    storage[question.question][question.answer] = storage[question.question][question.answer] + 1
+                else:
+                    storage[question.question][question.answer] = 0
+            qIndex = 1
+            # matplotlib.rcParams['font.sans-serif'] = ['Source Han Sans TW', 'sans-serif']
+            hfont = {'fontname': 'Helvetica'}
+            for question,answers in storage.items():
+                colorMap = []
+                for answer in answers.keys():
+                    try:
+                        if(answer == poll.answerKey[question]):
+                            colorMap.append("blue")
+                        else:
+                            colorMap.append("red")
+                    except:
+                        colorMap.append("red")
+
+
+
+                qName = f"""Q-{qIndex}.png"""
+                totalName = pollName + " " + qName
+                fig=plt.bar(answers.keys(), answers.values(), color=colorMap)
+                plt.xticks(rotation=90,)
+                plt.autoscale(enable=True)
+                plt.savefig(totalName, dpi=300,bbox_inches='tight')
+                qIndex += 1
+                plt.clf()
+
+            index += 1
