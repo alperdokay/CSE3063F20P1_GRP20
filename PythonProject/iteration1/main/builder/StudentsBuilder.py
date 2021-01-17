@@ -6,6 +6,7 @@ from PythonProject.iteration1.main.models.Student import Student
 
 
 class StudentBuilder:
+
     def __init__(self, excel: ExcelFile):
         self.student_list = []
         for value in excel.values:

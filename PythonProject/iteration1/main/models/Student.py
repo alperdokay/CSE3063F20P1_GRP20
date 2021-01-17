@@ -14,6 +14,7 @@ class Student:
         self.attancePercent = 0
         self.questionsStudentAnswered = {}
         self.pollResults = {}
+
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,
@@ -46,27 +47,24 @@ class Student:
 
     def setSmartFullName(self):
         x = self.name.split(" ")[0]
-        fullName = """{name}{surname}""".format(name=x, surname=self.surname.split(" ")[len(self.surname.split(" ")) - 1])
-
+        fullName = """{name}{surname}""".format(name=x,
+                                                surname=self.surname.split(" ")[len(self.surname.split(" ")) - 1])
         self.smartFullName = fullName.lower()
+
     def setFullName(self):
-        x = self.name.replace(" ","")
+        x = self.name.replace(" ", "")
         fullName = """{name}{surname}""".format(name=x,
                                                 surname=self.surname)
         self.fullName = fullName.lower()
-    def setPollQuestionPair(self,poll,questions,type):
-            if(poll in self.questionsStudentAnswered.keys() and type in self.questionsStudentAnswered[poll].keys()):
-                self.questionsStudentAnswered[poll][type].append(questions)
-            elif(poll in self.questionsStudentAnswered.keys() and type not in  self.questionsStudentAnswered[poll].keys()):
-                self.questionsStudentAnswered[poll][type] = [questions]
-            else:
-                self.questionsStudentAnswered[poll] = {}
-                self.questionsStudentAnswered[poll][type] = questions
-    def calculateAttandance(self,total):
-        self.realAttadancePercent = 100 * float(self.attancePercent)/float(total)
 
+    def setPollQuestionPair(self, poll, questions, type):
+        if (poll in self.questionsStudentAnswered.keys() and type in self.questionsStudentAnswered[poll].keys()):
+            self.questionsStudentAnswered[poll][type].append(questions)
+        elif (poll in self.questionsStudentAnswered.keys() and type not in self.questionsStudentAnswered[poll].keys()):
+            self.questionsStudentAnswered[poll][type] = [questions]
+        else:
+            self.questionsStudentAnswered[poll] = {}
+            self.questionsStudentAnswered[poll][type] = questions
 
-
-
-
-
+    def calculateAttandance(self, total):
+        self.realAttadancePercent = 100 * float(self.attancePercent) / float(total)
