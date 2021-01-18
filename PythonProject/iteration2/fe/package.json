@@ -1,0 +1,15 @@
+{
+  "name": "poll-frontend",
+  "version": "1.0.0",
+  "description": "poll project frontend part",
+  "main": "index.js",
+  "dependencies": {
+    "@angular/cli": "^11.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ayberk Altuntabak",
+  "license": "ISC"
+}

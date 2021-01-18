@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 
 class StudentRepository(AbstractRepository):
+
     def __init__(self, rawRepo):
         self.studentRawRepo = rawRepo
 

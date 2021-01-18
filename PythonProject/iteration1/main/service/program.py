@@ -63,8 +63,9 @@ class Program:
             answerKeyBuilder.build(answerKeyDataFrame, self.polls)
         self.attandanceReport()
         self.sevenPartAPollReport()
-        self.part_8()
         self.sevenPartB()
+        self.part_8()
+
 
     def attandanceReport(self):
         sheet = []
@@ -213,7 +214,6 @@ class Program:
         index = 1
 
         for poll in self.polls:
-
             storage = {}
             pollName = f"""Poll-{index}"""
             print(poll)
@@ -223,6 +223,7 @@ class Program:
                 else:
                     storage[question] = {}
             allQuestions = []
+            # {xQ:{answer1:50,answer2:70}}
             if(poll.attandanceQuestions is not None):
                 allQuestions.extend(poll.attandanceQuestions)
             if(poll.quizQuesitons is not None):
