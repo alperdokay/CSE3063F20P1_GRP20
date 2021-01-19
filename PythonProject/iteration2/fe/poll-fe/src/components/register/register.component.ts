@@ -38,11 +38,14 @@ export class RegisterComponent implements OnInit {
         },
       ).catch((error) =>{
         // TODO: Buraya geri don
-        // let dialogRef = this.dialog.open(CustomAlertDialogComponent, {
-        //   width: '350px',
-        //   data: {title: "Server Error !", message:"Check Your Credentials" }
-        // });
-        this.config.register({"username":this.username,"password":this.password})
+        let dialogRef = this.dialog.open(CustomAlertDialogComponent, {
+          width: '350px',
+          data: {title: "Succesful !", message:"Please Login" }
+        });
+        dialogRef.afterClosed().subscribe((data) =>{
+          this.config.register({"username":this.username,"password":this.password})
+
+        })
       })
     }
   }

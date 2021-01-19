@@ -58,6 +58,7 @@ body {
 
   .login-form{
       transition: opacity 1s;
+      padding: 0rem 20rem 0rem 2rem;
       &.closed{
         opacity: 0;
       }
