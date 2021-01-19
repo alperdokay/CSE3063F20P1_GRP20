@@ -3,6 +3,8 @@ import { LoginComponentComponent } from '../components/login-component/login-com
 import { RestProvider } from './../providers/rest.provider';
 import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import "@angular/compiler";
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,15 +26,17 @@ export class AppComponent {
   }
   public status = "closed";
 
-  constructor(private restProvider:RestProvider,private componentFactoryResolver: ComponentFactoryResolver){
+  constructor(private restProvider:RestProvider,private componentFactoryResolver: ComponentFactoryResolver,private router: Router){
 
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.status = "open"
-      this.createComponent(this.loginRoadMap,LoginComponentComponent,this.targetArea)
-    }, 1000);
+    this.status = "loggedIn"
+    this.router.navigateByUrl("/main")
+    // setTimeout(() => {
+    //   this.status = "open"
+    //   this.createComponent(this.loginRoadMap,LoginComponentComponent,this.targetArea)
+    // }, 1000);
   }
   ngAfterViewInit(){
     // console.log(this.targetArea)
@@ -46,7 +50,7 @@ export class AppComponent {
     componentRef.instance.config = config;
   }
   login(loginConfig:any){
-
+    this.status = "login"
 
   }
 
@@ -57,6 +61,9 @@ export class AppComponent {
   loginToRegister() {
     this.createComponent(this.registerRoadMap,RegisterComponent,this.targetArea)
   }
-
+  routeToMain(){
+    this.status = "loggedIn"
+    this.router.navigateByUrl("/main")
+  }
 
 }

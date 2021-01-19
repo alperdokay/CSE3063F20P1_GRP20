@@ -1,20 +1,29 @@
 
 <!------ Include the above in your HEAD tag ---------->
-<div class="login-container">
-  <div class="sidenav" [ngClass] = "status">
-    <div class="login-main-text">
-      <div class="logo pb-2">
-        <img src="../assets/Marmara_Üniversitesi_logo.png" class="w3-round" alt="Norway">
-      </div>
-      <div class="description d-flex flex-column">
-        <h2 class="welcome-text">Object Oriented Design Python Project Second Iteration</h2>
-        <p>Login or register from here to access.</p>
+<div class="app w-100 h-100">
+  <div class="login-container" *ngIf="this.status != 'loggedIn'">
+    <div class="sidenav" [ngClass] = "status">
+      <div class="login-main-text">
+        <div class="logo pb-2">
+          <img src="../assets/Marmara_Üniversitesi_logo.png" class="w3-round" alt="Norway">
+        </div>
+        <div class="description d-flex flex-column">
+          <h2 class="welcome-text">Object Oriented Design Python Project Second Iteration</h2>
+          <p>Login or register from here to access.</p>
+        </div>
+        <div class="router-area d-flex justify-content-center align-items-center" *ngIf="this.status == 'login'">
+          <button class="btn continue-button" (click) = "this.routeToMain()">
+            Go to Main Page
+          </button>
+        </div>
       </div>
     </div>
+    <div class="main" [ngClass] = "status">
+        <div class="login-form" [ngClass] = "status">
+            <ng-container #targetArea></ng-container>
+        </div>
+    </div>
   </div>
-  <div class="main">
-      <div class="login-form" [ngClass] = "status">
-          <ng-container #targetArea></ng-container>
-      </div>
-  </div>
+  <router-outlet *ngIf="this.status == 'loggedIn'"></router-outlet>
 </div>
+

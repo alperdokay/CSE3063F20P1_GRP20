@@ -21,7 +21,7 @@ export class CustomAlertDialogComponent{
   }
   close(){
     console.log("CLOSE")
-    this.dialogRef.close()
+    this.dialogRef.close("regular")
   }
 
 

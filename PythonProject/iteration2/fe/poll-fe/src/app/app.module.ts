@@ -13,6 +13,12 @@ import { CustomAlertDialogComponent } from '../components/custom-alert-dialog/cu
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from '../components/register/register.component';
+import { MainPageComponent } from '../components/main-page/main-page.component';
+import { MatSidenav } from '@angular/material/sidenav';
+
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { CustomFileDialogComponent } from '../components/custom-file-dialog/custom-file-dialog.component';
 
 
 @NgModule({
@@ -20,7 +26,9 @@ import { RegisterComponent } from '../components/register/register.component';
     AppComponent,
     LoginComponentComponent,
     CustomAlertDialogComponent,
-    RegisterComponent
+    RegisterComponent,
+    MainPageComponent,
+    CustomFileDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,9 @@ import { RegisterComponent } from '../components/register/register.component';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatToolbarModule,
 
   ],
   entryComponents: [

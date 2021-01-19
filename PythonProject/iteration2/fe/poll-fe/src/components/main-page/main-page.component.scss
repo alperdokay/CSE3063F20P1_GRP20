@@ -1,0 +1,51 @@
+.toolbar{
+  background: var(--color-violet) /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.application{
+  background: linear-gradient(to left, #654ea3, #eaafc8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.logo{
+  display: flex;
+  align-self: center;
+  padding: 10px 30px;
+  justify-content: center;
+  img{
+    width: 80%;
+  }
+}
+.import-button{
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  &.done{
+    background-color: var(--color-main);
+    color: white;
+  }
+}
+.import-text{
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-gap: 50px;
+  background-color: transparent;
+  //color: #444;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin-bottom: 20rem;
+  .grid-item{
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+  }
+}

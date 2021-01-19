@@ -1,0 +1,57 @@
+<div class="page d-flex flex-column w-100 h-100">
+  <div class="header">
+    <mat-toolbar class="toolbar">
+      <div class="toolbar-content d-flex w-100">
+        <div class="example-sidenav-content">
+          <button type="button" class="btn" style="background-color: transparent; color: white;" (click)="openMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <span class="text-white ml-2">Marmara Zoom Poll</span>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div class="content d-flex flex h-100 w-100">
+    <mat-drawer-container class="example-container w-100" autosize [hasBackdrop]="true">
+      <mat-drawer #drawer class="example-sidenav" mode="side" style="background: #f8f9fae3; width: 15%;">
+        <div class="sidenav-container d-flex flex-column h-100">
+          <div class="logo">
+            <img src="../../assets/Marmara_Üniversitesi_logo.png" alt="">
+          </div>
+          <div class="import-part d-flex flex-column p-1 h-100">
+             <ng-container *ngFor = "let buttonConfig of buttonConfigs">
+
+               <button class="btn btn-lg import-button p-1 mt-2" [ngClass] = "buttonConfig.done ? 'done':'test'" (click) = "buttonConfig.action($event,buttonConfig)">
+                <i class="far fa-file-excel"></i>
+                 <span class="import-text">{{buttonConfig.text}}</span>
+               </button>
+             </ng-container>
+             <div class="upload-button d-flex mt-auto">
+              <button class="btn bg-success text-white w-100 h-100" (click) ="sendData()" *ngIf="doneOnes.length == buttonConfigs.length"><span>Upload Files</span></button>
+           </div>
+             <input #FileSelectInputDialog type="file" multiple style="display: none;"/>
+          </div>
+
+        </div>
+      </mat-drawer>
+      <mat-drawer-content class="content">
+        <div class="application h-100 w-100" >
+          <div class="grid-container" *ngIf="showReportPage">
+            <div class="grid-item">1</div>
+            <div class="grid-item">2</div>
+            <div class="grid-item">3</div>
+          </div>
+        </div>
+
+      </mat-drawer-content>
+
+
+
+    </mat-drawer-container>
+  </div>
+
+  <!-- <mat-sidenav-container>
+    <mat-sidenav>Start</mat-sidenav>
+    <mat-sidenav-content>Main</mat-sidenav-content>
+  </mat-sidenav-container> -->
+</div>
