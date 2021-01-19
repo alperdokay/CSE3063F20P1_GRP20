@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "poll-fe"
+  "defaultProject": "poll-fe",
+  "cli": {
+    "analytics": "92e6bc06-b6b8-46c1-9b40-0b4977b69be5"
+  }
 }

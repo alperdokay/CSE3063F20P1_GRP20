@@ -1,0 +1,13 @@
+<div class="login-form container">
+  <div class="form-group">
+    <label>User Name</label>
+    <input type="text" [(ngModel)]="this.username" class="form-control" placeholder="User Name">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" [(ngModel)]="this.password" class="form-control" placeholder="Password">
+  </div>
+  <div class="login-button-group d-flex justify-content-around">
+    <button class="btn register button" (click)="register($event)">Register</button>
+  </div>
+</div>
