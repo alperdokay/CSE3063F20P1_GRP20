@@ -4,7 +4,8 @@
     <p>{{data.message}}</p>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
+    <button class="btn close-button mr-2" mat-button cdkFocusInitial (click) ="close()">Ok</button>
+
     <button class="btn close-button" *ngIf="data.cancel" (click) = "data.cancel(this.dialogRef)">Cancel</button>
-    <button class="btn close-button" mat-button cdkFocusInitial (click) ="close()">Ok</button>
   </mat-dialog-actions>
 </div>

@@ -155,7 +155,12 @@ export class MainPageComponent implements OnInit {
         }
       })
     }else{
-      this.sidenav?.open()
+      if(this.sidenav?.opened){
+        this.sidenav.close()
+      }else{
+        this.sidenav?.open()
+      }
+
     }
 
 
