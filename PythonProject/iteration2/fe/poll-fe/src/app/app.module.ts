@@ -18,8 +18,15 @@ import { MatSidenav } from '@angular/material/sidenav';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon'
 import { CustomFileDialogComponent } from '../components/custom-file-dialog/custom-file-dialog.component';
-
+import { CustomCardComponentComponent } from './custom-card-component/custom-card-component.component';
+import { GridsterModule } from 'angular-gridster2';
+import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
+import { CustomCardTableComponent } from './custom-card-table/custom-card-table.component';
+import { CustomCardPhotoGalleryComponent } from './custom-card-photo-gallery/custom-card-photo-gallery.component';
+import {MatTableModule} from '@angular/material/table'
+import {CdkTableModule} from "@angular/cdk/table"
 
 @NgModule({
   declarations: [
@@ -29,6 +36,11 @@ import { CustomFileDialogComponent } from '../components/custom-file-dialog/cust
     RegisterComponent,
     MainPageComponent,
     CustomFileDialogComponent,
+    CustomCardComponentComponent,
+    DashboardItemComponent,
+    CustomCardTableComponent,
+    CustomCardPhotoGalleryComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,6 +55,10 @@ import { CustomFileDialogComponent } from '../components/custom-file-dialog/cust
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
+    GridsterModule,
+    MatIconModule,
+    MatTableModule,
+    CdkTableModule
 
   ],
   entryComponents: [

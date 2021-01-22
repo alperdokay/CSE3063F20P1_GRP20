@@ -31,12 +31,12 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.status = "loggedIn"
-    this.router.navigateByUrl("/main")
-    // setTimeout(() => {
-    //   this.status = "open"
-    //   this.createComponent(this.loginRoadMap,LoginComponentComponent,this.targetArea)
-    // }, 1000);
+    // this.status = "loggedIn"
+    // this.router.navigateByUrl("/main")
+    setTimeout(() => {
+      this.status = "open"
+      this.createComponent(this.loginRoadMap,LoginComponentComponent,this.targetArea)
+    }, 1000);
   }
   ngAfterViewInit(){
     // console.log(this.targetArea)

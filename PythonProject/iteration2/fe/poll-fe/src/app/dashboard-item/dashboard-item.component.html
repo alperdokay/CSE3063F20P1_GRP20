@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="header" *ngIf="this.config.title">
+    <mat-toolbar class="d-flex justify-content-between align-items-center">
+      <span class="">{{this.config.title}}</span>
+      <i class="fas fa-trash" (click) = "delete()"></i>
+      <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon" (click)="this.delete($event)"></mat-icon> -->
+    </mat-toolbar>
+
+  </div>
+  <div class="content-area d-flex h-100 w-100 flex-column">
+    <ng-template #contentArea style="height: 100%;"></ng-template>
+  </div>
+</div>
