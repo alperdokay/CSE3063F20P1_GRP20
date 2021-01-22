@@ -16,16 +16,18 @@ from PythonProject.iteration1.main.repositories.abstarct.AbstarctStudentReposito
 from PythonProject.iteration1.main.repositories.StudentRepositoryImpl import StudentRepository
 from itertools import chain
 
+import os
+
 
 class Program:
-    student_list_path = r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
+    path = os.getcwd().replace('service', '') + "assets\\"
+    student_list_path = path + "CES3063_Fall2020_rptSinifListesi.XLS.xlsx"
     poll_list_path = [
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv"        ,
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv"    ]
+        path + "CSE3063_20201123_Mon_zoom_PollReport.csv - CSE3063_20201123_Mon_zoom_PollReport.csv (1).csv",
+        path + "CSE3063_20201124_Tue_zoom_PollReport.csv - CSE3063_20201124_Tue_zoom_PollReport.csv.csv"]
     answer_keys = [
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201124_Tue_zoom_PollReport_AnswerKey.csv"
-        ,
-        r"C:\Users\ayberk\Desktop\dev\school\PythonProject\iteration1\CSE3063_20201123_Mon_zoom_PollReport_AnswerKey (1).csv"
+        path + "CSE3063_20201124_Tue_zoom_PollReport_AnswerKey.csv",
+        path + "CSE3063_20201123_Mon_zoom_PollReport_AnswerKey (1).csv"
     ]
 
     def __init__(self):
@@ -34,8 +36,6 @@ class Program:
         self.quizListener.subscribe(self.addQuiz)
         self.polls = []
         self.entrance()
-
-        pass
 
     def addQuiz(self, temp):
         self.totalAttandanceQuizes = self.totalAttandanceQuizes + 1
@@ -250,7 +250,7 @@ class Program:
 
 
                 qName = f"""Q-{qIndex}.png"""
-                totalName = pollName + " " + qName
+                totalName = "assets/" + pollName + " " + qName
                 fig=plt.bar(answers.keys(), answers.values(), color=colorMap)
                 plt.xticks(rotation=90,)
                 plt.autoscale(enable=True)

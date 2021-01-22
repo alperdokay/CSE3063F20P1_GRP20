@@ -11,6 +11,8 @@ from PythonProject.iteration1.main.factory.Factory import Factory
 from PythonProject.iteration1.main.models.Poll import Poll
 from PythonProject.iteration1.main.models.Question import Question
 
+import json
+
 
 class PollBuilder:
     def __init__(self, pollName, dataFrame: DataFrame, studentRepository):
@@ -63,6 +65,7 @@ class PollBuilder:
         for missingStudent in studentQuestionAnswerPair.keys():
             if (missingStudent not in orderedScores.keys()):
                 missingStudents.append((missingStudent))
+        self.exportMissingStudentsToJson(missingStudent)  # exporting anomalies to json
         studentObjStudentPairs = {}
         for student, studentScorePair in orderedScores.items():
             questionsAnswered = studentQuestionAnswerPair[student]
@@ -90,6 +93,11 @@ class PollBuilder:
 
     def similarityRatio(self, fullName, studentMail):
         return SequenceMatcher(None, fullName, studentMail).ratio()
+
+
+    def exportMissingStudentsToJson(self, missingStudents):
+        with open('../assets/anomalies.json', 'w') as file:
+            json.dump(missingStudents, file)
 
     def dataCleaning(self, questionLength=None, studentQuestionAnswerPair=None, existedQuestions=None):
         for question in self.dataFrame.values:
