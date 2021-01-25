@@ -6,7 +6,7 @@ from numpy import *
 from difflib import SequenceMatcher
 import jellyfish
 from pandas import DataFrame
-
+import datetime
 from PythonProject.iteration1.main.factory.Factory import Factory
 from PythonProject.iteration1.main.models.Poll import Poll
 from PythonProject.iteration1.main.models.Question import Question
@@ -21,9 +21,91 @@ class PollBuilder:
         """
         self.dataFrame = dataFrame
         self.studentRepo = studentRepository
-        self.pollName = pollName
-
+        self.pollPath = pollName
+        self.cleanPollData = self.cleanData()
+        self.Tr2Eng = str.maketrans("çğıöşü", "cgiosu")
     def build(self,quizListener):
+        print("Started to parse",self.pollPath)
+        reportGenerated = self.cleanPollData[1][1]
+        sessionName = self.cleanPollData[3][0]
+        date = datetime.datetime.strptime(self.cleanPollData[3][2],'%Y-%m-%d %H:%M:%S')
+        self.missingStudents = []
+        migrationFromStudentList = {}
+        self.studentsInPoll = self.studentsInPolls()
+
+        self.orderedScores = self.findNames()
+        self.missingStudents = [[name, self.studentsInPoll[name]] for name in self.studentsInPoll if
+                                name not in self.orderedScores.keys()]
+
+        self.pollStudentPair = self.pollsInPolls()
+        factory = Factory()
+        poll = Poll(date,sessionName,self.pollPath,self.missingStudents,self.pollStudentPair,reportGenerated,self.orderedScores)
+        print("finished parsing",self.pollPath)
+        return poll
+    def pollsInPolls(self):
+        attendanceQuizes = []
+        temp = {}
+        factory = Factory()
+        for question in self.cleanPollData[6:]:
+            if(question[4] not in temp):
+                temp[question[4]] = {}
+            if(question[1].replace(" ","").lower().translate(self.Tr2Eng) not in self.orderedScores.keys()):
+                continue
+
+            temp[question[4]][self.orderedScores[question[1].replace(" ","").lower().translate(self.Tr2Eng)]] = [factory.create(Question,(question[4:len(question)-1][questionIndex],question[4:len(question)-1][questionIndex+1]))for questionIndex in range(0,len(question[4:len(question)-1]),2)]
+
+        typeGroupedQuestions = {}
+        typeGroupedQuestions["Attendance Polls"] = []
+        typeGroupedQuestions["Quiz Polls"] = []
+
+        for key in temp.keys():
+            if(key == "Are you attending this lecture?"):
+                typeGroupedQuestions["Attendance Polls"].append(temp[key])
+            else:
+                typeGroupedQuestions["Quiz Polls"].append(temp[key])
+        return typeGroupedQuestions
+    def findNames(self):
+        scores = OrderedDict()
+        for pollStudents in self.studentsInPoll.keys():
+            tempArray = []
+            for studentNumber, studentObject in self.studentRepo.numberPairStudentRepo.items():
+                if (studentNumber in pollStudents):
+                    score = 1.0
+                    tempArray.append((studentObject, score))
+                    continue
+                scoreSmart = self.similarityRatio(pollStudents.translate(self.Tr2Eng),
+                                                  studentObject.smartFullName.translate(self.Tr2Eng))
+                scoreReal = self.similarityRatio(pollStudents.translate(self.Tr2Eng),
+                                                 studentObject.fullName.translate(self.Tr2Eng))
+                if (scoreSmart >= scoreReal):
+                    tempArray.append((studentObject, scoreSmart))
+                else:
+                    tempArray.append((studentObject, scoreReal))
+            tempArray = sorted(tempArray, key=lambda x: x[1], reverse=True)[0]
+            if (tempArray[1] < 0.80):
+                continue
+            scores[pollStudents] = tempArray
+        orderedScores = OrderedDict()
+        for i in sorted(scores.keys(), key=lambda x: x):
+            orderedScores[i] = scores[i][0]
+        return orderedScores
+    def studentsInPolls(self):
+        studentMailPair = {}
+
+        for question in self.cleanPollData[6:]:
+            name,mail,dateQuestionAnswered = question[1],question[2],question[3]
+            targetName = name.replace(" ","").lower().translate(self.Tr2Eng)
+            studentMailPair[targetName] = mail
+        return studentMailPair
+    def similarityRatio(self, fullName, studentMail):
+        return SequenceMatcher(None, fullName, studentMail).ratio()
+
+
+    def exportMissingStudentsToJson(self, missingStudents):
+        with open('../assets/anomalies.json', 'w') as file:
+            json.dump(missingStudents, file)
+
+    def oldBuild(self,quizListener):
         Tr2Eng = str.maketrans("çğıöşü", "cgiosu")
         pollObj = Factory().createWithoutParameters(Poll)
         questionLength = {}
@@ -85,19 +167,26 @@ class PollBuilder:
                     else:
                         tempQuizQuestions.append(q)
 
-        pollObj.setAttadanceQuestions(tempAttandanceQuestions,pollObj)
-        pollObj.setQuizQuestions(tempQuizQuestions,pollObj)
+        pollObj.setAttadanceQuestions(tempAttandanceQuestions, pollObj)
+        pollObj.setQuizQuestions(tempQuizQuestions, pollObj)
         pollObj.setQuestions(existedQuestions)
-        quizListener.fire(type="opearation",value="add")
+        quizListener.fire(type="opearation", value="add")
         return pollObj
 
-    def similarityRatio(self, fullName, studentMail):
-        return SequenceMatcher(None, fullName, studentMail).ratio()
+    def cleanData(self):
+        cleanData = []
+        for row in self.dataFrame.values:
+            cleanData.append(self.getWithoutNone(list(row)))
+        return cleanData
 
-
-    def exportMissingStudentsToJson(self, missingStudents):
-        with open('../assets/anomalies.json', 'w') as file:
-            json.dump(missingStudents, file)
+    def getWithoutNone(self,data):
+        clean = []
+        for temp in data:
+            if(temp is None):
+                continue
+            else:
+                clean.append(temp)
+        return clean
 
     def dataCleaning(self, questionLength=None, studentQuestionAnswerPair=None, existedQuestions=None):
         for question in self.dataFrame.values:

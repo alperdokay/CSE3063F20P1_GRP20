@@ -65,7 +65,7 @@ export class MainPageComponent implements OnInit {
 
   }
   get doneOnes() {
-    return this.buttonConfigs.filter((data) => {
+    return this.buttonConfigs.filter((data:any) => {
       if (data.done) {
         return data
       }
