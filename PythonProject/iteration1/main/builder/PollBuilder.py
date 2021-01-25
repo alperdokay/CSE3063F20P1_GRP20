@@ -44,16 +44,34 @@ class PollBuilder:
         return poll
     def pollsInPolls(self):
         attendanceQuizes = []
-        temp = {}
+        temp = OrderedDict()
+        existedQuestions = []
+        groupedExistedQuestions = {}
         factory = Factory()
         for question in self.cleanPollData[6:]:
-            if(question[4] not in temp):
+            questions = []
+            for questionIndex in range(0, len(question[4:len(question) - 1]), 2):
+                tempQuestion = question[4:len(question) - 1][questionIndex]
+                questions.append(tempQuestion)
+            buSoruDahaOncekiSorulardaVarmi = False
+            for thisPollQuestion in questions:
+                if(thisPollQuestion in existedQuestions):
+                    buSoruDahaOncekiSorulardaVarmi = True
+                    break
+            if(question[4] not in temp and buSoruDahaOncekiSorulardaVarmi == False):
                 temp[question[4]] = {}
+                for q in question[4:len(question) - 1]:
+                    groupedExistedQuestions[q] = question[4:len(question) - 1]
+
+
             if(question[1].replace(" ","").lower().translate(self.Tr2Eng) not in self.orderedScores.keys()):
                 continue
+            try:
+                temp[question[4]][self.orderedScores[question[1].replace(" ","").lower().translate(self.Tr2Eng)]] = [factory.create(Question,(question[4:len(question)-1][questionIndex],question[4:len(question)-1][questionIndex+1]))for questionIndex in range(0,len(question[4:len(question)-1]),2)]
+            except KeyError as e:
+                temp[groupedExistedQuestions[question[4]][0]][self.orderedScores[question[1].replace(" ","").lower().translate(self.Tr2Eng)]] = [factory.create(Question,(question[4:len(question)-1][questionIndex],question[4:len(question)-1][questionIndex+1]))for questionIndex in range(0,len(question[4:len(question)-1]),2)]
 
-            temp[question[4]][self.orderedScores[question[1].replace(" ","").lower().translate(self.Tr2Eng)]] = [factory.create(Question,(question[4:len(question)-1][questionIndex],question[4:len(question)-1][questionIndex+1]))for questionIndex in range(0,len(question[4:len(question)-1]),2)]
-
+            existedQuestions.extend(questions)
         typeGroupedQuestions = {}
         typeGroupedQuestions["Attendance Polls"] = []
         typeGroupedQuestions["Quiz Polls"] = []

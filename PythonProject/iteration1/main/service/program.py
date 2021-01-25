@@ -51,7 +51,7 @@ class Program:
         self.answerKeyParse()
 
     def pollParsing(self, pollsData, pollsDataFrames):
-        for pollPath in pollsDataFrames[:1]:
+        for pollPath in pollsDataFrames:
             with open(pollPath,"r",encoding="utf-8") as temp_f:
                 poll = []
                 for l in csv.reader(temp_f, quotechar='"', delimiter=',',
@@ -89,7 +89,7 @@ class Program:
                 answer_keys.append(container)
         print(answer_keys)
         answerKeyBuilder = AnswerKeyBuilder()
-        answerKeyBuilder.build(answerKeyBuilder,self.allPolls)
+        answerKeyBuilder.build(answer_keys,self.allPolls)
 
 
 # def attandanceReport(self):

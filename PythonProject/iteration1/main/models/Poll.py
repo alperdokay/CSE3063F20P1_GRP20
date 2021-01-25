@@ -72,3 +72,17 @@ class SubPoll:
         self.answerKey = None
         self.name = None
         self.type = None
+        self.generateQuestions()
+
+    def generateQuestions(self):
+        self.statistics = {}
+        for student,listOfQuestions in self.polls.items():
+            for question in listOfQuestions:
+                if(self.statistics.get(question.question) == None):
+                    self.statistics[question.question] = {}
+                    self.statistics[question.question][question.answer] = 1
+                else:
+                    if(self.statistics[question.question].get(question.answer) == None):
+                        self.statistics.get(question.question)[question.answer] = 1
+                    else:
+                        self.statistics.get(question.question)[question.answer] = self.statistics.get(question.question)[question.answer] + 1
