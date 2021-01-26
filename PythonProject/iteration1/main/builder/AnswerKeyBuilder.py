@@ -31,7 +31,6 @@ class AnswerKeyBuilder:
                 else:
                     correctAnswers.append(line.split(":")[1])
 
-        print(dataStore)
         for p in polls:
             for q in p.statistics.keys():
                 for answerkeyName , data in dataStore.items():
@@ -41,5 +40,5 @@ class AnswerKeyBuilder:
                             p.answerKey = data
                             p.evaluate()
 
-        print(polls)
+
 

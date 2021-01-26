@@ -93,7 +93,11 @@ class Program:
         answerKeyBuilder.build(answer_keys,self.allPolls)
         print("")
     def attendanceParser(self):
-        pass
+        for meeting in self.pollContainer:
+            for student in meeting.transposedStudents:
+                student.attentedSessions.append(meeting
+                    )
+        print("")
         # for
 # def attandanceReport(self):
 #     sheet = []

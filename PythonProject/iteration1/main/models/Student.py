@@ -14,7 +14,7 @@ class Student:
         self.attancePercent = 0
         self.questionsStudentAnswered = {}
         self.pollResults = {}
-
+        self.attentedSessions = []
     def __str__(self) -> str:
         string = """Student with number {number} , name {name} , surname {surname}""".format(number=self.number,
                                                                                              name=self.name,

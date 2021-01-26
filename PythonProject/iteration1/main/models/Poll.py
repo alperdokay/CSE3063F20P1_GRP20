@@ -11,6 +11,13 @@ class Poll:
         self.answerKey = None
         self.name = None
         self.type = None
+        self.transposedStudents = []
+        self.extractStudents()
+
+    def extractStudents(self):
+        for pollStudent,listStudent in self.students.items():
+            self.transposedStudents.append(listStudent)
+
     # def setStudentList(self, studentList):
     #     self.studentList = studentList
     #     self.refactored_names = []
@@ -113,4 +120,5 @@ class SubPoll:
                     else:
                         questionInstance.result = False
             student.pollResults[self.name] = questions
+
 
