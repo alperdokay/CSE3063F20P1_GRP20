@@ -1,6 +1,6 @@
 class Poll:
 
-    def __init__(self,date,session,path,missingStudents,polls,generationTime,students):
+    def __init__(self, date, session, path, missingStudents, polls, generationTime, students):
         self.generationTime = generationTime
         self.date = date
         self.session = session
@@ -60,8 +60,9 @@ class Poll:
     #     for student, questions in self.attandanceQuestionsPair.items():
     #         student.setPollQuestionPair(poll=self, questions=questions, type="Attandance")
 
+
 class SubPoll:
-    def __init__(self,date,session,path,missingStudents,polls,generationTime,students):
+    def __init__(self, date, session, path, missingStudents, polls, generationTime, students):
         self.generationTime = generationTime
         self.date = date
         self.session = session
@@ -76,13 +77,40 @@ class SubPoll:
 
     def generateQuestions(self):
         self.statistics = {}
-        for student,listOfQuestions in self.polls.items():
+        for student, listOfQuestions in self.polls.items():
             for question in listOfQuestions:
-                if(self.statistics.get(question.question) == None):
+                if (self.statistics.get(question.question) == None):
                     self.statistics[question.question] = {}
                     self.statistics[question.question][question.answer] = 1
                 else:
-                    if(self.statistics[question.question].get(question.answer) == None):
+                    if (self.statistics[question.question].get(question.answer) == None):
                         self.statistics.get(question.question)[question.answer] = 1
                     else:
-                        self.statistics.get(question.question)[question.answer] = self.statistics.get(question.question)[question.answer] + 1
+                        self.statistics.get(question.question)[question.answer] = \
+                        self.statistics.get(question.question)[question.answer] + 1
+
+    def evaluate(self):
+        if (self.type == 'Attendance Polls' or self.answerKey == None):
+            return
+        for student, questions in self.polls.items():
+            for questionInstance in questions:
+                tempKey = None
+                for key in list(self.answerKey.keys()):
+                    if(questionInstance.question in key):
+                        tempKey = key
+                        break
+                if(tempKey == None):
+                    continue
+
+                try:
+                    correctAnswers = self.answerKey[tempKey]
+                except:
+                    continue
+                for cAnswer in correctAnswers:
+                    if (cAnswer.strip() in questionInstance.answer.strip()):
+                        questionInstance.result = True
+                        break
+                    else:
+                        questionInstance.result = False
+            student.pollResults[self.name] = questions
+

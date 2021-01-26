@@ -49,6 +49,7 @@ class Program:
             "number")
         self.pollParsing(pollsData,pollsDataFrames)
         self.answerKeyParse()
+        self.attendanceParser()
 
     def pollParsing(self, pollsData, pollsDataFrames):
         for pollPath in pollsDataFrames:
@@ -90,8 +91,10 @@ class Program:
         print(answer_keys)
         answerKeyBuilder = AnswerKeyBuilder()
         answerKeyBuilder.build(answer_keys,self.allPolls)
-
-
+        print("")
+    def attendanceParser(self):
+        pass
+        # for
 # def attandanceReport(self):
 #     sheet = []
 #     sheet.append(["ID", "NAME", "NUMBER OF CLASSES", "ATTENDED", "PERCANTAGE"])

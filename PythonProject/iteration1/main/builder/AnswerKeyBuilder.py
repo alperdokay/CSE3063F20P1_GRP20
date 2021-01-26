@@ -9,6 +9,7 @@ class AnswerKeyBuilder:
         for answerKey in answerKeys:
             for line in answerKey:
                 #Check for if line contains Poll
+                line = str(line).strip()
                 if("Poll" in line):
                     correctAnswers = []
                     print(line)
@@ -19,7 +20,7 @@ class AnswerKeyBuilder:
                     #This means that line is Question
                     questionRaw = line
                     correctAnswers = []
-                    question = questionRaw.split(".")[1]
+                    question = questionRaw
                     questionToAdd = question.split("(")[0]
                     if(line == "3. .... variable’s value is shared by all instances of a class ( Single Choice)"):
                         questionToAdd = ".... variable’s value is shared by all instances of a class"
@@ -31,21 +32,14 @@ class AnswerKeyBuilder:
                     correctAnswers.append(line.split(":")[1])
 
         print(dataStore)
-        for subPoll in polls:
-            if(subPoll.type != "Quiz Polls"):
-                continue
-            pollQuestions = subPoll.statistics.keys()
-            for pollName,questionAnswerPair in dataStore.items():
-                buAnswerKeyBuPollaMiAit = False
-                score = 0
-                for q in pollQuestions:
-                    if q.replace(" ","").lower().split("...")[0]  in [x.replace(" ","").lower() for x in list(questionAnswerPair.keys())]:
-                        buAnswerKeyBuPollaMiAit = True
-                        break
-
-                if(buAnswerKeyBuPollaMiAit):
-                    subPoll.name = pollName
-                    subPoll.answerKey = questionAnswerPair
+        for p in polls:
+            for q in p.statistics.keys():
+                for answerkeyName , data in dataStore.items():
+                    for answerKeyQuestion  in data.keys():
+                        if(q.split("(")[0].strip() in answerKeyQuestion or answerKeyQuestion in q.split("(")[0].strip()):
+                            p.name = answerkeyName
+                            p.answerKey = data
+                            p.evaluate()
 
         print(polls)
 
