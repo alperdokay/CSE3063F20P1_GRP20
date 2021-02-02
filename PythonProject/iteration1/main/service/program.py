@@ -50,7 +50,8 @@ class Program:
         self.pollParsing(pollsData,pollsDataFrames)
         self.answerKeyParse()
         self.attendanceParser()
-
+        self.pollAnalysis()
+        self.studentAnalysis()
     def pollParsing(self, pollsData, pollsDataFrames):
         for pollPath in pollsDataFrames:
             with open(pollPath,"r",encoding="utf-8") as temp_f:
@@ -95,199 +96,62 @@ class Program:
     def attendanceParser(self):
         for meeting in self.pollContainer:
             for student in meeting.transposedStudents:
-                student.attentedSessions.append(meeting
-                    )
-        print("")
-        # for
-# def attandanceReport(self):
-#     sheet = []
-#     sheet.append(["ID", "NAME", "NUMBER OF CLASSES", "ATTENDED", "PERCANTAGE"])
-#     workbook = xlsxwriter.Workbook('AttadanceReport.xlsx')
-#     worksheet = workbook.add_worksheet()
-#     for student in self.studentsRepository.studentRawRepo:
-#         row = []
-#         for poll, questions in student.questionsStudentAnswered.items():
-#             if ("Attandance" in questions.keys()):
-#                 attandanceQuizes = questions["Attandance"]
-#                 student.attancePercent += 1
-#                 continue
-#         student.calculateAttandance(self.totalAttandanceQuizes)
-#         row.append(student.number)
-#         row.append(student.name + " " + student.surname)
-#         row.append(self.totalAttandanceQuizes)
-#         row.append(student.attancePercent)
-#         row.append(student.realAttadancePercent)
-#         sheet.append(row)
-#     rowId = 0
-#     colId = 0
-#     for row in sheet:
-#         x, y, z, q, k = row
-#         worksheet.write(rowId, colId, x)
-#         worksheet.write(rowId, colId + 1, y)
-#         worksheet.write(rowId, colId + 2, z)
-#         worksheet.write(rowId, colId + 3, q)
-#         worksheet.write(rowId, colId + 4, k)
-#         rowId += 1
-#     workbook.close()
-#
-# def sevenPartAPollReport(self):
-#     conversion = {True: 1, False: 0, None: 1}
-#     name = """Poll-{name}.xlsx"""
-#     tempindex = 1
-#     for poll in self.polls:
-#         newName = name.format(name=tempindex)
-#         sheet = []
-#         header = ["Student"]
-#         poll.questions.sort(key=lambda x: x, reverse=True)
-#         header.extend(poll.questions)
-#         metrics = ["number of questions", "success percantage"]
-#         header.extend(metrics)
-#         sheet.append(header)
-#         workbook = xlsxwriter.Workbook(name)
-#         worksheet = workbook.add_worksheet()
-#         for student in self.studentsRepository.studentRawRepo:
-#             row = []
-#             quizQuestions = poll.quizQuesitonsPair
-#             attandanceQuestions = poll.attandanceQuestionsPair
-#             row.append(student.number)
-#             if (quizQuestions is not None):
-#                 if (quizQuestions.get(student) is not None):
-#                     quizQuestions.get(student).sort(key=lambda x: x.question, reverse=True)
-#                     results = [conversion.get(result.result) for result in quizQuestions.get(student)]
-#                     if (len(results) != len(poll.questions) - 1):
-#                         for missed in range(len(results), len(poll.questions) - 1):
-#                             results.append(0)
-#                     row.extend(results)
-#                 else:
-#                     if ('Are you attending this lecture?' in poll.questions):
-#                         length = len(poll.questions) - 1
-#                     else:
-#                         length = len(poll.questions)
-#                     for index in range(length):
-#                         row.append(0)
-#             if (attandanceQuestions is not None):
-#                 if (attandanceQuestions.get(student) is not None):
-#                     row.append(1)
-#                 else:
-#                     row.append(0)
-#             row.append(len(row) - 1)
-#             try:
-#                 student.pollResults[poll] = sum(row[1:len(row) - 1]) / (len(row[1:len(row) - 1]))
-#                 row.append(sum(row[1:len(row) - 1]) / (len(row[1:len(row) - 1])))
-#
-#             except:
-#                 print(row)
-#                 return
-#             sheet.append(row)
-#         print(header[1])
-#         if header[1] == "Are you attending this lecture?":
-#             tempList = []
-#             for i in sheet[1:]:
-#                 tempList.append(i[1:-1])
-#
-#             lengthTempList = len(tempList[0])
-#             total = np.zeros(lengthTempList)
-#             for i in range(lengthTempList):
-#                 for j in range(len(tempList)):
-#                     total[i] += tempList[j][i]
-#                 print("{}.total: ".format(i + 1), total[i])
-#         else:
-#             tempList = []
-#             for i in sheet[1:]:
-#                 tempList.append(i[1:-2])
-#             lengthTempList = len(tempList[0])
-#             total = np.zeros(lengthTempList)
-#             for i in range(lengthTempList):
-#                 for j in range(len(tempList)):
-#                     total[i] += tempList[j][i]
-#                 print("{}.total: ".format(i + 1), total[i])
-#
-#         print(total, total[1], type(total),
-#               type(total[1]))  # TODO: Convert this total numpy.ndarray list with integers
-#         # TODO continue: https://xlsxwriter.readthedocs.io/example_chart_column.html Charts are here easy to implement
-#         df = pd.DataFrame(sheet)
-#         df.to_excel(excel_writer=newName)
-#         tempindex += 1
-#
-# def part_8(self):
-#     file_name = """part_8.xlsx"""
-#     workbook = xlsxwriter.Workbook(file_name)
-#     worksheet = workbook.add_worksheet()
-#     worksheet.write(0, 1, "Name")
-#     worksheet.write(0, 2, "Surname")
-#     worksheet.write(0, 3, "Student_ID")
-#     row = 1
-#     tempIndex = 4
-#     count = 1
-#     for poll in self.polls:
-#         name = """Poll-{name}""".format(name=count)
-#         if(len(poll.questions) == 1 and poll.questions[0] == "Are you attending this lecture?"):
-#             name = name + " (Only Attandance Poll)"
-#         worksheet.write(0, tempIndex, name)
-#         count += 1
-#         tempIndex += 1
-#     for i in range(len(self.studentsRepository.studentRawRepo) - 1):
-#         print(i)
-#         worksheet.write(row, 0, i + 1)
-#         name = self.studentsRepository.studentRawRepo[i].name
-#         worksheet.write(row, 1, name)
-#         surname = self.studentsRepository.studentRawRepo[i].surname
-#         worksheet.write(row, 2, surname)
-#         id = self.studentsRepository.studentRawRepo[i].number
-#         worksheet.write(row, 3, id)
-#         lastCol = 4
-#         for poll,result in self.studentsRepository.studentRawRepo[i].pollResults.items():
-#             worksheet.write(row, lastCol, result)
-#             lastCol += 1
-#         row += 1
-#     workbook.close()
-#
-# def sevenPartB(self):
-#     index = 1
-#
-#     for poll in self.polls:
-#         storage = {}
-#         pollName = f"""Poll-{index}"""
-#         print(poll)
-#         for question in poll.questions:
-#             if(storage.get(question) is not None):
-#                 continue
-#             else:
-#                 storage[question] = {}
-#         allQuestions = []
-#         # {xQ:{answer1:50,answer2:70}}
-#         if(poll.attandanceQuestions is not None):
-#             allQuestions.extend(poll.attandanceQuestions)
-#         if(poll.quizQuesitons is not None):
-#             allQuestions.extend(poll.quizQuesitons)
-#         for question in allQuestions:
-#             if(storage[question.question].get(question.answer) is not None):
-#                 storage[question.question][question.answer] = storage[question.question][question.answer] + 1
-#             else:
-#                 storage[question.question][question.answer] = 0
-#         qIndex = 1
-#         # matplotlib.rcParams['font.sans-serif'] = ['Source Han Sans TW', 'sans-serif']
-#         hfont = {'fontname': 'Helvetica'}
-#         for question,answers in storage.items():
-#             colorMap = []
-#             for answer in answers.keys():
-#                 try:
-#                     if(answer == poll.answerKey[question]):
-#                         colorMap.append("blue")
-#                     else:
-#                         colorMap.append("red")
-#                 except:
-#                     colorMap.append("red")
-#
-#
-#
-#             qName = f"""Q-{qIndex}.png"""
-#             totalName = "assets/" + pollName + " " + qName
-#             fig=plt.bar(answers.keys(), answers.values(), color=colorMap)
-#             plt.xticks(rotation=90,)
-#             plt.autoscale(enable=True)
-#             plt.savefig(totalName, dpi=300,bbox_inches='tight')
-#             qIndex += 1
-#             plt.clf()
-#
-#         index += 1
+                student.attentedSessions.append(meeting)
+    def pollAnalysis(self):
+        for poll in self.allPolls:
+            if(poll.type == 'Attendance Polls'):
+                continue
+
+            name = poll.name.replace(" ","_") +"_" +str(poll.date).replace("-","_").replace(" ","_").replace(":","_")
+            workbook = xlsxwriter.Workbook("assets/poll_analysis/"+name+".xlsx")
+            worksheet = workbook.add_worksheet("Analysis")
+            worksheet.write(0, 0, "student number")
+            worksheet.write(0,1,"number of questions")
+            worksheet.write(0,2,"number of correctly answered questions")
+            worksheet.write(0,3,"number of wrongly answered questions")
+            worksheet.write(0,4,"number of empty questions")
+            worksheet.write(0,5,"accuracy percentage")
+            row = 1
+            for student in self.studentsRepository.studentRawRepo:
+                correctQuestions = 0
+                wrongQuestions = 0
+                emptyQuestions = 0
+                totalQuestions = 0
+                score = 0
+                if(student in poll.polls):
+                    totalQuestions = len(poll.polls[student])
+                    correctQuestions = len([question for question in poll.polls[student] if question.result == True])
+                    wrongQuestions = len([question for question in poll.polls[student] if question.result == False])
+                    emptyQuestions = len([question for question in poll.polls[student] if question.result == None])
+                    score = (correctQuestions / totalQuestions) * 100
+                worksheet.write(row, 0, student.number)
+                worksheet.write(row, 1, totalQuestions)
+                worksheet.write(row, 2, correctQuestions)
+                worksheet.write(row, 3, wrongQuestions)
+                worksheet.write(row, 4, emptyQuestions)
+                worksheet.write(row, 5, score)
+                row = row + 1
+            workbook.close()
+
+    def studentAnalysis(self):
+        for student in self.studentsRepository.studentRawRepo:
+            for poll,answers in student.pollResults.items():
+                name = poll.name.replace(" ", "_") + "_" + str(poll.date).replace("-", "_").replace(" ", "_").replace(
+                    ":", "_")+"_"+student.name+"_"+student.surname+"_"+str(student.number)
+                workbook = xlsxwriter.Workbook("assets/student_analysis/" + name + ".xlsx")
+                worksheet = workbook.add_worksheet("Analysis")
+                for index in range(len(answers)):
+                    text=answers[index].question
+                    givenAnswer = answers[index].answer
+                    correctAnswer = answers[index].correctResult
+                    if(str(givenAnswer) == str(correctAnswer)):
+                        answers[index].result = True
+                    result = 1 if answers[index].result else 0
+                    worksheet.write(index,0,text)
+                    worksheet.write(index,1,givenAnswer)
+                    worksheet.write(index,2,correctAnswer)
+                    worksheet.write(index,3,result)
+                workbook.close()
+    def totalAnalysis(self):
+        #TODO: Make total Analysis
+        pass

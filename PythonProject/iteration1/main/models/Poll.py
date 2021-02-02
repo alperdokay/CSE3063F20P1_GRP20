@@ -114,11 +114,12 @@ class SubPoll:
                 except:
                     continue
                 for cAnswer in correctAnswers:
+                    questionInstance.correctResult = cAnswer
                     if (cAnswer.strip() in questionInstance.answer.strip()):
                         questionInstance.result = True
                         break
                     else:
                         questionInstance.result = False
-            student.pollResults[self.name] = questions
+            student.pollResults[self] = questions
 
 
