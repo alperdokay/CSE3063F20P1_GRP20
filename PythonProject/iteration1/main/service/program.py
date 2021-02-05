@@ -36,22 +36,29 @@ class Program:
         self.totalAttandanceQuizes = self.totalAttandanceQuizes + 1
 
     def entrance(self):
-        print("Hello")
+        print("Welcome to The Poll Analysis App")
         pollsDataFrames = [file for file in glob.glob(os.path.join(self.polls_path, "*.csv"))]
         studentDf = [pd.read_excel(file, engine='openpyxl') for file in glob.glob(os.path.join(self.student_list_path, "*.xlsx"))][
             0]
         pollsData = {}
-
+        print("Started To Parse Students")
         studentsBuilder = StudentBuilder(studentDf)
         self.studentsRepository = StudentRepository(studentsBuilder.student_list)
         self.studentsRepository.numberPairStudentRepo = self.studentsRepository.createRepoByUniqueID(
             studentsBuilder.student_list,
             "number")
+        print("Started To Parse Polls (Be Careful !!! It might take some time !)")
         self.pollParsing(pollsData,pollsDataFrames)
+        print("Started To Parse Answer Keys (Be Careful !!! It might take some time !)")
         self.answerKeyParse()
+        print("Calculating Attendances (Be Careful !!! It might take some time !)")
         self.attendanceParser()
+        print("Poll Analysis Started (Be Careful !!! It might take some time !)")
         self.pollAnalysis()
+        print("Poll Analysis foreach Student Started (Be Careful !!! It might take some time !)")
         self.studentAnalysis()
+        print("Total Analysis  Started (Be Careful !!! It might take some time !)")
+        self.totalAnalysis()
     def pollParsing(self, pollsData, pollsDataFrames):
         for pollPath in pollsDataFrames:
             with open(pollPath,"r",encoding="utf-8") as temp_f:
@@ -86,13 +93,11 @@ class Program:
                 for line in lines[2:]:
                     if(line == "\n"):
                         continue
-                    print(line.replace("\n",""))
                     container.append(line.replace("\n",""))
                 answer_keys.append(container)
-        print(answer_keys)
         answerKeyBuilder = AnswerKeyBuilder()
         answerKeyBuilder.build(answer_keys,self.allPolls)
-        print("")
+
     def attendanceParser(self):
         for meeting in self.pollContainer:
             for student in meeting.transposedStudents:
@@ -153,5 +158,44 @@ class Program:
                     worksheet.write(index,3,result)
                 workbook.close()
     def totalAnalysis(self):
-        #TODO: Make total Analysis
-        pass
+        allData = []
+        for index in range(len(self.studentsRepository.studentRawRepo)):
+            student = self.studentsRepository.studentRawRepo[index]
+            row = []
+            row.append(index)
+            row.append(student.number)
+            row.append(student.name + " " + student.surname )
+            totalCorrect = 0
+            totalQuestions = 0
+            for poll in self.allPolls:
+                if (poll.type == 'Attendance Polls'):
+                    continue
+                if(poll in student.pollResults):
+                    row.append(poll.name.replace(" ", "_") + "_" + str(poll.date).replace("-", "_").replace(" ", "_").replace(
+                    ":", "_"))
+                    sum = 0
+                    totalQuestions = totalQuestions + len(poll.statistics.keys())
+                    for question in student.pollResults[poll]:
+                        if(question.result):
+                            sum = sum + 1
+                            totalCorrect = totalCorrect + 1
+                    score = sum / len(poll.statistics.keys())
+                    row.append(score*100)
+                else:
+                    totalQuestions = totalQuestions + len(poll.statistics.keys())
+                    row.append(
+                        poll.name.replace(" ", "_") + "_" + str(poll.date).replace("-", "_").replace(" ", "_").replace(
+                            ":", "_"))
+                    row.append(0)
+            allScore = (totalCorrect / totalQuestions)*100
+            row.append("Total Score")
+            row.append(allScore)
+            allData.append(row)
+            workbook = xlsxwriter.Workbook("assets/"+"CSE3063_2020FALL_QuizGrading.xlsx")
+            worksheet = workbook.add_worksheet("analysis")
+            for rowIndex in range(len(allData)):
+                row = allData[rowIndex]
+                for colIndex in range(len(row)):
+                    worksheet.write(rowIndex,colIndex,row[colIndex])
+            workbook.close()
+
